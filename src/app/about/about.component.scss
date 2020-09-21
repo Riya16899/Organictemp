@@ -3,7 +3,6 @@ $mobile: 480px;
 $tablet: 768px;
 
 .first-class {
-	/* background: transparent url('/app/assets/Rectangle 1.png') 0% 0% no-repeat; */
 	opacity: 1;
 	-webkit-background-size:  cover;
 	background-size: cover;
@@ -14,7 +13,22 @@ $tablet: 768px;
 	z-index: 1;
 }
 .left-side-img {
-	z-index: 1;
+    z-index: 3;
+    opacity: 1;
+    width: 300px;
+    height: 350px;
+    float: left;
+    margin-top: 150px;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+@media screen and (max-width: $tablet) {
+	.left-side-img {
+		display: none;
+	}
+}
+.right-side-img {
+    z-index: 3;
     opacity: 1;
     width: 400px;
     height: 550px;
@@ -26,16 +40,13 @@ $tablet: 768px;
     -o-object-position: -130% 0%;
     object-position: -130% 0%;
 }
-.right-side-img {
-	z-index: 2;
-    opacity: 1;
-    width: 300px;
-    height: 350px;
-    float: left;
-    margin-top: 150px;
-    -o-object-fit: cover;
-    object-fit: cover;
+@media screen and (max-width: $tablet) {
+	.right-side-img {
+		width: 250px;
+		height: 350px;
+	}
 }
+
 .middle-content {
 	margin-top: 100px;
     margin-bottom: 30px;
@@ -67,11 +78,25 @@ $tablet: 768px;
 	    height: 50px;
     }
 }
-
+	
+@media screen and (max-width: $tablet) {
+	.middle-content {
+		h3 {
+			font: normal normal bold 30px/40px Libre Baskerville;
+		}	
+		p {
+			font: normal normal normal 14px/28px Libre Baskerville;
+		}
+		img {
+			width: 40px;
+			height: 40px;
+		}
+	}
+}
 .second-content {
 	margin-left: 45px;
     margin-right: 45px;
-    margin-top: 80px;
+    margin-top: 110px;
     .row {
     	margin-top: 40px;
     }
@@ -83,22 +108,22 @@ $tablet: 768px;
 	    opacity: 1;
 	    margin: 10px;
 	    img {
-	    	width: 60px;
-		    height: 60px;
+	    	width: 50px;
+		    height: 50px;
 		    margin-bottom: 15px;
 		    margin-top: 20px;
 	    }
-	    h5 {
+	    h4 {
 			margin-bottom: 10px;
 		    text-align: center;
-		    font: normal normal bold 18px/22px Libre Baskerville;
+		    font: normal normal bold 16px/22px Libre Baskerville;
 		    letter-spacing: 0px;
 		    color: #374B5C;
 		    opacity: 1;
 	    }
 	    p {
 			text-align: center;
-		    font: normal normal normal 14px/18px Libre Baskerville;
+		    font: normal normal normal 12px/18px Libre Baskerville;
 		    letter-spacing: 0px;
 		    color: #374B5C;
 		    opacity: 1;
@@ -113,25 +138,32 @@ $tablet: 768px;
 	    opacity: 1;
 	    margin: 10px;
 	    img {
-			width: 60px;
-		    height: 60px;
+			width: 50px;
+		    height: 50px;
 		    margin-bottom: 15px;
 		    margin-top: 20px;
 	    }
-	    h5 {
+	    h4 {
 			margin-bottom: 10px;
 		    text-align: center;
-		    font: normal normal bold 18px/22px Libre Baskerville;
+		    font: normal normal bold 16px/22px Libre Baskerville;
 		    letter-spacing: 0px;
 		    color: #FFFFFF;
 		    opacity: 1;
 	    }
 	    p {
 			text-align: center;
-		    font: normal normal normal 14px/18px Libre Baskerville;
+		    font: normal normal normal 12px/18px Libre Baskerville;
 		    letter-spacing: 0px;
 		    color: #FFFFFF;
 		    opacity: 1;
 	    }
     }
 }
+@media screen and (max-width: $tablet) {
+	.second-content {
+		margin-top: 190px;
+	}
+}
+
+
