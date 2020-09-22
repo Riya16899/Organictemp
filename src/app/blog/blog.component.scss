@@ -10,8 +10,9 @@ $tablet: 768px;
 }
 .fifth-class {
 	/* top right bottom left */
-
-	margin: 80px 60px 0 60px;
+	margin: 80px 0 0 0;
+	margin-left: 15%;
+	margin-right: 15%;
 	align-items: center;
 	align-content: center;
 	text-align: center;
@@ -95,8 +96,8 @@ $tablet: 768px;
 @media screen and (max-width: $tablet) {
 	.fifth-class {
 		margin-top: 100px;
-		margin-left: 30px;
-		margin-right: 30px;
+		margin-left: 15%;
+		margin-right: 15%;
 		.heading-class {
 			h3 {
 				font: normal normal bold 28px/40px Libre Baskerville;
