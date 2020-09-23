@@ -3,7 +3,6 @@ $mobile: 480px;
 $tablet: 768px;
 
 .first-class {
-	/* background: transparent url('/app/assets/Rectangle 1.png') 0% 0% no-repeat; */
 	opacity: 1;
 	-webkit-background-size:  cover;
 	background-size: cover;
@@ -20,12 +19,8 @@ $tablet: 768px;
 	}
 }
 
-
-
-
 .side-img {
 	z-index: 2;
-	/* background:  transparent url('/app/assets/Group 248.png') 0% 0% no-repeat;; */
 	width: 550px;
 	height: 450px;
 	opacity: 0.5;
@@ -88,30 +83,6 @@ $tablet: 768px;
 		opacity: 1;
 	}
 }
-/* @media screen and (max-width: $tablet) {
-	.side-content {
-		z-index: 3;
-		margin-left: 50px;
-		margin-top: 100px;
-		h3 {
-			font: normal normal normal 20px/28px Libre Baskerville;
-		}
-		h2 {
-			font: normal normal bold 30px/28px Libre Baskerville;
-		}
-		p {
-			font: normal normal normal 20px/20px Libre Baskerville;
-		}
-		button {
-			width: 150px;
-			height: 30px;
-			text-align: center;
-			margin-top: 10px;
-			font: normal normal normal 16px/16px Libre Baskerville;
-		}
-	}
-} */
-
 @media screen and (max-width: $tablet) {
 	.side-content {
 		z-index: 3;
@@ -270,7 +241,6 @@ $tablet: 768px;
 		height: 10px;
 		border-radius: 100% ;
 		opacity: 1;
-		/* border: 3px solid #374B5C; */
 		background: #374B5C 0% 0% no-repeat padding-box;
 	}
 	.carousel-indicators li:hover {
@@ -406,6 +376,9 @@ $tablet: 768px;
 		align-items: center;
 		vertical-align: center;
 		align-content: center;
+		width: 70%;
+		margin-right: 15%;
+		margin-left: 15%;
 		h3 {
 			text-align: center;
 			font: normal normal normal 26px/32px Libre Baskerville;
@@ -424,38 +397,11 @@ $tablet: 768px;
 			display: flex;
 			display: inline-flex;
 		}
-/* 		.input_container {
-			border-radius: 15px;
-			border-color: #FFFFFF;
-			position:relative;
-			direction: ltr;
-			width: 400px;
-			height: 60px; 
-			display: flex;
-			display: inline-block;
-		} 
-		input {
-			border-radius: 15px;
-			border-color: #FFFFFF;
-			height:60px;
-			margin:0;
-			width: 300px; 
-		}
-		input::placeholder {
-  			font-size: 12px;
-		} */
 		button {
 			background-color:  #00DBD0;
 			border-radius: 30px;
 			font: normal normal 600 16px/22px Libre Baskerville;
 		}
-		/* .text {
-			text-align: center;
-			font: normal normal 600 16px/22px Libre Baskerville;
-			letter-spacing: 0px;
-			color: #FFFFFF;
-			opacity: 1;
-		} */
 	}
 }
 
@@ -499,47 +445,16 @@ $tablet: 768px;
 		.subscribe-class {
 			margin-top: 100px;
 			h3 {
-				/* font: normal normal normal 20px/28px Libre Baskerville; */
 				font: normal normal normal 24px/40px Libre Baskerville;
 			}
 			p {
 				font: normal normal normal 12px/24px Libre Baskerville;	
 			}
-			.input_container {
-				border-radius: 10px;
-				border-color: #FFFFFF;
-				position:relative;
-				direction: ltr;
-				width: 300px;
-				height: 50px;
-				display: flew;
-				flex-wrap: wrap;
-			} 
-			input {
-				border-radius: 10px;
-				border-color: #FFFFFF;
-				height:50px;
-				margin:0;
-				width: 210px;
+			button {
+				font: normal normal normal 14px/22px Libre Baskerville;
 			}
 			input::placeholder {
 	  			font-size: 12px;
-			}
-			.input_img {
-				background-color:  #00DBD0;
-				position:absolute;		
-				border-radius: 30px;
-				bottom:10%;
-				right: 2%;
-				width: 90px;
-				height: 40px;
-			}
-			.text {
-				text-align: center;
-				font: normal normal normal 12px/22px Libre Baskerville;
-				letter-spacing: 0px;
-				color: #FFFFFF;
-				opacity: 1;
 			}
 		}
 	}
@@ -565,7 +480,6 @@ $tablet: 768px;
 
 .fifth-class {
 	margin: 150px 60px 0 60px;
-	/* margin-top: 200px; */
 	align-items: center;
 	align-content: center;
 	text-align: center;
