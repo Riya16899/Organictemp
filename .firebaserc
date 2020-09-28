@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "organictemplate"
+  },
+  "targets": {
+    "organictemplate": {
+      "hosting": {
+        "Organictemp": [
+          "organictemplate"
+        ]
+      }
+    }
+  }
+}

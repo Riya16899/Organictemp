@@ -8,6 +8,10 @@ import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { AboutComponent } from './about/about.component';
 import { BlogComponent } from './blog/blog.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ForgetPWDComponent } from './forget-pwd/forget-pwd.component';
+import { ResetPWDComponent } from './reset-pwd/reset-pwd.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,11 @@ import { BlogComponent } from './blog/blog.component';
     HomeComponent,
     ProductsComponent,
     AboutComponent,
-    BlogComponent
+    BlogComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForgetPWDComponent,
+    ResetPWDComponent
   ],
   imports: [
     BrowserModule,

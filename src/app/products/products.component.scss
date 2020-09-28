@@ -3,7 +3,7 @@ $mobile: 480px;
 $tablet: 768px;
 
 
-.first-class {
+.front-class {
 	background: transparent url('/app/assets/Rectangle 1.png') 0% 0% no-repeat;
 	width: 100%;
 	height: 50vh;
@@ -38,11 +38,7 @@ $tablet: 768px;
 	}
 	.card-class {
 		align-items:  center;
-	
 		margin-top: 30px;
-		.col-sm {
-			margin: 2px;
-		}
 		.card-data {
 			img {
 				width: 180px;
@@ -80,8 +76,8 @@ $tablet: 768px;
 @media screen and (max-width: $tablet) {
 	.fifth-class {
 		margin-top: 100px;
-		margin-left: 5%;
-		margin-right: 5%;
+		margin-left: 8%;
+		margin-right: 8%;
 		.heading-class {
 			h3 {
 				font: normal normal bold 28px/40px Libre Baskerville;
@@ -92,6 +88,10 @@ $tablet: 768px;
 		}
 		.card-class {
 			.card-data {
+				img {
+					width: 140px;
+					height: 110px;
+				}
 				h4 {
 					font: normal normal normal 14px/22px Libre Baskerville;
 				}

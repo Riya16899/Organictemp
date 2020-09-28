@@ -2,19 +2,29 @@ $laptop: 1200px;
 $mobile: 480px;
 $tablet: 768px;
 
-.first-class {
+.front-class {
 	opacity: 1;
 	-webkit-background-size:  cover;
 	background-size: cover;
 	background-position: center top;
 	flex: auto;
 	width: 100%;
-	height: 90vh;
+	height: 60vh;
 	z-index: 1;
 }
 @media screen and (max-width: $tablet) {
-	.first-class {
-		height: 60vh;
+	.front-class {
+		height: 70vh;
+	}
+}
+
+@media screen and (max-width: 767px) { 
+	.middle-img-class {
+		z-index: 1;
+		position: absolute;  
+		top: 50px;
+		margin-left:  auto;
+		vertical-align: center;
 	}
 }
 .left-side-img {
@@ -23,9 +33,8 @@ $tablet: 768px;
     width: 300px;
     height: 350px;
     float: left;
-    margin-top: 200px;
+    margin-top: 170px;
     margin-right: -100px;
-    -o-object-fit: cover;
     object-fit: cover;
 }
 @media screen and (max-width: $tablet) {
@@ -46,7 +55,7 @@ $tablet: 768px;
     width: 400px;
     height: 550px;
     float: right;
-    margin-top: 100px;
+    margin-top: 80px;
     margin-bottom: -100px;
     margin-left: -150px; 
     object-fit: cover;
@@ -64,6 +73,7 @@ $tablet: 768px;
 		height: 200px;
 	}
 }
+
 
 .middle-content {
 	margin-top: 100px;
@@ -142,6 +152,10 @@ $tablet: 768px;
     }
 
     .card-content {
+    	.row {
+    		margin-right: 10%;
+    		margin-left: 10%;
+    	}
 	    .card-data {
 		    align-items: center;
 		    text-align: center;
@@ -205,7 +219,8 @@ $tablet: 768px;
 }
 @media screen and (max-width: $tablet) {
 	.second-content {
-		
+		margin-left: 35px;
+    	margin-right: 35px;
     	.heading-class {
     		h3 {
     			font: normal normal bold 24px/32px Libre Baskerville;

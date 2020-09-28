@@ -3,13 +3,21 @@ $mobile: 480px;
 $tablet: 768px;
 
 
-.first-class {
+.front-class {
 	width: 100%;
-	height: 80vh;
+	height: 50vh;
 	opacity: 1;
+}
+@media screen and (max-width: 767px) { 
+	.middle-img-class {
+		z-index: 1;
+		position: absolute;  
+		top: 50px;
+	}
 }
 .fifth-class {
 	/* top right bottom left */
+	z-index: 1;
 	margin: 80px 0 0 0;
 	margin-left: 15%;
 	margin-right: 15%;
@@ -39,13 +47,11 @@ $tablet: 768px;
 	.card-class {
 		align-items:  center;
 		margin-top: 30px;
-		.col-sm {
-			margin: 2px;
-		}
 		.card-data {
 			img {
 				width: 180px;
 				height: 130px;
+
 			}
 			h4 {
 				margin-top: 10px;
@@ -96,8 +102,8 @@ $tablet: 768px;
 @media screen and (max-width: $tablet) {
 	.fifth-class {
 		margin-top: 100px;
-		margin-left: 15%;
-		margin-right: 15%;
+		margin-left: 8%;
+		margin-right: 8%;
 		.heading-class {
 			h3 {
 				font: normal normal bold 28px/40px Libre Baskerville;
@@ -108,6 +114,10 @@ $tablet: 768px;
 		}
 		.card-class {
 			.card-data {
+				img {
+					width: 140px;
+					height: 110px;	
+				}
 				h4 {
 					font: normal normal normal 14px/22px Libre Baskerville;
 				}
