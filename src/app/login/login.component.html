@@ -9,18 +9,19 @@
 					<h4> Login </h4>
 				</div>
 				<div class="card-body justify-content-center">
-					<form>
+					<form [formGroup]="loginForm" (ngSubmit)="Login()">
 						<div class="form-group">
 							<b><label for="email">Email</label></b>
-							<input type="text" name="" class="form-control" value="" placeholder="Email address">
+							<input type="text" formControlName="email" class="form-control" placeholder="Email address" required>
 						</div>
 
 						<div class="form-group">
-							<b><label class="label" for="pwd">Password</label></b>
-							<input type="password" name="" class=" form-control" value="" placeholder="Password">
+							<b><label class="label" for="password">Password</label></b>
+							<input type="text" formControlName="password" class=" form-control" placeholder="Password" required>
 						</div>
 						<div class="form-group">
 				 			<button (click)="Login()" type="button" class="btn btn-primary">Login</button>
+
 				 			<span style="text-align: right; float: right; margin-top: 5px;"><a routerLink="/forget" routerLinkActive="">Forgot Password?</a></span>
 				   		</div>
 				   		<span style="text-align: left; float: left;"><a routerLink="/reset" routerLinkActive="">Reset password</a></span>

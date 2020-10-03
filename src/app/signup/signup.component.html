@@ -1,0 +1,44 @@
+<div class="front-class">
+	<div class="container h-100">
+		<div class="d-flex justify-content-center">
+			<div class="user_card card">
+				<div class="card-header">
+					<button type="button" class="close" aria-label="Close">
+					<span aria-hidden="">&times;</span>
+					</button> 
+					<h4> Register </h4>
+				</div>
+				<div class="card-body justify-content-center ">
+					<form [formGroup]="signupForm" (ngSubmit)="Submit()">
+						<div class="form-group">
+							<b><label class="label" for="fname">First Name</label></b>
+							<input type="text" formControlName="firstname" class=" form-control" value="" placeholder="First name">
+						</div>
+						<div class="form-group">
+							<b><label class="label" for="lname">Last Name</label></b>
+							<input type="text" formControlName="lastname" class=" form-control" value="" placeholder="Last name">
+						</div>
+						<div class="form-group">
+							<b><label for="email">Email</label></b>
+							<input type="text" formControlName="email" class="form-control" value="" placeholder="Email address">
+						</div>
+						<div class="form-group">
+							<b><label for="pwd">Password</label></b>
+							<input type="password" formControlName="password" class="form-control" value="" placeholder="Password">
+						</div>
+						<div class="form-group">
+							<b><label for="confpwd">Confirm Password</label></b>
+							<input type="password" formControlName="confirmpassword" class="form-control" value="" placeholder="Confim password">
+						</div>
+						
+						<div class="form-group">
+				 			<button type="button" class="btn btn-primary" (click)="Submit()">Submit</button>
+				   		</div>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

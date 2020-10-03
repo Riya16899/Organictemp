@@ -7,8 +7,9 @@ import { AboutComponent } from './about/about.component';
 import { BlogComponent } from './blog/blog.component';
 import { LoginComponent } from './login/login.component';
 import { ForgetPWDComponent } from './forget-pwd/forget-pwd.component';
-import { RegisterComponent } from './register/register.component';
+import { SignupComponent } from './signup/signup.component';
 import { ResetPWDComponent } from './reset-pwd/reset-pwd.component';
+import { ToDoComponent } from './to-do/to-do.component';
 
 const routes: Routes = [
 	{ path: 'contact', component: ContactComponent },
@@ -18,8 +19,9 @@ const routes: Routes = [
 	{ path: 'home', component: HomeComponent},
 	{ path: 'login', component: LoginComponent},
 	{ path: 'forget', component: ForgetPWDComponent},
-	{ path: 'register', component: RegisterComponent},
+	{ path: 'register', component: SignupComponent},
 	{ path: 'reset', component: ResetPWDComponent},
+	{ path: 'todo', component: ToDoComponent},
 	{ path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
 
