@@ -18,10 +18,22 @@ export class SignupService {
   }
 
   postSignup(formData: any): Observable<Signup> {
-    return this.http.post<Signup>(this.apiUrl+`signup/`,
-      { email: formData.email, fname: formData.firstname, 
-        lname: formData.lastname, pswd1: formData.password, 
-        pswd2: formData.confirmpassword });
+
+    var form = new FormData();
+    form.append('email', formData.email);
+    form.append('fname', formData.firstname);
+    form.append('lname', formData.lastname);
+    form.append('pswd1', formData.password);
+    form.append('pswd2', formData.confirmpassword);
+    return this.http.post<Signup>(this.apiUrl+`signup/`, form,
+      { headers: { 'Content-type': 'application/form-data; charset=utf-8'} }
+     
+      );
   }
 
 }
+
+
+// { email: formData.email, fname: formData.firstname, 
+//         lname: formData.lastname, pswd1: formData.password, 
+//         pswd2: formData.confirmpassword }

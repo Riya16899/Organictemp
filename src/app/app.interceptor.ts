@@ -10,24 +10,34 @@ import { Login } from './Models/login';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor() {
+  constructor(public login: LoginService) {
     
   }
 
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log(`Bearer ${localStorage.getItem('token')}`);
     // request = request.clone({
-    //   setHeaders: {
-    //     Header: localStorage.getItem('token'),
-    //   }
+
+    //   headers: request.headers.set('Authorization', localStorage.getItem('token') ),
+      
+
+    //   // setHeaders: {
+    //   //   'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+    //   //   Authorization: `Bearer ${localStorage.getItem('token')}`
+    //   // }
     // });
-    const token =  localStorage.getItem('token');
-    let newHeaders = request.headers;
-    if (token) {
-      newHeaders = newHeaders.append('authtoken', token);
-    }
-    const authReq = request.clone({headers: newHeaders});
-    return next.handle(authReq);
-    // return next.handle(request);
+    request = request.clone({
+
+      headers: request.headers.set('Content-type', 'application/x-www-form-urlencoded; charset=utf-8'),
+      
+      // setHeaders: {
+      //   'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
+      //   Authorization: `Bearer ${localStorage.getItem('token')}`
+      // }
+    });
+    console.log(request);
+    return next.handle(request);
   }
 
 }  

@@ -24,11 +24,16 @@ export class LoginComponent implements OnInit {
   Login() {
   	console.log('login here');
     console.log(this.loginForm.value);
-  	this.loginService.postLogin(this.loginForm.value.email, this.loginForm.value.password).subscribe((data) => {
-  		console.log(data['token']);
-      localStorage.setItem('token', JSON.stringify({ token:data['token'] }));
+  	this.loginService.postLogin(this.loginForm.value).
+    subscribe((data) => {
+      console.log(data);
+      localStorage.setItem('token', JSON.stringify(data['token']));
   	});
   	// this.router.navigate(['/home']);
   }
 
 }
+
+
+// riya.patadiya@gmail.com
+// Riya@#1234

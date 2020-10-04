@@ -17,7 +17,10 @@ export class ForgetpwdService {
   }
 
   postForget(formData: any): Observable<Forgetpwd> {
+    var form = new FormData();
+    form.append('email', formData.email);
+
     return this.http.post<Forgetpwd>(this.apiUrl+`forgot_password/`, 
-    	{ email: formData.email });
+    	form, { headers: { 'Content-type': 'application/form-data; charset=utf-8'} });
   }
 }

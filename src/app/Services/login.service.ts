@@ -18,15 +18,39 @@ export class LoginService {
   constructor(public http: HttpClient) { }
 
   getLogin(): Observable<Login> {
-    return this.http.get<Login>(this.apiUrl+`login/`);
+    return this.http.get<Login>(this.apiUrl+`login/`, { observe: 'body' });
   }
 
-  postLogin(e: string, p: string): Observable<Login> {
-    // console.log(formData.email, formData.password);
-    console.log(e, p);
+  postLogin(formDat: any): Observable<Login> {
+
+    var form = new FormData();
+    form.append('email', formDat.email);
+    form.append('pswd', formDat.password);
+    const auth = localStorage.getItem('token');
+
+    console.log(`Bearer ${localStorage.getItem('token')}`);
+    console.log(`Bearer` + localStorage.getItem('token'));
+    console.log(localStorage.getItem('token'));
+    let pais:string = "Bearer ";
+    let codigo:string = localStorage.getItem('token');
+    var noQuotes = codigo.split('"').join('');
+    let opcionDos:string = pais.concat(noQuotes);
+    
+    console.log(noQuotes);
+    console.log(opcionDos);
     // let headers = new HttpHeaders().set('token', 'hvalue1');
     return this.http.post<Login>(this.apiUrl+`login/`, 
-    	{ email: e, pswd: p });
+      form, 
+      { headers: { 'Authorization': opcionDos, 'Content-type': 'application/form-data; charset=utf-8'} }
+      );
   }
 
 }
+
+
+
+
+// riya.patadiya@gmail.com
+// Riya@#1234
+
+/// { headers: { 'Content-type': 'application/form-data; charset=utf-8', token: localStorage.getItem('token')}, 

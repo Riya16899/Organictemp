@@ -20,9 +20,14 @@ export class ResetpwdService {
   }
 
   postReset(formData: any): Observable<Resetpwd> {
-  	console.log(formData);
+
+    var form = new FormData();
+    form.append('pswd1', formData.pwd);
+    form.append('pswd2', formData.cnfpwd);
     return this.http.post<Resetpwd>(this.apiUrl+`reset_password/RGSMMH/`,
-      { pswd1: formData.pwd, pswd2: formData.cnfpwd });
+      form, 
+      { headers: { 'Content-type': 'application/form-data; charset=utf-8'} }
+      );
   }
 
 }
