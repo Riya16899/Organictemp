@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToDoComponent } from './to-do.component';
+import { GenVerificationComponent } from './gen-verification.component';
 
-describe('ToDoComponent', () => {
-  let component: ToDoComponent;
-  let fixture: ComponentFixture<ToDoComponent>;
+describe('GenVerificationComponent', () => {
+  let component: GenVerificationComponent;
+  let fixture: ComponentFixture<GenVerificationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ToDoComponent ]
+      declarations: [ GenVerificationComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ToDoComponent);
+    fixture = TestBed.createComponent(GenVerificationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

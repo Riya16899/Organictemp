@@ -10,16 +10,12 @@ import { BlogComponent } from './blog/blog.component';
 import { LoginComponent } from './login/login.component';
 import { ForgetPWDComponent } from './forget-pwd/forget-pwd.component';
 import { ResetPWDComponent } from './reset-pwd/reset-pwd.component';
-import { ToDoComponent } from './to-do/to-do.component';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { ToDoReducer } from './todo.reducer';
-import { ToDoEffects } from './todo.effects';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './app.interceptor';
+import { GenVerificationComponent } from './gen-verification/gen-verification.component';
 
 @NgModule({
   declarations: [
@@ -32,8 +28,8 @@ import { TokenInterceptor } from './app.interceptor';
     LoginComponent,
     ForgetPWDComponent,
     ResetPWDComponent,
-    ToDoComponent,
-    SignupComponent
+    SignupComponent,
+    GenVerificationComponent
   ],
   imports: [
     BrowserModule,
@@ -41,8 +37,7 @@ import { TokenInterceptor } from './app.interceptor';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ todos: ToDoReducer }),
-    EffectsModule.forRoot([ToDoEffects])
+    
   ],
   providers: [
     // {

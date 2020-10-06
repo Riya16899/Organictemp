@@ -25,6 +25,15 @@ export class ResetPWDComponent implements OnInit {
   	console.log(this.resetForm.value);
   	this.resetpwdService.postReset(this.resetForm.value).subscribe((data) => {
   		console.log(data);
+      if(data['status_code'] == 200) {
+        alert(data['success']);
+      }
+      else if (data['status_code'] == 401) {
+        alert(data['error']);
+      }
+      else if(data['status_code'] == 400) {
+        alert(data['error']);
+      }
   	});
   }
 

@@ -29,6 +29,15 @@ export class SignupComponent implements OnInit {
     console.log(this.signupForm.value);
     this.signupService.postSignup(this.signupForm.value).subscribe((data) => {
       console.log(data);
+      if(data['status_code'] == 200) {
+        alert(data['success']);
+      }
+      else if (data['status_code'] == 401) {
+        alert(data['error']);
+      }
+      else if(data['status_code'] == 400) {
+        alert(data['error']);
+      }
     });
     // this.router.navigate(['/home']);
  

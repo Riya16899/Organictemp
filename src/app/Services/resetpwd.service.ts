@@ -25,8 +25,7 @@ export class ResetpwdService {
     form.append('pswd1', formData.pwd);
     form.append('pswd2', formData.cnfpwd);
     return this.http.post<Resetpwd>(this.apiUrl+`reset_password/RGSMMH/`,
-      form, 
-      { headers: { 'Content-type': 'application/form-data; charset=utf-8'} }
+      form
       );
   }
 

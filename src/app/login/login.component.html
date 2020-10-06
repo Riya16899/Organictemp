@@ -9,7 +9,7 @@
 					<h4> Login </h4>
 				</div>
 				<div class="card-body justify-content-center">
-					<form [formGroup]="loginForm" (ngSubmit)="Login()">
+					<form [formGroup]="loginForm" >
 						<div class="form-group">
 							<b><label for="email">Email</label></b>
 							<input type="text" formControlName="email" class="form-control" placeholder="Email address" required>
@@ -27,6 +27,11 @@
 				   		<span style="text-align: left; float: left;"><a routerLink="/reset" routerLinkActive="">Reset password</a></span>
 						<span style="text-align: right; float: right;"><a routerLink="/register" routerLinkActive="">Create One!</a></span>
 					</form>
+					<br>
+					<div class="" *ngIf="show">
+						<p>Link is disabled? Generate new verification link <a routerLink="/gen-verification" routerLinkActive="">Here</a></p>
+					</div>
+
 				</div>
 			</div>
 		</div>

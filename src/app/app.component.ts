@@ -11,15 +11,22 @@ export class AppComponent {
   title = 'Organictemp';
   loggedIn: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) { 
+    console.log(localStorage.getItem('token'));
+  }
 
   Product() {
-  	if(this.loggedIn) {
-  		this.router.navigate(['/products']);
-  	}
-  	else {
-  		this.router.navigate(['/login']);
-  	}
+    
+  	// if(localStorage.getItem('token')) {
+  	// 	this.router.navigate(['/products']);
+  	// }
+  	// else if(localStorage.getItem('token') === null) {
+  	// 	this.router.navigate(['/login']);
+  	// }
+  }
+  Logout() {
+    localStorage.clear();
+    this.router.navigate(['/home']);
   }
 
 }

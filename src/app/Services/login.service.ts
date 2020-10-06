@@ -28,29 +28,23 @@ export class LoginService {
     form.append('pswd', formDat.password);
     const auth = localStorage.getItem('token');
 
-    console.log(`Bearer ${localStorage.getItem('token')}`);
-    console.log(`Bearer` + localStorage.getItem('token'));
-    console.log(localStorage.getItem('token'));
-    let pais:string = "Bearer ";
-    let codigo:string = localStorage.getItem('token');
-    var noQuotes = codigo.split('"').join('');
-    let opcionDos:string = pais.concat(noQuotes);
+    // let pais:string = "Bearer ";
+    // let codigo:string = localStorage.getItem('token');
+    // var noQuotes = codigo.split('"').join('');
+    // let opcionDos:string = pais.concat(noQuotes);
     
-    console.log(noQuotes);
-    console.log(opcionDos);
+ 
     // let headers = new HttpHeaders().set('token', 'hvalue1');
     return this.http.post<Login>(this.apiUrl+`login/`, 
-      form, 
-      { headers: { 'Authorization': opcionDos, 'Content-type': 'application/form-data; charset=utf-8'} }
+      form
+      // { headers: { 'Content-type': 'application/form-data; charset=utf-8' } }
       );
   }
 
 }
 
 
-
-
 // riya.patadiya@gmail.com
-// Riya@#1234
+// Riya@1234
 
-/// { headers: { 'Content-type': 'application/form-data; charset=utf-8', token: localStorage.getItem('token')}, 
+/// { headers: { 'Content-type': 'application/form-data; charset=utf-8', Authorization: opcionDos}, 
