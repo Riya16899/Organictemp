@@ -18,7 +18,7 @@ const routes: Routes = [
 	{ path: 'about', component: AboutComponent },
 	{ path: 'blog', component: BlogComponent, canActivate: [AuthGuard] },
 	{ path: 'home', component: HomeComponent},
-	{ path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
+	{ path: 'login', component: LoginComponent },
 	{ path: 'forget', component: ForgetPWDComponent},
 	{ path: 'register', component: SignupComponent},
 	{ path: 'reset', component: ResetPWDComponent},

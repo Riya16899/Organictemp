@@ -39,8 +39,6 @@ export class SignupComponent implements OnInit {
         alert(data['error']);
       }
     });
-    // this.router.navigate(['/home']);
- 
   	
   }
 

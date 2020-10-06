@@ -18,10 +18,6 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log(`Bearer ${localStorage.getItem('token')}`);
     // request = request.clone({
-
-    //   headers: request.headers.set('Authorization', localStorage.getItem('token') ),
-      
-
     //   // setHeaders: {
     //   //   'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
     //   //   Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -30,17 +26,9 @@ export class TokenInterceptor implements HttpInterceptor {
     request = request.clone({
 
       headers: request.headers.set('Content-type', 'application/x-www-form-urlencoded; charset=utf-8'),
-      
-      // setHeaders: {
-      //   'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-      //   Authorization: `Bearer ${localStorage.getItem('token')}`
-      // }
     });
     console.log(request);
     return next.handle(request);
   }
 
 }  
-
-
-// https://rollbar.com/blog/error-handling-with-angular-8-tips-and-best-practices/

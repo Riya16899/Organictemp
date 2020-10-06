@@ -39,7 +39,7 @@ export class ForgetPWDComponent implements OnInit {
       else if(data['status_code'] == 200) {
         alert(data['success']);
       }  
-      // this.router.navigate(['/login',{value:true}])
+     
   	});
   }
 

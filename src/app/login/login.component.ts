@@ -26,10 +26,9 @@ export class LoginComponent implements OnInit {
   }
 
   Login() {
-    console.log(this.loginForm.value);
+    
   	this.loginService.postLogin(this.loginForm.value).
     subscribe((data) => {
-      console.log(data);
       localStorage.setItem('token', JSON.stringify(data['token']));
   	  if(data['status_code'] == 200) {
         alert(data['success']);
@@ -43,7 +42,6 @@ export class LoginComponent implements OnInit {
     });
 
     
-  	// this.router.navigate(['/gen-verification']);
   }
 
 }

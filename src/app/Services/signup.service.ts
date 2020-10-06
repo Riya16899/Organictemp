@@ -32,9 +32,4 @@ export class SignupService {
 
 }
 
-
-// { email: formData.email, fname: formData.firstname, 
-//         lname: formData.lastname, pswd1: formData.password, 
-//         pswd2: formData.confirmpassword }
-
 // { headers: { 'Content-type': 'application/form-data; charset=utf-8'} }

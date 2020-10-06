@@ -3,19 +3,21 @@ import { Login } from '../Models/login';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-
+import {Router} from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   loginValue: Login;
   apiUrl = environment.apiUrl;
+  IsLogIn: boolean = false;
+  redirect: string;
   headers: any = {
     Accept: 'text/plain; charset=utf-8',
     'Content-Type': 'text/plain; charset=utf-8',
   };
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, private route: Router) { }
 
   getLogin(): Observable<Login> {
     return this.http.get<Login>(this.apiUrl+`login/`, { observe: 'body' });
@@ -28,16 +30,18 @@ export class LoginService {
     form.append('pswd', formDat.password);
     const auth = localStorage.getItem('token');
 
-    // let pais:string = "Bearer ";
-    // let codigo:string = localStorage.getItem('token');
-    // var noQuotes = codigo.split('"').join('');
-    // let opcionDos:string = pais.concat(noQuotes);
-    
- 
-    // let headers = new HttpHeaders().set('token', 'hvalue1');
+    if(localStorage.getItem('token')) {
+      let pais:string = "Bearer ";
+      let codigo:string = localStorage.getItem('token');
+      var noQuotes = codigo.split('"').join('');
+      let opcionDos:string = pais.concat(noQuotes);
+    }
+
+    if(this.redirect) {
+      this.route.navigate([this.redirect]);
+    }
     return this.http.post<Login>(this.apiUrl+`login/`, 
       form
-      // { headers: { 'Content-type': 'application/form-data; charset=utf-8' } }
       );
   }
 
