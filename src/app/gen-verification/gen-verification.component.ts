@@ -35,6 +35,7 @@ export class GenVerificationComponent implements OnInit {
   			alert(data['error']);
   		}
   	});
+  	this.verificationForm.reset();
   }
 
 }

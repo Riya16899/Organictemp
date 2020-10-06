@@ -28,7 +28,7 @@ export class LoginService {
     var form = new FormData();
     form.append('email', formDat.email);
     form.append('pswd', formDat.password);
-    const auth = localStorage.getItem('token');
+    // const auth = localStorage.getItem('token');
 
     if(localStorage.getItem('token')) {
       let pais:string = "Bearer ";

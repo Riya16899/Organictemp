@@ -9,10 +9,9 @@ import { Router } from "@angular/router";
 })
 export class AppComponent {
   title = 'Organictemp';
-  loggedIn: boolean = false;
+
 
   constructor(private router: Router) { 
-    console.log(localStorage.getItem('token'));
   }
 
   Logout() {

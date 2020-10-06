@@ -41,6 +41,7 @@ export class ForgetPWDComponent implements OnInit {
       }  
      
   	});
+    this.forgetForm.reset();
   }
 
 }

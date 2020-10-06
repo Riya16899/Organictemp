@@ -35,6 +35,7 @@ export class ResetPWDComponent implements OnInit {
         alert(data['error']);
       }
   	});
+    this.resetForm.reset();
   }
 
 }
