@@ -38,11 +38,11 @@ export class LoginService {
     }
 
     if(this.redirect) {
+      console.log(this.redirect);
       this.route.navigate([this.redirect]);
     }
     return this.http.post<Login>(this.apiUrl+`login/`, 
-      form
-      );
+      form );
   }
 
 }

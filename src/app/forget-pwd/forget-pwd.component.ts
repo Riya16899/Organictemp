@@ -14,7 +14,7 @@ import { Forgetpwd } from '../Models/forgetpwd';
 export class ForgetPWDComponent implements OnInit {
 
   public forgetForm = this.formBuilder.group({
-    email: new FormControl('', Validators.required)
+    email: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
   constructor(private router: Router, private forgetpwdService: ForgetpwdService, 
@@ -23,7 +23,9 @@ export class ForgetPWDComponent implements OnInit {
   ngOnInit() {
   }
 
-
+  get f(){
+    return this.forgetForm.controls;
+  }
 
   Forgot() {
   	console.log(this.forgetForm.value);
@@ -32,6 +34,7 @@ export class ForgetPWDComponent implements OnInit {
       console.log(data['status_code']);
       if(data['status_code'] == 401) {
         this.router.navigate(['/login',{value: true}])
+        alert(data['error']);
       }
       else if (data['status_code'] == 400) {
         alert(data['error']);

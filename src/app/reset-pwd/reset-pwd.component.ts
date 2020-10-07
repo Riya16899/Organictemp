@@ -11,14 +11,33 @@ import { ResetpwdService } from '../Services/resetpwd.service';
 export class ResetPWDComponent implements OnInit {
 
   public resetForm = this.formBuilder.group({
-    pwd: new FormControl('', Validators.required),
-    cnfpwd: new FormControl('', Validators.required)
-  });
+    pwd: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    cnfpwd: new FormControl('', [Validators.required, Validators.minLength(6)])
+  }, { validator: this.ConfirmedValidator('pwd', 'cnfpwd') } );
 
   constructor(private router: Router, private resetpwdService: ResetpwdService, 
   	private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+  }
+  
+  get f(){
+    return this.resetForm.controls;
+  }
+
+  ConfirmedValidator(first: string, second: string) {
+     return (formGroup: FormGroup) => {
+        const control = formGroup.controls[first];
+        const matchingControl = formGroup.controls[second];
+        if (matchingControl.errors && !matchingControl.errors.confirmedValidator) {
+            return;
+        }
+        if (control.value !== matchingControl.value) {
+            matchingControl.setErrors({ confirmedValidator: true });
+        } else {
+            matchingControl.setErrors(null);
+        }
+    }
   }
 
   Reset() {

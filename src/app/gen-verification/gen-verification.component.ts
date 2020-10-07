@@ -12,13 +12,17 @@ import { GenVerificationService } from '../Services/gen-verification.service';
 export class GenVerificationComponent implements OnInit {
 
   public verificationForm = this.formBuilder.group({
-    email: new FormControl('', Validators.required)
+    email: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
   constructor(private router: Router, private genService: GenVerificationService, 
   	private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+  }
+  
+  get f(){
+    return this.verificationForm.controls;
   }
 
   Verification() {

@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit {
 
 
   public loginForm = this.formBuilder.group({
-    email: new FormControl('', Validators.required),
-    password : new FormControl('', Validators.required)
+    email: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    password : new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
   constructor(private router: Router, private loginService: LoginService, 
@@ -23,6 +23,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     let routeValue = this.route.snapshot.paramMap.get('value')
     this.show = JSON.parse(routeValue); // str to boolean
+  }
+
+  get f(){
+    return this.loginForm.controls;
   }
 
   Login() {

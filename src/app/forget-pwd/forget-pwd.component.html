@@ -12,10 +12,13 @@
 						<div class="form-group">
 							<b><label for="email">Email address</label></b>
 							<input type="email" formControlName="email" class="form-control" value="" placeholder="Email address">
+							<div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)" class="alert alert-danger">
+							<div *ngIf="f.email.invalid">invalid </div>
+							</div>
 						</div>
 
 						<div class="d-flex justify-content-center mt-3">
-				 			<button type="button" class="btn btn-primary" (click)="Forgot()" >Send</button>
+				 			<button type="button" class="btn btn-primary" (click)="Forgot()" [disabled]="!forgetForm.valid">Send</button>
 				   		</div>
 					</form>
 
