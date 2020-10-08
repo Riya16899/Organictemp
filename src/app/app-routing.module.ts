@@ -21,7 +21,12 @@ const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
 	{ path: 'forget', component: ForgetPWDComponent},
 	{ path: 'register', component: SignupComponent},
-	{ path: 'reset', component: ResetPWDComponent},
+	{ path: 'reset', component: ResetPWDComponent, 
+	// children:
+	//  [{ path: ':str',
+ //    	component: ResetPWDComponent}]
+  	},
+  	{ path: 'reset/:str', component: ResetPWDComponent },
 	{ path: 'gen-verification', component: GenVerificationComponent},
 	{ path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

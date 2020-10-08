@@ -23,22 +23,11 @@ export class SignupComponent implements OnInit {
 
   ngOnInit() {
   }
-  // passwordsMatchValidator(form: FormGroup) {
-  //   if (form.get('password') && form.get('confirmpassword')) {
-  //       return form.get('password').value === form.get('confirmpassword').value ? null : { mismatch: true };
-  //   }
-  //   return null;
-  // }
- 
-  passwordsMatchValidator(c: AbstractControl): { invalid: boolean } {
-    if (c.get('password').value !== c.get('confirmpassword').value) {
-        return {invalid: true};
-    }
-  }
 
   get f(){
     return this.signupForm.controls;
   }
+  
   ConfirmedValidator(first: string, second: string) {
      return (formGroup: FormGroup) => {
         const control = formGroup.controls[first];

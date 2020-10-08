@@ -3,6 +3,7 @@ import { Resetpwd } from '../Models/resetpwd';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ResetpwdService {
   resetValue: Resetpwd;
   apiUrl = environment.apiUrl;
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, private route: ActivatedRoute) { }
 
 
 
@@ -19,14 +20,19 @@ export class ResetpwdService {
     return this.http.get<Resetpwd>(this.apiUrl+`reset_password/`);
   }
 
-  postReset(formData: any): Observable<Resetpwd> {
-
+  postReset(formData: any, urlToken: string): Observable<Resetpwd> {
+    console.log(urlToken);
     var form = new FormData();
     form.append('pswd1', formData.pwd);
     form.append('pswd2', formData.cnfpwd);
-    return this.http.post<Resetpwd>(this.apiUrl+`reset_password/RGSMMH/`,
+    console.log(this.apiUrl+`reset_password/`+urlToken);
+    return this.http.post<Resetpwd>(this.apiUrl+`reset_password/`+urlToken,
       form
+      // { headers: { Token: urlToken } }
       );
   }
 
 }
+
+// riya.patadiya@gmail.com
+// Riya@1234
