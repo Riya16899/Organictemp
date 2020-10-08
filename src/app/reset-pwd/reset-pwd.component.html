@@ -12,16 +12,18 @@
 							<b><label for="pwd">New Password</label></b>
 							<input type="password" formControlName="pwd" class="form-control" value="" placeholder="Password">
 							<div *ngIf="f.pwd.invalid && (f.pwd.dirty || f.pwd.touched)" class="alert alert-danger">
-							<div *ngIf="f.pwd.invalid">invalid </div>
+							<div *ngIf="f.pwd.invalid">Password should contain at least 6 characters.</div>
 							</div>
 						</div>
 						<div class="form-group">
 							<b><label class="label" for="cnfpwd">Confirm Password</label></b>
 							<input type="password" formControlName="cnfpwd" class=" form-control" value="" placeholder="Confirm password">
 							<div *ngIf="f.cnfpwd.invalid && (f.cnfpwd.dirty || f.cnfpwd.touched)" class="alert alert-danger">
-							<div *ngIf="f.cnfpwd.invalid">invalid </div>
-							<div *ngIf="f.cnfpwd.errors.confirmedValidator">Password and Confirm Password must be match.</div>
+							Password should contain at least 6 characters. 
 							</div>
+							<div *ngIf="f.cnfpwd.errors.confirmedValidator" class="alert alert-danger">
+							Password and Confirm Password must be match.</div>
+							
 						</div>
 						<div class="form-group">
 				 			<button type="button" class="btn btn-primary" (click)="Reset()" [disabled]="!resetForm.valid">Submit</button>

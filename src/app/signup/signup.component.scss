@@ -52,6 +52,7 @@ $tablet: 768px;
 		.card-body {
 			.form {
 				.form-group {
+
 					button {
 						float: left;
 						border-radius: 20px;
@@ -59,14 +60,7 @@ $tablet: 768px;
 						font: normal normal normal 16px/20px Libre Baskerville;
 						letter-spacing: 0px;
 						opacity: 1;
-						background-color: #00DBD0 !important;
-							border-color: #00DBD0 !important;
-							color: #00DBD0;
-						.btn-primary, btn {
-							background-color:#00DBD0 !important;
-							border-color: #00DBD0 !important;
-							color:#00DBD0;
-						}
+
 					}
 					a, span {
 						text-align: right;

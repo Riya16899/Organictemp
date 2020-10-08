@@ -2,6 +2,14 @@ $laptop: 1200px;
 $mobile: 480px;
 $tablet: 768px;
 
+@media screen and (max-width: 767px) { 
+	.middle-img-class {
+		z-index: 1;
+		position: absolute;  
+		top: 50px;
+	}
+}
+
 .front-class {
 	opacity: 1;
 	-webkit-background-size:  cover;
