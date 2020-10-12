@@ -37,13 +37,10 @@ $tablet: 768px;
 }
 
 
-.collapsible-menu {
-	background-color: #FFFFFF;
-	position: relative;
-	z-index: 3;
-}
+
 
 header {
+	
 	display: flex;
 	height:  50px;
 	justify-content: space-around;
@@ -104,9 +101,14 @@ label {
 input#menu {
     display: none;
 }
-
-.collapsible-menu {
+/* .collapsible-menu {
+	background-color: #FFFFFF;
 	position: relative;
+	z-index: 3;
+	
+} */
+.collapsible-menu {
+
 	.menu-content {
 
 	    max-height: 0;

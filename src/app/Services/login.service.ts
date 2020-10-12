@@ -3,7 +3,7 @@ import { Login } from '../Models/login';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +17,9 @@ export class LoginService {
     'Content-Type': 'text/plain; charset=utf-8',
   };
 
-  constructor(public http: HttpClient, private route: Router) { }
+  constructor(public http: HttpClient, private route: Router) { 
+    localStorage.setItem ('token', 'hdbwckfbdsj');
+  }
 
   getLogin(): Observable<Login> {
     return this.http.get<Login>(this.apiUrl+`login/`, { observe: 'body' });

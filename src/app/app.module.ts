@@ -16,6 +16,9 @@ import { SignupComponent } from './signup/signup.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './app.interceptor';
 import { GenVerificationComponent } from './gen-verification/gen-verification.component';
+import { ProductInfoComponent } from './product-info/product-info.component';
+import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,10 @@ import { GenVerificationComponent } from './gen-verification/gen-verification.co
     ForgetPWDComponent,
     ResetPWDComponent,
     SignupComponent,
-    GenVerificationComponent
+    GenVerificationComponent,
+    ProductInfoComponent,
+    CartComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,51 @@
 
+
+
 <div class="fifth-class">
 
-<nav class="navbar navbar-light bg-light">
+<!--   <div class="d-flex bd-highlight">
+     <div class="sidenav ">
+      <hr>
+      <div class="panel-group" id="accordionSingleOpen" role="tablist" aria-multiselectable="true">
+
+        <div class="panel">
+          <div class="panel-heading" role="tab" id="headingOne">
+            <h4>
+              <a style="padding: 15px;" role="button" data-toggle="collapse" href="#collapseItemOpenOne" aria-expanded="true" aria-controls="collapseItemOpenOne">
+                Hair Care
+              </a>
+            </h4>
+          </div>
+          <div id="collapseItemOpenOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              <form [formGroup]="filterForm" (ngSubmit)="submit()">
+
+              <ul class="list-unstyled">
+
+                 <div class="form-group">
+            <label for="website">Website:</label>
+            <div *ngFor="let web of websiteList">
+              <label>
+                <input type="checkbox" [value]="web.id" (change)="onCheckboxChange($event)" />
+                {{web.name}}
+              </label>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary" type="submit" [disabled]="!filterForm.valid">Filter</button>
+          
+              </ul>
+            </form>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <hr> 
+    </div> 
+</div>
+ -->
+<!-- <nav class="navbar navbar-light bg-light">
        <button class="btn btn-outline-success my-2 my-sm-0" type="checkbox">Search</button>
         <button class="btn btn-outline-success my-2 my-sm-0" type="checkbox">Search</button>
   <form class="form-inline ml-auto">
@@ -9,7 +53,83 @@
     <input class="form-control " type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   </form>
+</nav> -->
+
+
+<!-- <a style="font-size: 30px; color: black; margin-left: 30px;" href="#">
+          <span class="glyphicon glyphicon-shopping-cart"></span>
+        </a> -->
+
+<!-- <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+</svg> -->
+
+
+<!-- <div id="mySidebar" class="sidebar" [style]="styleFromParent">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
+
+<div id="main" [style]="styleFromParent">
+  <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button>  
+  <h2>Collapsed Sidebar</h2>
+  <p>Click on the hamburger menu/bar icon to open the sidebar, and push this content to the right.</p>
+</div> -->
+
+
+<nav class="navbar navbar-expand-lg navbar-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Filters
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Category Types
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul for="website" class="list-unstyled" *ngFor="let category of categoryList">
+            <li class="dropdown-item">{{category.cat}}</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Price
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul class="list-unstyled" *ngFor="let price of priceList">
+          <li class="dropdown-item" >{{price.range}}</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <form [formGroup]="filterForm" (ngSubmit)="submit()">
+        <div class="form-group">
+        <select formControlName="website" class="custom-select" (change)='onOptionsSelected($event)'>
+          <option selected>Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <button>ok</button>
+</div>
+</form>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+
 </nav>
+
 
     <div class="heading-class">
       <h3>Products</h3>
@@ -17,52 +137,65 @@
     </div>
     <div class="card-class">
       <div class="row">
+        
         <div class="col-sm card-data">
+          <a routerLink="/product_info">
           <img src="./assets/Mask Group 61.png" alt="Mask Group 61">
           <h4>Product One</h4>
           <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
-          <button class="btn btn-outline-light">Order Now</button>
+          <!-- <button class="btn btn-outline-light">Order Now</button> -->
+          <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a>
           
+        </a>
         </div>
+   
         <div class="col-sm card-data">
+          <a routerLink="/product_info">
           <img src="./assets/Mask Group 62.png" alt="Mask Group 62">
           <h4>Product Two</h4>
           <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
           <button class="btn btn-outline-light">Order Now</button>
+        </a>
           
         </div>
+
         <div class="col-sm card-data">
+          <a routerLink="/product_info">
           <img src="./assets/Mask Group 63.png" alt="Mask Group 63">
           <h4>Product Three</h4>
           <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
           <button class="btn btn-outline-light">Order Now</button>
-          
+          </a>
         </div>
+
       </div>
     </div>
 
         <div class="card-class">
       <div class="row">
         <div class="col-sm card-data">
+          <a routerLink="/product_info">
           <img src="./assets/Mask Group 61.png" alt="Mask Group 61">
           <h4>Product One</h4>
           <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
           <button class="btn btn-outline-light">Order Now</button>
-          
+          </a>
         </div>
         <div class="col-sm card-data">
+          <a routerLink="/product_info">
           <img src="./assets/Mask Group 62.png" alt="Mask Group 62">
           <h4>Product Two</h4>
           <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
           <button class="btn btn-outline-light">Order Now</button>
-          
+          </a>
         </div>
         <div class="col-sm card-data">
+          <a routerLink="/product_info">
           <img src="./assets/Mask Group 63.png" alt="Mask Group 63">
           <h4>Product Three</h4>
           <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
           <button class="btn btn-outline-light">Order Now</button>
-          
+          </a>
         </div>
       </div>
     </div>
