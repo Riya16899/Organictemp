@@ -75,9 +75,13 @@ $tablet: 768px;
 		padding-top: 20px;
 	} */
 	.navbar {
-		margin-left: 5%;
-		margin-right: 5%;
+		margin-left: 10%;
+		margin-right: 10%;
 	}
+	li {
+		margin:  5px;
+	}
+
 	panel {
 		.panel-heading {
 			h4 {
@@ -98,9 +102,9 @@ $tablet: 768px;
 	}
 
 	.heading-class {
-		/* margin-left: 15%;
-		margin-right: 15%; */
-		text-align: center;
+/* 		margin-left: 15%;
+		margin-right: 15%;
+ */		text-align: center;
 		align-items: center;
 		align-content: center;
 		h3 {
@@ -125,17 +129,32 @@ $tablet: 768px;
 		margin-top: 30px;
 	
 			.card-data {
-				img {
+				margin: 15px;
+				/* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+ */
+				.card_head {
+					height: 30px;
+					margin-bottom: 5px;
+					h6 {
+						float: left;
+						margin-left: 30px;
+					}
+					.like-img {
+						margin-right: 30px;
+						float: right;
+						width: 30px;
+						height: 30px;
+					}
+				}
+
+				.card_img {
+					margin-top: 5px;
 					width: 180px;
 					height: 130px;
 				}
-				.cart-img {
-					width: 25px;
-					height: 25px;
-					float: right;
-					margin-right: 25%;
-					margin-bottom: 10px;
-				}
+
 				h4 {
 					margin-top: 10px;
 					text-align: center;
@@ -145,12 +164,26 @@ $tablet: 768px;
 					opacity: 1;
 				}
 				p {
-					margin-top: 10px;
+					/* margin-top: 5px; */
 					text-align: center;
-					font: normal normal normal 14px/18px Libre Baskerville;
+					font: normal normal normal 14px/12px Libre Baskerville;
 					letter-spacing: 0px;
 					color: #374B5C;
 					opacity: 1;
+				}
+				.price {
+					display: flex;
+					text-align: center;
+					justify-content: center;
+					p {
+						font: normal normal 600 13px/12px Libre Baskerville;
+						letter-spacing: 0px;
+						color: #374B5C;
+					}
+					.real-price {
+						margin-left: 15px;
+						text-decoration: line-through;
+					}
 				}
 				button {
 					margin-bottom: 10px;
@@ -161,6 +194,52 @@ $tablet: 768px;
 					opacity: 1;
 					border-radius: 12px;
 					border: 2px solid #00DBD0;
+				}
+				.card-footer {
+					height: 40px;
+					.cart-img {
+						width: 20px;
+						height: 20px;
+						float: right;
+						margin-bottom: 10px;
+						/* margin-right: 25%;
+						margin-bottom: 10px; */
+					}
+					.star {
+						float: left;
+						width: 20px;
+						height: 20px;
+						opacity: 1;
+						padding:  3px;
+					}
+					input {
+						float: left;
+						border-radius: 20%;
+						height: 25px;
+					}
+					.quantity-input {
+						display: inline-block;
+						float: left;
+
+						.btn-class {
+							
+							border-radius: 10%;
+						/* 	width:30px; */
+							height: 30px; 
+							/* border-color: #00DBD0; */
+							font: normal normal bold 20px/2px Libre Baskerville;
+							text-align: center;
+							border: 1px solid #efefef;
+						}
+						input {
+							height: 30px;
+							width: 40px;
+							text-align: center;
+							border: 2px solid #efefef;
+							/* border-color: #00DBD0; */
+						}
+					}
+
 				}
 			}
 		

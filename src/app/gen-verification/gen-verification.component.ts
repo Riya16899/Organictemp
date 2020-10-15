@@ -29,14 +29,14 @@ export class GenVerificationComponent implements OnInit {
   	console.log(this.verificationForm.value);
   	this.genService.postVerify(this.verificationForm.value).subscribe((data) => {
   		console.log(data);
-  		if (data['status_code'] == 200) {
-  			alert(data['success']);
+  		if (data['meta']['status_code'] == 200) {
+  			alert(data['meta']['success']);
   		}
-  		else if (data['status_code'] == 400) {
-  			alert(data['error']);
+  		else if (data['meta']['status_code'] == 400) {
+  			alert(data['meta']['error']);
   		}
-  		else if (data['status_code'] == 401) {
-  			alert(data['error']);
+  		else if (data['meta']['status_code'] == 401) {
+  			alert(data['meta']['error']);
   		}
   	});
   	this.verificationForm.reset();

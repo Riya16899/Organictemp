@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators, FormBuilder} from "@angular/forms";
+import { Router, ActivatedRoute } from "@angular/router";
+import { ProductsService } from '../Services/products.service';
 
 @Component({
   selector: 'app-products',
@@ -8,16 +10,26 @@ import { FormGroup, FormArray, FormControl, Validators, FormBuilder} from "@angu
 })
 export class ProductsComponent implements OnInit {
 
+  selectedValue = 0;
+  category_data: any; 
+  product_data: any;
+  dataDefined: boolean;
 
+  @ViewChild('qua', { static: false } ) qua:ElementRef;
+
+  public productForm = this.formBuilder.group({
+    quantity: new FormControl('', [Validators.required])
+  } );
 
   public filterForm = this.formBuilder.group({
-     website: new FormControl('', Validators.required)
+     website: new FormControl('', Validators.required),
+     category: new FormControl('', Validators.required)
   });
 
   priceList: any = [
-    { id: 1, range: 'belove 500' },
-    { id: 2, range: '500 - 1000' },
-    { id: 3, range: 'above 1000' }
+    { id: 1, range: 'Low-High' },
+    { id: 2, range: 'Medium' },
+    { id: 3, range: 'High-Low' }
   ];
 
   categoryList: any = [
@@ -25,11 +37,33 @@ export class ProductsComponent implements OnInit {
   	{ cat: 'Skin Care'}
   ]
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, 
+  	private productsService: ProductsService) { }
 
   ngOnInit() {
 
+  	this.productsService.getProductList().subscribe((data) => {
+  		console.log(data);
+  		this.category_data = data['data']['category'];
+  		// console.log(data['meta']['status_code']);
+  		// console.log(data['error']);
+  		
+	    if(data['error']) {
+	    	this.dataDefined = false;
+	    	console.log(this.product_data);
+	    	alert(data['error']);
+	    }
+	    else {
+	    	this.dataDefined = true;
+  			this.product_data = data['data']['products'];
+	    }
+
+  	});
   }
+
+
+
+
 
   onCheckboxChange(e) {
     const website: FormArray = this.filterForm.get('website') as FormArray;
@@ -43,15 +77,34 @@ export class ProductsComponent implements OnInit {
   }
 
   submit(){
+  	console.log('all form values');
     console.log(this.filterForm.value);
   }
+  quantitySub() {
+  	const value = this.qua.nativeElement.value;
+  	this.productForm.controls['quantity'].setValue(value);
+    console.log(this.productForm.value);
+  }
   
-	onOptionsSelected(event) {
-	   const value = event.target.value;
-	   console.log(value);
-	}
+  onPriceSelected(event) {
+	const value = event.target.value;
+	console.log(value);
+	this.filterForm.controls['website'].setValue(value);
+	console.log(this.filterForm.value);
+  }
+  onCategorySelected(event) {
+	const value = event.target.value;
+	this.filterForm.controls['category'].setValue(value);
+	const cat = this.filterForm.value.category;
+	console.log(cat);
+	this.productsService.getProductFilter(cat).
+	subscribe((data) => {
+		console.log(data);
+		this.dataDefined = true;
+		this.product_data = data['data']['products'];
+	});
+  }
   
-
 }
 
 // for label http://jsfiddle.net/crrc7s7f/3/

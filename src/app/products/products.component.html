@@ -79,93 +79,118 @@
   <p>Click on the hamburger menu/bar icon to open the sidebar, and push this content to the right.</p>
 </div> -->
 
+<nav class="navbar navbar-expand-lg navbar-light ">
 
-<nav class="navbar navbar-expand-lg navbar-light">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">Filters
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Category Types
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <ul for="website" class="list-unstyled" *ngFor="let category of categoryList">
-            <li class="dropdown-item">{{category.cat}}</li>
-          </ul>
+        <div class="form-group">
+        <select class="custom-select" 
+         (change)="onCategorySelected($event)">
+          <option selected>Category </option>
+          <option *ngFor="let cat of category_data" [value]="cat.cat_name">
+                  {{cat.cat_name | titlecase}} </option>
+        </select>
         </div>
       </li>
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Price
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <ul class="list-unstyled" *ngFor="let price of priceList">
-          <li class="dropdown-item" >{{price.range}}</li>
-          </ul>
+        <div class="form-group">
+        <select class="custom-select" 
+         (change)="onPriceSelected($event)">
+          <option selected>Price </option>
+          <option *ngFor="let price of priceList" [value]="price.range">
+                  {{price.range}} </option>
+        </select>
         </div>
       </li>
-      <li>
-        <form [formGroup]="filterForm" (ngSubmit)="submit()">
-        <div class="form-group">
-        <select formControlName="website" class="custom-select" (change)='onOptionsSelected($event)'>
-          <option selected>Open this select menu</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-        <button>ok</button>
-</div>
-</form>
-      </li>
+
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
-
 </nav>
-
 
     <div class="heading-class">
       <h3>Products</h3>
       <p>Feel free to fill out the form and reach to us.<br>We will get back to you shortly.</p>
     </div>
+
     <div class="card-class">
       <div class="row">
         
-        <div class="col-sm card-data">
+<!--         <div style="margin:15px;" class="col-sm card-data">
           <a routerLink="/product_info">
-          <img src="./assets/Mask Group 61.png" alt="Mask Group 61">
+          <img class="card_img" src="./assets/Mask Group 61.png" alt="Mask Group 61">
           <h4>Product One</h4>
           <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
-          <!-- <button class="btn btn-outline-light">Order Now</button> -->
-          <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a>
-          
         </a>
-        </div>
+        <div class="card-footer" style="">
+                <div class="quantity-input">
+                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
+                  <b>-</b></button>
+                <input style="float: center;" #qua  class="quantity" min="1" name="quantity" value="1" type="number">
+                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
+                  <b> + </b></button>
+            </div>
+         <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
+        </div> -->
    
-        <div class="col-sm card-data">
-          <a routerLink="/product_info">
-          <img src="./assets/Mask Group 62.png" alt="Mask Group 62">
-          <h4>Product Two</h4>
-          <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
-          <button class="btn btn-outline-light">Order Now</button>
+
+        <div class="col-sm card-data" *ngFor="let product of product_data"> 
+          <div *ngIf="dataDefined"> 
+
+          <a routerLink="/product_info/{{product.id}}" >
+            
+          <img class="card_img" src="{{product.image_url}}" alt="Mask Group 62">
+          <h4>{{product.p_name}}</h4>
+
+          <p>{{product.description}}</p>
+          <div class="price"><p>Rs. {{product.disscount_price}}</p>
+          <p class="real-price" style="text-decoration: line-through;">Rs. {{product.price}}</p>
+          </div> 
         </a>
-          
+          <div class="card-footer">
+                      <div class="quantity-input">
+                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
+                  <b>-</b></button>
+                <input style="float: center;" #qua class="quantity" min="1" name="quantity" value="1" type="number">
+                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
+                  <b> + </b></button>
+            </div>
+         <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
         </div>
 
-        <div class="col-sm card-data">
+
+<div *ngIf="!dataDefined">
+
+   <h1 style="height: 300px;"> fhewvl</h1>
+</div>
+        
+      </div>
+
+      <!--   <div class="col-sm card-data">
           <a routerLink="/product_info">
-          <img src="./assets/Mask Group 63.png" alt="Mask Group 63">
+          <img class="card_img" src="./assets/Mask Group 63.png" alt="Mask Group 63">
           <h4>Product Three</h4>
           <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
-          <button class="btn btn-outline-light">Order Now</button>
+          
           </a>
+          <div class="card-footer">
+                      <div class="quantity-input">
+                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
+                  <b>-</b></button>
+                <input style="float: center;" #qua class="quantity" min="1" name="quantity" value="1" type="number">
+                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
+                  <b> + </b></button>
+            </div>
+         <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
         </div>
 
       </div>
@@ -175,28 +200,59 @@
       <div class="row">
         <div class="col-sm card-data">
           <a routerLink="/product_info">
-          <img src="./assets/Mask Group 61.png" alt="Mask Group 61">
+          <img class="card_img" src="./assets/Mask Group 61.png" alt="Mask Group 61">
           <h4>Product One</h4>
           <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
-          <button class="btn btn-outline-light">Order Now</button>
+          
           </a>
+          <div class="card-footer" style="">
+                      <div class="quantity-input">
+                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
+                  <b>-</b></button>
+                <input style="float: center;" #qua class="quantity" min="1" name="quantity" value="1" type="number">
+                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
+                  <b> + </b></button>
+            </div>
+         <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
         </div>
+
         <div class="col-sm card-data">
           <a routerLink="/product_info">
-          <img src="./assets/Mask Group 62.png" alt="Mask Group 62">
+          <img class="card_img" src="./assets/Mask Group 62.png" alt="Mask Group 62">
           <h4>Product Two</h4>
           <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
-          <button class="btn btn-outline-light">Order Now</button>
           </a>
+          <div class="card-footer" style="">
+                      <div class="quantity-input">
+                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
+                  <b>-</b></button>
+                <input style="float: center;" #qua class="quantity" min="1" name="quantity" value="1" type="number">
+                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
+                  <b> + </b></button>
+            </div>
+
+         <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
         </div>
+
         <div class="col-sm card-data">
           <a routerLink="/product_info">
-          <img src="./assets/Mask Group 63.png" alt="Mask Group 63">
+          <img class="card_img" src="./assets/Mask Group 63.png" alt="Mask Group 63">
           <h4>Product Three</h4>
           <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
-          <button class="btn btn-outline-light">Order Now</button>
           </a>
+        <div class="card-footer" style="">
+            <div class="quantity-input">
+                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
+                  <b>-</b></button>
+                <input style="float: center;" #qua class="quantity" min="1" name="quantity" value="1" type="number">
+                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
+                  <b> + </b></button>
+            </div>
+         <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
         </div>
+
+ -->
+
       </div>
     </div>
 

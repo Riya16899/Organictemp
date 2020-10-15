@@ -13,9 +13,11 @@ import { GenVerificationComponent } from './gen-verification/gen-verification.co
 import { AuthGuard } from './auth.guard';
 import { CartComponent } from './cart/cart.component';
 import { ProductInfoComponent } from './product-info/product-info.component';
+import { CheckoutComponent } from './checkout/checkout.component'; 
+
 const routes: Routes = [
 	{ path: 'contact', component: ContactComponent },
-	{ path: 'products', component: ProductsComponent, canActivate: [AuthGuard], },
+	{ path: 'products', component: ProductsComponent },
 	{ path: 'about', component: AboutComponent },
 	{ path: 'blog', component: BlogComponent, canActivate: [AuthGuard] },
 	{ path: 'home', component: HomeComponent},
@@ -29,8 +31,9 @@ const routes: Routes = [
   	},
   	{ path: 'reset/:str', component: ResetPWDComponent },
 	{ path: 'gen-verification', component: GenVerificationComponent},
-	{ path: 'cart', component: CartComponent },
-	{ path: 'product_info', component: ProductInfoComponent},
+	{ path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+	{ path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
+	{ path: 'product_info/:id', component: ProductInfoComponent},
 	{ path: '', redirectTo: 'home', pathMatch: 'full' },
 ];
 

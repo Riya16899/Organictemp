@@ -31,16 +31,16 @@ export class ForgetPWDComponent implements OnInit {
   	console.log(this.forgetForm.value);
   	this.forgetpwdService.postForget(this.forgetForm.value).subscribe((data) => {
   		console.log(data);
-      console.log(data['status_code']);
-      if(data['status_code'] == 401) {
+      console.log(data['meta']['status_code']);
+      if(data['meta']['status_code'] == 401) {
         this.router.navigate(['/login',{value: true}])
-        alert(data['error']);
+        alert(data['meta']['error']);
       }
-      else if (data['status_code'] == 400) {
-        alert(data['error']);
+      else if (data['meta']['status_code'] == 400) {
+        alert(data['meta']['error']);
       }
-      else if(data['status_code'] == 200) {
-        alert(data['success']);
+      else if(data['meta']['status_code'] == 200) {
+        alert(data['meta']['success']);
       }  
      
   	});

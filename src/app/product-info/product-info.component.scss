@@ -12,6 +12,54 @@ $tablet: 768px;
 	width: 100%;
 }
 
+.left-side-img {
+    
+    opacity: 1;
+    width: 300px;
+    height: 350px;
+    float: left;
+    margin-top: 150px;
+    object-fit: cover;
+    object-position: 220% 110%;
+    margin-right: -300px;
+}
+@media screen and (max-width: $tablet) {
+	.left-side-img {
+		width: 200px;
+		height: 250px;
+	}
+}
+@media screen and (max-width: $mobile) {
+	.left-side-img {
+		display: none;
+	}
+} 
+.right-side-img {
+    z-index: 3;
+    opacity: 1;
+    width: 400px;
+    height: 550px;
+    float: right;
+    margin-top: 80px;
+    margin-bottom: -400px;
+    margin-left: -300px; 
+    object-fit: cover;
+    object-position: -130% 0%;
+}
+@media screen and (max-width: $tablet) {
+	.right-side-img {
+		width: 250px;
+		height: 350px;
+	}
+}
+@media screen and (max-width: $mobile) {
+	.right-side-img {
+		/* width: 150px;
+		height: 200px; */
+		display: none;
+	}
+}
+
 .product-info {
 	margin:  100px 15% 0 15%;
 	align-content: center;
@@ -20,15 +68,15 @@ $tablet: 768px;
 	text-align: center;
 	img {
 
-		width: 300px;
-		height: 300px;
+		max-width: 300px;
+		max-height: 300px;
 		float: center;
 	}
 	.info-data {
 		float: center;
 		h3 {
 			text-align: left;
-			font: normal normal bold 32px/40px Libre Baskerville;
+			font: normal normal bold 28px/40px Libre Baskerville;
 			letter-spacing: 0px;
 			color: #374B5C;
 			opacity: 1;
@@ -38,7 +86,7 @@ $tablet: 768px;
 			h4 {
 				
 				float: left;
-				font: normal normal bold 20px/30px Libre Baskerville;
+				font: normal normal bold 16px/30px Libre Baskerville;
 				letter-spacing: 0px;
 				color: #374B5C;
 				opacity: 1;
@@ -64,16 +112,36 @@ $tablet: 768px;
 		.quantity {
 			width: 100px;
 			white-space: nowrap;
+			.quantity-input {
+				display: inline-block;
+
+				button {
+					margin: 5px;
+					/* border-radius: 40%; */
+					width: 40px;
+					border-color: #00DBD0;
+				}
+				input {
+					margin: 5px;
+					/* border-radius: 20%; */
+					text-align: center;
+					width: 60px;
+					border-color: #00DBD0;
+				}
+			}
 			
 			form {
 				margin-top: 10px;
 				input {
-					margin-left: 10px;
+					margin-left: 10px;				
+					border-radius: 20%;
+					border-color: #00DBD0;
 				}
 				label {
 					font: normal normal normal 16px/30px Libre Baskerville
 				}
 				button, btn {
+					margin-right: 10px;
 					margin-top: 20px;
 					border-radius: 10px;
 					border-color: #00DBD0;
@@ -188,6 +256,7 @@ $tablet: 768px;
 					label {
 						font: normal normal normal 14px/30px Libre Baskerville
 					}
+
 				}
 			}
 		}
