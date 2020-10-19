@@ -19,6 +19,8 @@ import { GenVerificationComponent } from './gen-verification/gen-verification.co
 import { ProductInfoComponent } from './product-info/product-info.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { CartPipe } from './cart/cart.pipe';
+import { ProductPaginationComponent } from './product-pagination/product-pagination.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
     GenVerificationComponent,
     ProductInfoComponent,
     CartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    CartPipe,
+    ProductPaginationComponent
   ],
   imports: [
     BrowserModule,

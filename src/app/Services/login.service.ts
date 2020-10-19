@@ -32,12 +32,6 @@ export class LoginService {
     form.append('pswd', formDat.password);
     // const auth = localStorage.getItem('token');
     console.log(form);
-    if(localStorage.getItem('token')) {
-      let pais:string = "Bearer ";
-      let codigo:string = localStorage.getItem('token');
-      var noQuotes = codigo.split('"').join('');
-      let opcionDos:string = pais.concat(noQuotes);
-    }
 
     if(this.redirect) {
       console.log(this.redirect);

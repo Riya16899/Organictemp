@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Router, ActivatedRoute } from "@angular/router";
+import { AppService } from '../app.service'; 
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class ResetpwdService {
   resetValue: Resetpwd;
   apiUrl = environment.apiUrl;
 
-  constructor(public http: HttpClient, private route: ActivatedRoute) { }
+  constructor(public http: HttpClient, private route: ActivatedRoute,
+    private appService: AppService ) { }
 
 
 
@@ -28,7 +30,7 @@ export class ResetpwdService {
     console.log(this.apiUrl+`reset_password/`+urlToken);
     return this.http.post<Resetpwd>(this.apiUrl+`reset_password/`+urlToken,
       form
-      // { headers: { Token: urlToken } }
+      // { headers: { Token: this.appService.getToken() } }
       );
   }
 
@@ -36,3 +38,6 @@ export class ResetpwdService {
 
 // riya.patadiya@gmail.com
 // Riya@1234
+
+   
+;

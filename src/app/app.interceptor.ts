@@ -14,23 +14,6 @@ export class TokenInterceptor implements HttpInterceptor {
     
   }
 
-
-  /* intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(`Bearer ${localStorage.getItem('token')}`);
-    // request = request.clone({
-    //   // setHeaders: {
-    //   //   'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-    //   //   Authorization: `Bearer ${localStorage.getItem('token')}`
-    //   // }
-    // });
-    request = request.clone({
-
-      headers: request.headers.set('Content-type', 'application/x-www-form-urlencoded; charset=utf-8'),
-    });
-    console.log(request);
-    return next.handle(request);
-  } */
-
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log(`Bearer ${localStorage.getItem('token')}`);
     let urlToken = this.route.snapshot.paramMap.get('str');

@@ -125,22 +125,6 @@
     <div class="card-class">
       <div class="row">
         
-<!--         <div style="margin:15px;" class="col-sm card-data">
-          <a routerLink="/product_info">
-          <img class="card_img" src="./assets/Mask Group 61.png" alt="Mask Group 61">
-          <h4>Product One</h4>
-          <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
-        </a>
-        <div class="card-footer" style="">
-                <div class="quantity-input">
-                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
-                  <b>-</b></button>
-                <input style="float: center;" #qua  class="quantity" min="1" name="quantity" value="1" type="number">
-                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
-                  <b> + </b></button>
-            </div>
-         <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
-        </div> -->
    
 
         <div class="col-sm card-data" *ngFor="let product of product_data"> 
@@ -158,13 +142,19 @@
         </a>
           <div class="card-footer">
                       <div class="quantity-input">
-                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
+                <!-- <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
                   <b>-</b></button>
-                <input style="float: center;" #qua class="quantity" min="1" name="quantity" value="1" type="number">
+                <input #qua style="float: center;" class="quantity" min="1" name="quantity" value="1" type="number">
                 <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
-                  <b> + </b></button>
+                  <b> + </b></button> -->
+
+                  <button type="button" class="btn btn-light" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
+                  <b>-</b></button>
+                <input #qua class="quantity" min="1" name="quantity" value="1" type="number">
+                <button  type="button" class="btn btn-light" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
+                  <b>+</b></button>
             </div>
-         <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
+         <a (click)="Cart(product.id)"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
         </div>
 
 
@@ -175,83 +165,7 @@
         
       </div>
 
-      <!--   <div class="col-sm card-data">
-          <a routerLink="/product_info">
-          <img class="card_img" src="./assets/Mask Group 63.png" alt="Mask Group 63">
-          <h4>Product Three</h4>
-          <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
-          
-          </a>
-          <div class="card-footer">
-                      <div class="quantity-input">
-                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
-                  <b>-</b></button>
-                <input style="float: center;" #qua class="quantity" min="1" name="quantity" value="1" type="number">
-                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
-                  <b> + </b></button>
-            </div>
-         <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
-        </div>
-
-      </div>
-    </div>
-
-        <div class="card-class">
-      <div class="row">
-        <div class="col-sm card-data">
-          <a routerLink="/product_info">
-          <img class="card_img" src="./assets/Mask Group 61.png" alt="Mask Group 61">
-          <h4>Product One</h4>
-          <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
-          
-          </a>
-          <div class="card-footer" style="">
-                      <div class="quantity-input">
-                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
-                  <b>-</b></button>
-                <input style="float: center;" #qua class="quantity" min="1" name="quantity" value="1" type="number">
-                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
-                  <b> + </b></button>
-            </div>
-         <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
-        </div>
-
-        <div class="col-sm card-data">
-          <a routerLink="/product_info">
-          <img class="card_img" src="./assets/Mask Group 62.png" alt="Mask Group 62">
-          <h4>Product Two</h4>
-          <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
-          </a>
-          <div class="card-footer" style="">
-                      <div class="quantity-input">
-                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
-                  <b>-</b></button>
-                <input style="float: center;" #qua class="quantity" min="1" name="quantity" value="1" type="number">
-                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
-                  <b> + </b></button>
-            </div>
-
-         <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
-        </div>
-
-        <div class="col-sm card-data">
-          <a routerLink="/product_info">
-          <img class="card_img" src="./assets/Mask Group 63.png" alt="Mask Group 63">
-          <h4>Product Three</h4>
-          <p>Lorem ipsum dolor sit amet,<br>consectetur adipiscing elit,<br>sed do eiusmod.</p>
-          </a>
-        <div class="card-footer" style="">
-            <div class="quantity-input">
-                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="quantitySub()">
-                  <b>-</b></button>
-                <input style="float: center;" #qua class="quantity" min="1" name="quantity" value="1" type="number">
-                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="quantitySub()">
-                  <b> + </b></button>
-            </div>
-         <a routerLink="/cart"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a></div>
-        </div>
-
- -->
+      
 
       </div>
     </div>

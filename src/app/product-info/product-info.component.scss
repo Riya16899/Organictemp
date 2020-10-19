@@ -262,3 +262,19 @@ $tablet: 768px;
 		}
 	}
 }
+
+
+
+.card {
+	ul {
+		list-style-type: none;
+		padding: 0;
+		border: 0px solid #ddd;
+		li {
+			border-bottom: 0px solid #ddd;
+		}
+		.star {
+			padding: 2px;
+		}
+ 	}
+}

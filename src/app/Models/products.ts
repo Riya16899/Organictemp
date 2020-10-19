@@ -1,5 +1,6 @@
 import { Category } from '../Models/category';
 
+
 export interface Products {
 
 	Id: number;
@@ -12,4 +13,7 @@ export interface Products {
 	Sub_cat_name: string;
 	Category_name: Category;
 
+
+
 }
+

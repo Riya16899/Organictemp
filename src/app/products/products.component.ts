@@ -14,11 +14,13 @@ export class ProductsComponent implements OnInit {
   category_data: any; 
   product_data: any;
   dataDefined: boolean;
+  valueQuantity: number;
 
   @ViewChild('qua', { static: false } ) qua:ElementRef;
 
   public productForm = this.formBuilder.group({
-    quantity: new FormControl('', [Validators.required])
+    quantity: new FormControl('', [Validators.required]),
+    pro_id: new FormControl('', [])
   } );
 
   public filterForm = this.formBuilder.group({
@@ -38,7 +40,8 @@ export class ProductsComponent implements OnInit {
   ]
 
   constructor(private formBuilder: FormBuilder, 
-  	private productsService: ProductsService) { }
+  	private productsService: ProductsService,
+    private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -61,10 +64,6 @@ export class ProductsComponent implements OnInit {
   	});
   }
 
-
-
-
-
   onCheckboxChange(e) {
     const website: FormArray = this.filterForm.get('website') as FormArray;
   
@@ -81,28 +80,44 @@ export class ProductsComponent implements OnInit {
     console.log(this.filterForm.value);
   }
   quantitySub() {
-  	const value = this.qua.nativeElement.value;
-  	this.productForm.controls['quantity'].setValue(value);
-    console.log(this.productForm.value);
+    var Quantity = this.qua.nativeElement.value;
+    console.log(Quantity);
+    this.productForm.controls['quantity'].setValue(this.valueQuantity);
+    // this.productForm.controls['pro_id'].setValue();
   }
   
   onPriceSelected(event) {
-	const value = event.target.value;
-	console.log(value);
-	this.filterForm.controls['website'].setValue(value);
-	console.log(this.filterForm.value);
+  	const value = event.target.value;
+  	console.log(value);
+  	this.filterForm.controls['website'].setValue(value);
+  	console.log(this.filterForm.value);
   }
   onCategorySelected(event) {
-	const value = event.target.value;
-	this.filterForm.controls['category'].setValue(value);
-	const cat = this.filterForm.value.category;
-	console.log(cat);
-	this.productsService.getProductFilter(cat).
-	subscribe((data) => {
-		console.log(data);
-		this.dataDefined = true;
-		this.product_data = data['data']['products'];
-	});
+    	const value = event.target.value;
+    	this.filterForm.controls['category'].setValue(value);
+    	const cat = this.filterForm.value.category;
+    	console.log(cat);
+    	this.productsService.getProductFilter(cat).
+    	subscribe((data) => {
+    		console.log(data);
+    		this.dataDefined = true;
+    		this.product_data = data['data']['products'];
+  	});
+  }
+
+  Cart(pro_id: any) {
+
+    this.valueQuantity = this.qua.nativeElement.value;
+    console.log(this.valueQuantity);
+    if(!this.valueQuantity) {
+      this.productForm.controls['quantity'].setValue(1);
+    }
+    this.productForm.controls['quantity'].setValue(this.valueQuantity);
+  
+    this.productForm.controls['pro_id'].setValue(pro_id);
+
+    console.log(this.productForm.value);
+    this.router.navigate(['/cart', this.productForm.value.quantity, this.productForm.value.pro_id]);
   }
   
 }

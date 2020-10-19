@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+
+
 
 @Component({
   selector: 'app-root',
@@ -10,8 +12,8 @@ import { Router } from "@angular/router";
 export class AppComponent {
   title = 'Organictemp';
 
-
   constructor(private router: Router) { 
+    
   }
 
   Logout() {

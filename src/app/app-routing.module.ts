@@ -31,6 +31,7 @@ const routes: Routes = [
   	},
   	{ path: 'reset/:str', component: ResetPWDComponent },
 	{ path: 'gen-verification', component: GenVerificationComponent},
+	{ path: 'cart/:quantity/:pro_id', component: CartComponent, canActivate: [AuthGuard]},
 	{ path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
 	{ path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
 	{ path: 'product_info/:id', component: ProductInfoComponent},
