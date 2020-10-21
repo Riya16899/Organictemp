@@ -14,22 +14,23 @@ export class ProductsService {
 
   constructor(public http: HttpClient, private route: Router) { }
 
-  getProductList(): Observable<Products> {
-    return this.http.get<Products>(this.apiUrl+`product_listing/?page=1&size=4`);
+  getProductList(page: number): Observable<Products> {
+    console.log(page);
+    return this.http.get<Products>(this.apiUrl+`product_listing/?page=`+page+`&size=4`);
   }
 
-  // getProductPagination(offset: number): Observable<Products> {
+  getProductFilter(category: string, page: number) {
+  	console.log(category);
+  	return this.http.get<Products>(this.apiUrl+
+  		`product_listing/filter/?f_cat=`+category+`&page=`+page+`&size=4&f_search&f_asc=true`);
+  }
+
+    // getProductPagination(offset: number): Observable<Products> {
   //   offset = offset - 10;
   //   let url = this.apiUrl+`product_listing/`+offset;
   //   return this.http.get<Products>(url).pipe(map((data) => 
   //     (JSON.parse(JSON.stringify(data) )).map((user: Products) => new Products().deserialize(user) ) ));
   // }
-
-  getProductFilter(category: string) {
-  	console.log(category);
-  	return this.http.get<Products>(this.apiUrl+
-  		`product_listing/filter/?f_cat=`+category+`&page=1&size=2&f_search&f_asc=true`);
-  }
 
 
 

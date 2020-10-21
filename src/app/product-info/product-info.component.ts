@@ -14,8 +14,11 @@ export class ProductInfoComponent implements OnInit {
   product_data: any;
   valueQuantity: number;
   reviews: any;
+  buyFromCart: boolean;
+  showInput: boolean = false;
 
   @ViewChild('qua', { static: false } ) qua:ElementRef;
+  @ViewChild('review', { static: false } ) review:ElementRef;
   @Output() getFormValue = new EventEmitter<any>(true);
  
   public productForm = this.formBuilder.group({
@@ -72,8 +75,43 @@ export class ProductInfoComponent implements OnInit {
     console.log(this.productForm.value);
     this.productInfoService.postBuyProduct(this.productForm.value).subscribe((data) => {
       console.log(data);
+      this.buyFromCart = data['data']['buy_from_cart'];
+      console.log(this.buyFromCart);
     });
-    this.router.navigate(['/checkout']);
+    if(this.buyFromCart === true) {
+      this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true } });
+    }
+    else {
+      this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false, id: this.productForm.value.pro_id, quantity: this.productForm.value.quantity } });
+    }
+    
+  }
+
+  Rate() {
+    if(localStorage.getItem('token')) {
+        console.log(localStorage.getItem('token'));
+        this.showInput = true;
+    }
+    else {
+      console.log(localStorage.getItem('token'));
+    }
+    
+  }
+  ReviewSubmit() {
+    console.log(this.review.nativeElement.value);
+    this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
+    console.log(this.productForm.value['pro_id']);
+    this.productInfoService.postReview(this.productForm.value['pro_id'], 
+      this.review.nativeElement.value).subscribe((data) => {
+        console.log(data);
+        if(data['error']) { 
+            alert(data['error']);
+        }
+        else {
+          alert(data['meta']['success']);
+        }
+      });
+      this.productForm.reset();
   }
 
 }

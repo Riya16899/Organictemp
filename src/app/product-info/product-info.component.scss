@@ -266,6 +266,11 @@ $tablet: 768px;
 
 
 .card {
+	.card-header {
+		button {
+			float: right;
+		}
+	}
 	ul {
 		list-style-type: none;
 		padding: 0;

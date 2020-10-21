@@ -44,10 +44,11 @@ export class CartService {
       var mainToken = bearer.concat(noQuotes);
       
     }
+    this.tt = this.appService.getToken();
     
     
     return this.http.post<Cart>(this.apiUrl+`cart/`, form,
-      { headers: { Authorization: mainToken } } );
+      { headers: { Authorization: this.tt } } );
   }
 
 

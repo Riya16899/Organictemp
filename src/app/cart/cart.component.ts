@@ -23,39 +23,60 @@ export class CartComponent implements OnInit {
    private cartService: CartService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-  	console.log(' in cart page route params');
-  	console.log(this.route.snapshot.queryParams);
-  	 // this.route.queryParams.subscribe(
-    //   params => {
-    //   	console.log(params);
-    //      let data = JSON.parse(params['profile'][0]);
-    //      console.log('Got param: ', data.longitude);
+    console.log(this.route.snapshot.params);
+    if (JSON.stringify(this.route.snapshot.params) == '{}') {
+      
+  	  this.cartService.getCart().subscribe((data) => {
+        console.log(data['data']['cart_product']);
+        if(data['error']) {
+          console.log(data['error']);
+          alert(data['error']);
+        }
+        else {
+          this.cartData = data['data']['cart_product'];
+        }
+      });
+    }
+    else {
+      console.log(this.route.snapshot.queryParams);
+      this.productForm.controls['quantity'].setValue(this.route.snapshot.params['quantity']);
+      this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['pro_id']);
+      this.cartService.postCart(this.productForm.value).subscribe((data) => {
+        console.log(data);
+      
+        if(data['error']) {
+          console.log(data['error']);
+          alert(data['error']);
+        }
+        else {
+          this.cartData = data['data']['cart_product'];
+        }
+      
+      });
+    }
 
-    //   }
-    // )
-  	this.productForm.controls['quantity'].setValue(this.route.snapshot.params['quantity']);
-  	this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['pro_id']);
-  	this.cartService.postCart(this.productForm.value).subscribe((data) => {
-		// console.log(data);
-		if(data['error']) {
-  			alert(data['error']);
-  		}
-  		else {
-  			this.cartData = data['data']['cart_product'];
-  		}
-		
-	});
 
   }
 
   Checkout() {
     this.cartService.buyFromCart().subscribe((data) => {
        console.log(data);
-       this.buyFromCart = data['data']['buy_from_cart'];
-       console.log(this.buyFromCart);
-       
+        if(data['error']) {
+          alert(data['error']);
+        }
+        else {
+          this.buyFromCart = data['data']['buy_from_cart'];
+        }
+        
     });
-  	this.router.navigate(['/checkout'], { queryParams: { buy : this.buyFromCart } });
+    
+    if(this.buyFromCart = true) {
+      this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true } });
+    }
+    else {
+      this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false } });
+    }
+  	
   }
 
   Remove(event, item) {

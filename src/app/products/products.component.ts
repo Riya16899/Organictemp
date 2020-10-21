@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter} from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators, FormBuilder} from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ProductsService } from '../Services/products.service';
+import { Products } from '../Models/products';
 
 @Component({
   selector: 'app-products',
@@ -15,8 +16,10 @@ export class ProductsComponent implements OnInit {
   product_data: any;
   dataDefined: boolean;
   valueQuantity: number;
+  totalCountData: number;
 
-  @ViewChild('qua', { static: false } ) qua:ElementRef;
+  @ViewChild('quantity', { static: false } ) quantity:ElementRef;
+  @Output() changeCat = new EventEmitter<any>(true);
 
   public productForm = this.formBuilder.group({
     quantity: new FormControl('', [Validators.required]),
@@ -45,8 +48,9 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
 
-  	this.productsService.getProductList().subscribe((data) => {
+  	this.productsService.getProductList(1).subscribe((data) => {
   		console.log(data);
+      this.totalCountData = data['meta']['total_count'];
   		this.category_data = data['data']['category'];
   		// console.log(data['meta']['status_code']);
   		// console.log(data['error']);
@@ -75,16 +79,10 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  submit(){
-  	console.log('all form values');
-    console.log(this.filterForm.value);
-  }
-  quantitySub() {
-    var Quantity = this.qua.nativeElement.value;
-    console.log(Quantity);
-    this.productForm.controls['quantity'].setValue(this.valueQuantity);
-    // this.productForm.controls['pro_id'].setValue();
-  }
+  Submit() {
+    this.valueQuantity = this.quantity.nativeElement.value;
+    console.log(this.valueQuantity);
+  }  
   
   onPriceSelected(event) {
   	const value = event.target.value;
@@ -94,10 +92,11 @@ export class ProductsComponent implements OnInit {
   }
   onCategorySelected(event) {
     	const value = event.target.value;
+      this.changeCat.emit(value);
     	this.filterForm.controls['category'].setValue(value);
     	const cat = this.filterForm.value.category;
     	console.log(cat);
-    	this.productsService.getProductFilter(cat).
+    	this.productsService.getProductFilter(cat, 1).
     	subscribe((data) => {
     		console.log(data);
     		this.dataDefined = true;
@@ -107,7 +106,7 @@ export class ProductsComponent implements OnInit {
 
   Cart(pro_id: any) {
 
-    this.valueQuantity = this.qua.nativeElement.value;
+    this.valueQuantity = this.quantity.nativeElement.value;
     console.log(this.valueQuantity);
     if(!this.valueQuantity) {
       this.productForm.controls['quantity'].setValue(1);
@@ -118,6 +117,18 @@ export class ProductsComponent implements OnInit {
 
     console.log(this.productForm.value);
     this.router.navigate(['/cart', this.productForm.value.quantity, this.productForm.value.pro_id]);
+  }
+
+  index: number;
+  pageOfItems: Array<Products>;
+
+
+   
+  onChangePage(OfItems: any) {
+    this.pageOfItems = OfItems;
+    console.log(this.pageOfItems);
+    return this.pageOfItems;
+    
   }
   
 }

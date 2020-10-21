@@ -33,7 +33,15 @@ const routes: Routes = [
 	{ path: 'gen-verification', component: GenVerificationComponent},
 	{ path: 'cart/:quantity/:pro_id', component: CartComponent, canActivate: [AuthGuard]},
 	{ path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
-	{ path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
+	{ path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard],
+		children: [
+	      {
+	        path: ':pro_id/:quantity', 
+	        component: CheckoutComponent,
+	      },
+	    ]
+     },
+	// { path: 'checkout/:pro_id/:quantity', component: CheckoutComponent, canActivate: [AuthGuard] },
 	{ path: 'product_info/:id', component: ProductInfoComponent},
 	{ path: '', redirectTo: 'home', pathMatch: 'full' },
 ];

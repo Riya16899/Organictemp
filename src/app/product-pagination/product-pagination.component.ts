@@ -13,12 +13,13 @@ export class ProductPaginationComponent implements OnInit {
 
   @Output() changePage = new EventEmitter<any>(true);
     initialPage:number = 1;
-    pageSize: number = 10;
+    pageSize: number = 4;
     maxPages: any = 10
     start: number;
     end: number;
     items: Array<any>;
     totalLength: number;
+    totalCountData: number;
 
     pager: any = {};
 
@@ -28,7 +29,8 @@ export class ProductPaginationComponent implements OnInit {
         //     // this.setPage(this.initialPage);
         // }
 
-        this.productsService.getProductList().subscribe((d) => {
+        this.productsService.getProductList(1).subscribe((data) => {
+        	this.totalLength = data['meta']['total_count'];
 	      // total count of data (which is 112 in our api)
 	     //  this.totalLength = Number(d.headers.get('spacex-api-count'));
 	    });
@@ -43,30 +45,37 @@ export class ProductPaginationComponent implements OnInit {
     }
 
     setPage(page: number) {
+    		console.log(page);
+	      this.productsService.getProductList(page).subscribe((data) =>  {
 
-	     //  this.tableService.GetLaunche((page * 10)).subscribe((data) =>  {
+	      // to define start and end value into array to avoid misplace the data into pages. 
+		      // this.end = page * 10; 
+		      // this.start = this.end - 10; 
+		      // console.log(data);
+		      console.log(this.start, this.end);
+			  const last: number = (page * 3) + (page - 1);
+			  const first: number = last - 3;
+		      console.log(first, last); 
+		      
+		      this.items = Array(this.totalLength).fill(4, first, last+1).map(function(x,y) {
+		        // because our data starts from 0 to 10 
+		      	y = y - first;
+		      	console.log(y);
+		        return {dataa: data['data']['products'][y]};
+		      }.bind(this));
+		
 
-	     //  // to define start and end value into array to avoid misplace the data into pages. 
-	     //  this.end = page * 10; 
-	     //  this.start = this.end - 10; 
-	      
-	     //  this.items = Array(this.totalLength).fill(10, this.start, this.end).map(function(x,y) {
-	     //    // because our data starts from 0 to 10 
-	     //  	y = y - this.start;
-
-	     //    return {flight_number: `${data[y].flight_number}`, launch_year: `${data[y].launch_year}`, mission_name: `${data[y].mission_name}`, launch_date_local: `${data[y].launch_date_local}` };
-	     //  }.bind(this));
-	
-
-	     //  this.pager = paginate(this.items.length, page, this.pageSize, this.maxPages)
-      //     console.log(this.items.length, page, this.pageSize, this.maxPages);
-      //     console.log('see here ..........');
-      //     console.log(this.pager.startIndex, this.pager.endIndex);
-      //     console.log(this.pager);
-	     //  let pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
-	   
-	     //  this.changePage.emit(pageOfItems);
-	     // });
+		      this.pager = paginate(this.items.length, page, this.pageSize, this.maxPages)
+	          
+	          console.log('see here ..........');
+	          // console.log(this.items.length, page, this.pageSize, this.maxPages);
+	          // console.log(this.pager.startIndex, this.pager.endIndex);
+	          // console.log(this.pager);
+	          // console.log(this.items);
+		      let pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
+		   
+		      this.changePage.emit(pageOfItems);
+	     });
 
 
     }

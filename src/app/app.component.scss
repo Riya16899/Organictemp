@@ -130,6 +130,11 @@ input#menu {
 	    	font: normal normal normal 14px/28px Libre Baskerville;
 	    	
 	    }
+		.cart-img {
+			width: 30px;
+			height: 30px;
+			float: center;
+		}
 	}
 }
 
@@ -205,9 +210,6 @@ input:checked ~ .middle-img-class {
 			width: 30px;
 			height: 30px;
 			float: center;
-			
-			/* margin-right: 25%;
-			margin-bottom: 10px; */
 		}
 
 	}
@@ -216,6 +218,7 @@ input:checked ~ .middle-img-class {
 	.nav-area-2 {
 		display: none;
 	}
+
 }
 @media screen and (max-width: 820px) {
 	.ml-auto {
@@ -230,6 +233,11 @@ input:checked ~ .middle-img-class {
 			height: 30px;
 			font-size: 10px;
 			padding: 4px;
+		}
+		.cart-img {
+			width: 30px;
+			height: 30px;
+			float: center;
 		}
 	}
 }
