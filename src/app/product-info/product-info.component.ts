@@ -60,9 +60,7 @@ export class ProductInfoComponent implements OnInit {
     if(!this.valueQuantity) {
       this.productForm.controls['quantity'].setValue(1);
     }
-  
     this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
-
     console.log(this.productForm.value);
     this.router.navigate(['/cart', this.productForm.value.quantity, this.productForm.value.pro_id]);
   }
@@ -74,18 +72,16 @@ export class ProductInfoComponent implements OnInit {
     }
     this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
     console.log(this.productForm.value);
-    this.productInfoService.postBuyProduct(this.productForm.value).subscribe((data) => {
-      console.log(data);
-      if(data['error']) {
+    // this.productInfoService.postBuyProduct(this.productForm.value).subscribe((data) => {
+    //   console.log(data);
+    //   if(data['error']) {
 
-        alert(data['error']);
-      }
-      else {
-        this.buyFromCart = data['data']['buy_from_cart'];
-      }
-      
-      
-    });
+    //     alert(data['error']);
+    //   }
+    //   else {
+    //     this.buyFromCart = data['data']['buy_from_cart'];
+    //   }
+    // });
     if(this.buyFromCart === true) {
       this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true } });
     }
@@ -101,6 +97,7 @@ export class ProductInfoComponent implements OnInit {
         this.showInput = true;
     }
     else {
+      alert('Please Login ');
       console.log(localStorage.getItem('token'));
     }
     
@@ -111,15 +108,19 @@ export class ProductInfoComponent implements OnInit {
     console.log(this.productForm.value['pro_id']);
     this.productInfoService.postReview(this.productForm.value['pro_id'], 
       this.review.nativeElement.value).subscribe((data) => {
-        console.log(data);
+        //console.log(data);
         if(data['error']) { 
             alert(data['error']);
         }
         else {
-          alert(data['meta']['success']);
+          // alert(data['meta']['success']);
+          // console.log(data['data']['product_review']);
+          this.reviews = data['data']['product_review'];
+          
         }
       });
-      this.productForm.reset();
+      
+     
   }
 
 }

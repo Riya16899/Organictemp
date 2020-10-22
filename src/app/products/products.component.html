@@ -11,6 +11,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+
       <li class="nav-item dropdown">
         <div class="form-group">
         <select class="custom-select" 
@@ -27,8 +28,8 @@
         <select class="custom-select" 
          (change)="onPriceSelected($event)">
           <option selected>Price </option>
-          <option *ngFor="let price of priceList" [value]="price.range">
-                  {{price.range}} </option>
+          <option *ngFor="let price of price_filter" [value]="price.price_filter_name">
+                  {{price.price_filter_name | titlecase}} </option>
         </select>
         </div>
       </li>
@@ -53,7 +54,7 @@
           <div *ngIf="dataDefined"> 
           <a routerLink="/product_info/{{item.dataa.id}}" >
           <img class="card_img" src="{{item.dataa.image_url}}" alt="Mask Group 62">
-          <h4>{{item.dataa.p_name}}</h4>
+          <h4>{{item.dataa.p_name | titlecase}}</h4>
           <p>{{item.dataa.description}}</p>
           <div class="price"><p>Rs. {{item.dataa.discount_price}}</p>
           <p class="real-price" style="text-decoration: line-through;">Rs. {{item.dataa.price}}</p>
@@ -74,6 +75,7 @@
 
                 <input [ngModel]="name" (ngModelChange)="valueChange($event)" 
                 style="float: center;" class="quantity" min="1" name="quantity" value="1" type="number">
+
                 <!-- <button  type="button" class="btn btn-light" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="Submit()">
                   <b>+</b></button> -->
       
@@ -98,8 +100,4 @@
 <!--               <div *ngFor="let item of pageOfItems">
           <p *ngIf="check" > {{item.dataa.discount_price}} </p>
           </div> -->
-<app-product-pagination [catName]="catName" (changePage)="onChangePage($event)" ></app-product-pagination>
-
-
-
-
+<app-product-pagination [catName]="catName" [priceName]="priceName" (changePage)="onChangePage($event)" ></app-product-pagination>

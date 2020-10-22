@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class ProductsService {
 
   apiUrl = environment.apiUrl;
+  priceBoolean: boolean;
 
   constructor(public http: HttpClient, private route: Router) { }
 
@@ -25,9 +26,22 @@ export class ProductsService {
   		`product_listing/filter/?f_cat=`+category+`&page=`+page+`&size=4&f_search&f_asc=true`);
   }
 
-  getProductListFilter(category: string, page: number) {
-    // console.log(category, page);
-    return this.http.get<Products>(this.apiUrl+`demo/?f_cat=`+category+`&page=`+page+`&size=4&f_search&f_asc=true`);
+  getProductListFilter(category: string, page: number, price: string) {
+    console.log(category, page, price);
+    if(price === undefined) {
+      this.priceBoolean = false;
+    }
+    else {
+      if (price == 'low to high') {
+        this.priceBoolean = true;
+        console.log('low to high', this.priceBoolean);
+      } 
+      else {
+        this.priceBoolean = false;
+      }
+    }
+    console.log(this.priceBoolean);
+    return this.http.get<Products>(this.apiUrl+`demo/?f_cat=`+category+`&page=`+page+`&size=4&f_search&f_asc=`+this.priceBoolean);
   }
 
     // getProductPagination(offset: number): Observable<Products> {

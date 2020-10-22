@@ -15,8 +15,7 @@ export class ProductPaginationComponent implements OnInit {
   
   
   @Input('catName') categoryName: string;
-
-  MainData: any;
+  @Input('priceName') priceName: string;
 
     initialPage:number = 1;
     pageSize: number = 4;
@@ -55,14 +54,13 @@ export class ProductPaginationComponent implements OnInit {
     }
 
     setPage(page: number) {
-    		console.log('....................................');
-            console.log(this.categoryName);
+    		
             if(this.categoryName === undefined){
-                console.log(this.categoryName);
+                
                 this.productsService.getProductList(page).subscribe((data) => {
-                    console.log(data);
+                    
                     this.totalLength = data['meta']['total_count'];
-                    this.MainData = data;
+                    
                        if(data['error']) {
                            alert(data['error']);
                        }
@@ -87,7 +85,7 @@ export class ProductPaginationComponent implements OnInit {
 
             else {
                
-                this.productsService.getProductListFilter(this.categoryName, page).subscribe((data) => {
+                this.productsService.getProductListFilter(this.categoryName, page, this.priceName).subscribe((data) => {
                        if(data['error']) {
                            alert(data['error']);
                        }
@@ -100,14 +98,14 @@ export class ProductPaginationComponent implements OnInit {
                           this.items = Array(this.totalLength).fill(4, first, last+1).map(function(x,y) {
                           
                             y = y - first;
-                            if(data['data']['products'][y] !== undefined) {
-                                console.log('ok');
-                                this.check = true;
-                            }
-                            else {
-                                this.check = false;
-                                console.log('not ok');
-                            }
+                            // if(data['data']['products'][y] !== undefined) {
+                            //     console.log('ok');
+                            //     this.check = true;
+                            // }
+                            // else {
+                            //     this.check = false;
+                            //     console.log('not ok');
+                            // }
                               
                             return {dataa: data['data']['products'][y]};
                           }.bind(this));
@@ -120,7 +118,7 @@ export class ProductPaginationComponent implements OnInit {
                 });
             }
 
-            console.log('...............................');
+            
             
 
 

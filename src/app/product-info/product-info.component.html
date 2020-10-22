@@ -16,7 +16,7 @@
 					
 					<h3>{{product.p_name | titlecase}}</h3>
 					<div class="price">
-						<h4> Rs.{{product.disscount_price}}/- </h4>
+						<h4> Rs.{{product.discount_price}}/- </h4>
 						<h5> Rs.{{product.price}} </h5>
 					</div>
 					
@@ -80,17 +80,18 @@
   		<button class="btn btn-outline-info" (click)="Rate()">Rate Product</button>
    </div>
   <div class="card-body">
-  	<div class="" *ngIf="showInput" >
+  	<div *ngIf="showInput" >
   	<input #review type="text" name="review" placeholder="Write Review Here">
   	<button class="btn btn-outline-info" (click)="ReviewSubmit()">Submit</button>
   </div>
   	<ul *ngFor="let review of reviews"> 
-      	<li class=" text-muted d-flex justify-content-between my-0" >{{review.text}}
-      		 <div><img class="star" src="./assets/Group 83.svg" alt="">
+      	<li class=" text-muted d-flex justify-content-between my-0" >{{review.text | titlecase}}
+      		 <div><!-- <img class="star" src="./assets/Group 83.svg" alt="">
 			      <img class="star" src="./assets/Group 83.svg" alt="">
 			      <img class="star" src="./assets/Group 83.svg" alt="">
 			      <img class="star" src="./assets/Group 83.svg" alt="">
-			      <img class="star" src="./assets/Group 83.svg" alt=""> 
+			      <img class="star" src="./assets/Group 83.svg" alt="">  -->
+			      <p> - {{review.first_name | titlecase}}</p>
 			  </div>
 		</li>
 		<hr style="margin: 0 20px 0 20px;">

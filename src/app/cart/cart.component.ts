@@ -12,6 +12,7 @@ export class CartComponent implements OnInit {
 
   cartData: any;
   buyFromCart: boolean;
+  Total: number;
 
   public productForm = this.formBuilder.group({
     quantity: new FormControl('', [Validators.required]),
@@ -27,13 +28,14 @@ export class CartComponent implements OnInit {
     if (JSON.stringify(this.route.snapshot.params) == '{}') {
       
   	  this.cartService.getCart().subscribe((data) => {
-        console.log(data['data']['cart_product']);
+        // console.log(data['data']['cart_product']);
         if(data['error']) {
           console.log(data['error']);
           alert(data['error']);
         }
         else {
           this.cartData = data['data']['cart_product'];
+          this.Total = data['data']['total_price'];
         }
       });
     }
@@ -50,6 +52,7 @@ export class CartComponent implements OnInit {
         }
         else {
           this.cartData = data['data']['cart_product'];
+          this.Total = data['data']['total_price'];
         }
       
       });
@@ -94,3 +97,7 @@ export class CartComponent implements OnInit {
   }
 
 }
+
+
+
+// alert box when no ony product in cart. 

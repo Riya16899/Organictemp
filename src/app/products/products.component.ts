@@ -19,7 +19,9 @@ export class ProductsComponent implements OnInit {
   totalCountData: number;
  
   catName: string = undefined;
+  priceName: string = undefined;
   name: any;
+  price_filter: any;
 
   // @ViewChild('quant', { static: false } ) quant:ElementRef;
   // @Output() changeCat = new EventEmitter<any>(true);
@@ -44,6 +46,8 @@ export class ProductsComponent implements OnInit {
   		
       this.totalCountData = data['meta']['total_count'];
   		this.category_data = data['data']['category'];
+      this.price_filter = data['data']['price_filter'];
+      console.log(this.price_filter);
   		// console.log(data['meta']['status_code']);
   		// console.log(data['error']);
   		
@@ -71,12 +75,7 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  Submit() {
-   
-    // this.valueQuantity = this.quant.nativeElement.value;
-    //this.productForm.controls['quantity'].setValue(this.valueQuantity);
-    // console.log(this.valueQuantity, this.productForm.value.quantity, this.productForm.value);
-  }  
+
 
   valueChange(value){
     this.valueQuantity = value;
@@ -90,10 +89,8 @@ export class ProductsComponent implements OnInit {
   
   onPriceSelected(event) {
   	const value = event.target.value;
-   
-
-  	// this.filterForm.controls['website'].setValue(value);
-  	console.log(this.filterForm.value);
+    console.log(value);
+    this.priceName = value;
   }
   onCategorySelected(event) {
     

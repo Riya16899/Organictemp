@@ -15,23 +15,24 @@
 					</div>
 
 					<div class="data col-sm-6 justify-content-between">
-						<h6>{{cart.product_id}}
-				 {{cart.p_name}}</h6>
+						<p> Product ID: {{cart.product_id}}
+						<h6> {{cart.p_name | titlecase}}</h6>
 
 						<p class="mb-3 text-muted text-uppercase small">Quantity: {{cart.quantity}}</p>
 						<div class="quantity">
-						<div class="quantity-input">
+						<!-- <div class="quantity-input">
 
 							  <input #qua class="quantity" min="1" name="quantity" value="{{cart.quantity}}" type="number">
 							  
-						</div>
+						</div> -->
 						</div>
 					
 						<button class="btn btn-info" (click)="Remove($event, cart.product_id)">Remove</button>
 				
 					</div>
 					<div class="col-sm-2">
-						<h6> Rs. {{cart.price}}  </h6>
+						<h6> Rs. {{cart.discount_price}}  </h6>
+						<h6 style="color: #999999; text-decoration: line-through;">Rs. {{cart.price}} (1)</h6> 
 					</div>
 				</div>
 
@@ -46,15 +47,15 @@
 						
 							<ul class="list-unstyled" *ngFor="let cart of cartData">
 							<li class="d-flex justify-content-between">
-							<p style="" class="mb-3 text-muted text-uppercase small">{{cart.p_name}} ( {{cart.quantity}} )</p>
+							<p style="" class="mb-3 text-muted text-uppercase small">{{cart.p_name | titlecase}} ( {{cart.quantity}} )</p>
 							
-							<p  style="" class="mb-3 text-muted text-uppercase small ">  {{cart.total_price}}</p></li><hr>
+							<p  style="" class="mb-3 text-muted text-uppercase small ">  {{cart.discount_price}}</p></li><hr>
 							<hr>
 						</ul>
 						
 					<hr>
 					<p style="float: left;" class="mb-3 mt-2 text-muted text-uppercase small font-weight-bold">Total amount: </p>
-					<p style="float: right;" class="mb-3 mt-2 text-muted text-uppercase small font-weight-bold">  $53,98 </p>
+					<p style="float: right;" class="mb-3 mt-2 text-muted text-uppercase small font-weight-bold"> Rs. {{Total}} </p>
 					<br><br>
 					<hr>
 					<br>

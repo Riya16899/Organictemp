@@ -40,7 +40,8 @@ export class CheckoutComponent implements OnInit {
           else {
             this.orderId = data['data']['order_id'];
             this.OrderSummery = data['data']['buy_products'];
-            this.Total = data['data']['total_pay']
+            this.Total = data['data']['total_pay'];
+            console.log(this.Total);
           }
   		    //console.log(data['data']['buy_from_cart']);
   		    
@@ -58,6 +59,8 @@ export class CheckoutComponent implements OnInit {
             else {
               this.OrderSummery = data['data']['buy_product'];
               this.orderId = data['data']['order_id'];
+              this.Total = data['data']['total_pay'];
+              console.log(this.Total);
             }
   	      	
       	});
@@ -79,6 +82,7 @@ export class CheckoutComponent implements OnInit {
   			alert(data['meta']['success']);
   		}
   	});
+    this.checkoutForm.reset();
   	// this.checkoutService.postCheckout(this.checkoutForm.value).subscribe((data) => {
   	// 	console.log(data);
   	// });

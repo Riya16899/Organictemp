@@ -19,6 +19,10 @@ export class AppComponent {
   Cart() {
     this.cartService.getCart().subscribe((data) => {
       console.log(data);
+      if(data['error']){
+        alert(data['error']);
+      }
+
     });
     this.router.navigate(['/cart']);
   }  
