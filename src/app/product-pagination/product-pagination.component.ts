@@ -13,8 +13,8 @@ export class ProductPaginationComponent implements OnInit {
 
   @Output() changePage = new EventEmitter<any>(true);
   
-  @Input('master') masterName: number;
-  @Input('master2') masterName2: string;
+  
+  @Input('catName') categoryName: string;
 
   MainData: any;
 
@@ -30,7 +30,7 @@ export class ProductPaginationComponent implements OnInit {
     pager: any = {};
 
     ngOnInit() {
-        console.log(this.masterName2);
+        // console.log(this.categoryName);
         // set page if items array isn't empty
         // if (this.items && this.items.length) {
         //     // this.setPage(this.initialPage);
@@ -56,9 +56,9 @@ export class ProductPaginationComponent implements OnInit {
 
     setPage(page: number) {
     		console.log('....................................');
-            console.log(this.masterName2);
-            if(this.masterName2 === undefined){
-                console.log(this.masterName2);
+            console.log(this.categoryName);
+            if(this.categoryName === undefined){
+                console.log(this.categoryName);
                 this.productsService.getProductList(page).subscribe((data) => {
                     console.log(data);
                     this.totalLength = data['meta']['total_count'];
@@ -87,7 +87,7 @@ export class ProductPaginationComponent implements OnInit {
 
             else {
                
-                this.productsService.getProductListFilter(this.masterName2, page).subscribe((data) => {
+                this.productsService.getProductListFilter(this.categoryName, page).subscribe((data) => {
                        if(data['error']) {
                            alert(data['error']);
                        }

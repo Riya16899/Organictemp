@@ -17,12 +17,12 @@ export class ProductsComponent implements OnInit {
   dataDefined: boolean;
   valueQuantity: number;
   totalCountData: number;
-  master: number = 1;
-  master2: string = undefined;
+ 
+  catName: string = undefined;
   name: any;
 
-  @ViewChild('quant', { static: false } ) quant:ElementRef;
-  @Output() changeCat = new EventEmitter<any>(true);
+  // @ViewChild('quant', { static: false } ) quant:ElementRef;
+  // @Output() changeCat = new EventEmitter<any>(true);
  
   public productForm = this.formBuilder.group({
     quantity: new FormControl('', [Validators.required]),
@@ -30,20 +30,9 @@ export class ProductsComponent implements OnInit {
   } );
 
   public filterForm = this.formBuilder.group({
-     website: new FormControl('', Validators.required),
+     // website: new FormControl('', Validators.required),
      category: new FormControl('', Validators.required)
   });
-
-  priceList: any = [
-    { id: 1, range: 'Low-High' },
-    { id: 2, range: 'Medium' },
-    { id: 3, range: 'High-Low' }
-  ];
-
-  categoryList: any = [
-  	{ cat: 'Hair Care'},
-  	{ cat: 'Skin Care'}
-  ]
 
   constructor(private formBuilder: FormBuilder, 
   	private productsService: ProductsService,
@@ -84,13 +73,17 @@ export class ProductsComponent implements OnInit {
 
   Submit() {
    
-    this.valueQuantity = this.quant.nativeElement.value;
+    // this.valueQuantity = this.quant.nativeElement.value;
     //this.productForm.controls['quantity'].setValue(this.valueQuantity);
     // console.log(this.valueQuantity, this.productForm.value.quantity, this.productForm.value);
   }  
 
   valueChange(value){
-   
+    this.valueQuantity = value;
+    if(value === undefined) {
+      console.log('value undefined');
+      this.valueQuantity = 1;
+    }
     console.log(value);
   }
  
@@ -99,31 +92,30 @@ export class ProductsComponent implements OnInit {
   	const value = event.target.value;
    
 
-  	this.filterForm.controls['website'].setValue(value);
+  	// this.filterForm.controls['website'].setValue(value);
   	console.log(this.filterForm.value);
   }
   onCategorySelected(event) {
-    this.master++;
-
+    
     	const value = event.target.value;
-      this.master2 = 'str2';
-      console.log(typeof value, typeof this.master2);
-      this.master2 = value;
-      this.changeCat.emit(value);
+      
+      console.log(typeof value, typeof this.catName);
+      this.catName = value;
+      // this.changeCat.emit(value);
     	this.filterForm.controls['category'].setValue(value);
     	const cat = this.filterForm.value.category;
     	console.log(cat);
-    	this.productsService.getProductFilter(cat, 1).
-    	subscribe((data) => {
-    		console.log(data);
-    		this.dataDefined = true;
-    		this.product_data = data['data']['products'];
-  	});
+   //  	this.productsService.getProductFilter(cat, 1).
+   //  	subscribe((data) => {
+   //  		console.log(data);
+   //  		this.dataDefined = true;
+   //  		this.product_data = data['data']['products'];
+  	// });
   }
 
   Cart(pro_id: any) {
 
-    this.valueQuantity = this.quant.nativeElement.value;
+    // this.valueQuantity = this.quant.nativeElement.value;
     console.log(this.valueQuantity);
     if(!this.valueQuantity) {
       this.productForm.controls['quantity'].setValue(1);
