@@ -266,33 +266,85 @@ $tablet: 768px;
 
 
 .card {
-	.card-header {
+	.card-header, .wrap {
+		display:  flex;
+		flex-wrap: wrap;
 		button {
 			float: right;
 		}
+		h4 {
+			font: normal normal normal 18px/24px Libre Baskerville;
+		}
+
 	}
 	.card-body {
-		input {
-			width: 140px;
-			font: normal normal normal 16px/30px Libre Baskerville
+		h3 {
+			font: normal normal normal 18px/30px Libre Baskerville;
 		}
-		button, .btn {
-			margin-left: 20px;
-			width: 130px;
-			height:  35px;
-			padding: 3px;
-			font: normal normal normal 16px/30px Libre Baskerville;
+		.wrap {
+			display:  flex;
+			flex-wrap: wrap;
+			input {
+				float: left;
+				width: 140px;
+				font: normal normal normal 16px/30px Libre Baskerville;
+			}
+			button {
+				float: right;
+				width: 130px;
+				height:  35px;
+				padding: 3px;
+				font: normal normal normal 16px/30px Libre Baskerville;
+			}
 		}
+
 	}
 	ul {
 		list-style-type: none;
 		padding: 0;
 		border: 0px solid #ddd;
 		li {
+			font: normal normal normal 14px/24px Libre Baskerville;
 			border-bottom: 0px solid #ddd;
 		}
-		.star {
-			padding: 2px;
-		}
  	}
+}
+
+
+@media screen and (max-width: $tablet) {
+	.card {
+		.card-header {
+			button {
+				float: right;
+			}
+			h4 {
+				font: normal normal normal 14px/24px Libre Baskerville;
+			}
+		}
+		.card-body {
+			h3 {
+				font: normal normal normal 14px/22px Libre Baskerville;
+			}
+			input {
+				width: 140px;
+				font: normal normal normal 14px/30px Libre Baskerville;
+			}
+			button, .btn {
+				margin-left: 15px;
+				width: 120px;
+				height:  35px;
+				padding: 3px;
+				font: normal normal normal 14px/30px Libre Baskerville;
+			}
+		}
+		ul {
+			list-style-type: none;
+			padding: 0;
+			border: 0px solid #ddd;
+			li {
+				font: normal normal normal 14px/24px Libre Baskerville;
+				border-bottom: 0px solid #ddd;
+			}
+	 	}
+	}
 }

@@ -32,32 +32,20 @@ export class AuthGuard implements CanActivate {
   }
   
   loggedIn(url: string): boolean {
-    // if(localStorage.getItem('token')) {
+
       if(localStorage.getItem('token') !== null && localStorage.getItem('token') !== 'undefined') {
-        console.log('token exist');
         this.loginService.IsLogIn = true;
       }
       else {
-        console.log('token not exist');
         this.loginService.IsLogIn = false;
       }
-    // }
-
-  	// else if (localStorage.getItem('token') == 'undefined'){
-   //    console.log('else if token does not exist');
-  	// 	this.loginService.IsLogIn = false;
-  	// }
-    // else {
-    //   console.log('token does not exist');
-    //   this.loginService.IsLogIn = false;
-    // }
   	
-  	if(this.loginService.IsLogIn) {
-  		return true;
-  	}
-  	this.loginService.redirect = url;
-  	this.router.navigate(['/login']);
-  	return false;
+    	if(this.loginService.IsLogIn) {
+    		return true;
+    	}
+    	this.loginService.redirect = url;
+    	this.router.navigate(['/login']);
+    	return false;
   }
 }
 

@@ -19,13 +19,6 @@
 						<h6> {{cart.p_name | titlecase}}</h6>
 
 						<p class="mb-3 text-muted text-uppercase small">Quantity: {{cart.quantity}}</p>
-						<div class="quantity">
-						<!-- <div class="quantity-input">
-
-							  <input #qua class="quantity" min="1" name="quantity" value="{{cart.quantity}}" type="number">
-							  
-						</div> -->
-						</div>
 					
 						<button class="btn btn-info" (click)="Remove($event, cart.product_id)">Remove</button>
 				

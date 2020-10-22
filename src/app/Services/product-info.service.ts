@@ -20,9 +20,7 @@ export class ProductInfoService {
   }
   
   postBuyProduct(formDat: any): Observable<Products> {
-  	// var form = new FormData();
-   //  form.append('quantity', formDat.quantity);
-   //  form.append('product_id', formDat.pro_id);
+
    console.log(formDat);
     this.token = this.appService.getToken();
   	return this.http.post<Products>(this.apiUrl+`buy_product`+`/`, formDat,
@@ -31,13 +29,13 @@ export class ProductInfoService {
   }
 
 
-  postReview(pro_id, review) {
+  postReview(pro_id, review): Observable<Products> {
     console.log(pro_id, review);
     var form = new FormData();
     form.append('review', review);
     this.token = this.appService.getToken();
 
-      return this.http.post(this.apiUrl+`review/`+pro_id+`/`, form, 
+      return this.http.post<Products>(this.apiUrl+`review/`+pro_id+`/`, form, 
         { headers: { Authorization: this.token } } );
   }
 

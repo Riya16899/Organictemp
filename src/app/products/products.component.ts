@@ -32,7 +32,6 @@ export class ProductsComponent implements OnInit {
   } );
 
   public filterForm = this.formBuilder.group({
-     // website: new FormControl('', Validators.required),
      category: new FormControl('', Validators.required)
   });
 
@@ -47,13 +46,9 @@ export class ProductsComponent implements OnInit {
       this.totalCountData = data['meta']['total_count'];
   		this.category_data = data['data']['category'];
       this.price_filter = data['data']['price_filter'];
-      console.log(this.price_filter);
-  		// console.log(data['meta']['status_code']);
-  		// console.log(data['error']);
-  		
+   
 	    if(data['error']) {
 	    	this.dataDefined = false;
-	    	console.log(this.product_data);
 	    	alert(data['error']);
 	    }
 	    else {
@@ -80,47 +75,33 @@ export class ProductsComponent implements OnInit {
   valueChange(value){
     this.valueQuantity = value;
     if(value === undefined) {
-      console.log('value undefined');
       this.valueQuantity = 1;
     }
-    console.log(value);
   }
  
   
   onPriceSelected(event) {
   	const value = event.target.value;
-    console.log(value);
+   
     this.priceName = value;
   }
+
   onCategorySelected(event) {
-    
     	const value = event.target.value;
-      
-      console.log(typeof value, typeof this.catName);
       this.catName = value;
-      // this.changeCat.emit(value);
     	this.filterForm.controls['category'].setValue(value);
     	const cat = this.filterForm.value.category;
-    	console.log(cat);
-   //  	this.productsService.getProductFilter(cat, 1).
-   //  	subscribe((data) => {
-   //  		console.log(data);
-   //  		this.dataDefined = true;
-   //  		this.product_data = data['data']['products'];
-  	// });
+    
   }
 
   Cart(pro_id: any) {
 
-    // this.valueQuantity = this.quant.nativeElement.value;
-    console.log(this.valueQuantity);
     if(!this.valueQuantity) {
       this.productForm.controls['quantity'].setValue(1);
     }
     this.productForm.controls['quantity'].setValue(this.valueQuantity);
-  
     this.productForm.controls['pro_id'].setValue(pro_id);
-    console.log(this.productForm.value);
+   
     this.router.navigate(['/cart', this.productForm.value.quantity, this.productForm.value.pro_id]);
   }
 
@@ -143,5 +124,3 @@ export class ProductsComponent implements OnInit {
 // for label http://jsfiddle.net/crrc7s7f/3/
 // https://stackoverflow.com/questions/46647105/angular-4-checkbox-trigger-change-event-on-model-change
 // https://www.itsolutionstuff.com/post/angular-checkbox-example-angular-9-8-checkbox-tutorialexample.html
-// riya.patadiya@gmail.com
-// Riya@1234

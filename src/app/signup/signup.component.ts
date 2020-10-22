@@ -44,10 +44,8 @@ export class SignupComponent implements OnInit {
   }
 
   Submit() {
-    console.log('login here');
-    console.log(this.signupForm.value);
+    
     this.signupService.postSignup(this.signupForm.value).subscribe((data) => {
-      console.log(data);
       if(data['status_code'] == 200) {
         alert(data['success']);
       }

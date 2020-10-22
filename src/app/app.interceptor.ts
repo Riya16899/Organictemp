@@ -15,10 +15,9 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(`Bearer ${localStorage.getItem('token')}`);
+   
     let urlToken = this.route.snapshot.paramMap.get('str');
-    console.log(urlToken);
-
+   
     // request = request.clone({
     //    setHeaders: {
     //      Token: this.route.snapshot.paramMap.get('str')
@@ -28,7 +27,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
       headers: request.headers.set( 'Token', 'TYUIop' )
     });
-    // console.log(request);
+   
     return next.handle(request);
   }
 

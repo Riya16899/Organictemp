@@ -186,8 +186,7 @@ input:checked ~ .middle-img-class {
 		}
 	}
 }
-    /* Fixes dropdown menus placed on the right side */
-
+   
 @media screen and (min-width: $mobile) {
 	.nav-area-2 {
 	 	display: flex;

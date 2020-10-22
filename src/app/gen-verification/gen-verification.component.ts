@@ -26,9 +26,9 @@ export class GenVerificationComponent implements OnInit {
   }
 
   Verification() {
-  	console.log(this.verificationForm.value);
+  	
   	this.genService.postVerify(this.verificationForm.value).subscribe((data) => {
-  		console.log(data);
+  	
   		if (data['meta']['status_code'] == 200) {
   			alert(data['meta']['success']);
   		}

@@ -12,24 +12,15 @@ import { AppService } from '../app.service';
 export class CartService {
 
   apiUrl = environment.apiUrl;
-  // mainToken: any;
-  tt: any;
+  Token: any;
 
   constructor(public http: HttpClient, private appService: AppService) { }
 
-
-
   getCart(): Observable<Cart>{
     
-    if(localStorage.getItem('token')) {
-      let bearer: string = "Bearer ";
-      let token: string = localStorage.getItem('token');
-      var noQuotes = token.split('"').join('');
-      var mainToken: string = bearer.concat(noQuotes);
-    }
-    this.tt = this.appService.getToken();
+    this.Token = this.appService.getToken();
     return this.http.get<Cart>(this.apiUrl+`cart/`, 
-      { headers: { Authorization: this.tt } } );
+      { headers: { Authorization: this.Token } } );
   }
 
   postCart(formDat: any): Observable<Cart> {
@@ -37,39 +28,26 @@ export class CartService {
     form.append('quantity', formDat.quantity);
     form.append('product_id', formDat.pro_id);
     console.log(formDat, form);
-    if(localStorage.getItem('token')) {
-      let bearer: string = "Bearer ";
-      let token: string = localStorage.getItem('token');
-      var noQuotes = token.split('"').join('');
-      var mainToken = bearer.concat(noQuotes);
-      
-    }
-    this.tt = this.appService.getToken();
-    
+
+    this.Token = this.appService.getToken();
     
     return this.http.post<Cart>(this.apiUrl+`cart/`, form,
-      { headers: { Authorization: this.tt } } );
+      { headers: { Authorization: this.Token } } );
   }
 
 
-  deleteCart(id: number) {
+  deleteCart(id: number): Observable<Cart> {
 
-    if(localStorage.getItem('token')) {
-      let bearer: string = "Bearer ";
-      let token: string = localStorage.getItem('token');
-      var noQuotes = token.split('"').join('');
-      var mainToken: string = bearer.concat(noQuotes);
-      
-    }
+    this.Token = this.appService.getToken();
+
     return this.http.delete<Cart>(this.apiUrl+`cart/`+id+`/`,
-    { headers: { Authorization: mainToken } } );
+    { headers: { Authorization: this.Token } } );
   }
 
-
-  buyFromCart() {
-    this.tt = this.appService.getToken();
+  buyFromCart(): Observable<Cart> {
+    this.Token = this.appService.getToken();
     return this.http.post<Cart>(this.apiUrl+ `buy_cart/`, {},
-      { headers: { Authorization: this.tt } }
+      { headers: { Authorization: this.Token } }
       )
   }
 

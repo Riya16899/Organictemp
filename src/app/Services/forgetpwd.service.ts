@@ -24,7 +24,4 @@ export class ForgetpwdService {
     	form );
   }
 }
-//x-www-form--urlencoded
-// return this.http.post<Forgetpwd>(this.apiUrl+`forgot_password/`, 
-     // form, { headers: { 'Content-type': 'application/form-data; charset=utf-8'} });
-// in case any issue in content-type : form-data
+

@@ -18,7 +18,6 @@ export class LoginService {
   };
 
   constructor(public http: HttpClient, private route: Router) { 
-    // localStorage.setItem ('token', 'hdbwckfbdsj');
   }
 
   getLogin(): Observable<Login> {
@@ -47,4 +46,4 @@ export class LoginService {
 // riya.patadiya@gmail.com
 // Riya@1234
 
-/// { headers: { 'Content-type': 'application/form-data; charset=utf-8', Authorization: opcionDos}, 
+/// { headers: { 'Content-type': 'application/form-data; charset=utf-8', Authorization: token }, 

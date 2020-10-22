@@ -43,10 +43,7 @@ export class ResetPWDComponent implements OnInit {
 
   Reset() {
     let urlToken = this.route.snapshot.paramMap.get('str');
-    console.log(urlToken);
-  	console.log(this.resetForm.value);
   	this.resetpwdService.postReset(this.resetForm.value, urlToken).subscribe((data) => {
-  		console.log(data);
       if(data['status_code'] == 200) {
         alert(data['success']);
       }

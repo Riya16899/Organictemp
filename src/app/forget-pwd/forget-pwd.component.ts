@@ -28,10 +28,8 @@ export class ForgetPWDComponent implements OnInit {
   }
 
   Forgot() {
-  	console.log(this.forgetForm.value);
+  	
   	this.forgetpwdService.postForget(this.forgetForm.value).subscribe((data) => {
-  		console.log(data);
-      console.log(data['meta']['status_code']);
       if(data['meta']['status_code'] == 401) {
         this.router.navigate(['/login',{value: true}])
         alert(data['meta']['error']);

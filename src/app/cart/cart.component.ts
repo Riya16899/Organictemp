@@ -24,13 +24,10 @@ export class CartComponent implements OnInit {
    private cartService: CartService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    console.log(this.route.snapshot.params);
     if (JSON.stringify(this.route.snapshot.params) == '{}') {
       
   	  this.cartService.getCart().subscribe((data) => {
-        // console.log(data['data']['cart_product']);
         if(data['error']) {
-          console.log(data['error']);
           alert(data['error']);
         }
         else {
@@ -40,14 +37,11 @@ export class CartComponent implements OnInit {
       });
     }
     else {
-      console.log(this.route.snapshot.queryParams);
       this.productForm.controls['quantity'].setValue(this.route.snapshot.params['quantity']);
       this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['pro_id']);
       this.cartService.postCart(this.productForm.value).subscribe((data) => {
-        console.log(data);
       
         if(data['error']) {
-          console.log(data['error']);
           alert(data['error']);
         }
         else {
@@ -63,7 +57,6 @@ export class CartComponent implements OnInit {
 
   Checkout() {
     this.cartService.buyFromCart().subscribe((data) => {
-       console.log(data);
         if(data['error']) {
           alert(data['error']);
         }
@@ -83,10 +76,8 @@ export class CartComponent implements OnInit {
   }
 
   Remove(event, item) {
-  	console.log(event, item);
+  	
   	this.cartService.deleteCart(item).subscribe((data) => {
-  		console.log(data);
-
   		if(data['error']) {
   			alert(data['error']);
   		}
@@ -98,6 +89,3 @@ export class CartComponent implements OnInit {
 
 }
 
-
-
-// alert box when no ony product in cart. 

@@ -13,7 +13,7 @@
 
             <li *ngFor="let order of OrderSummery" class="list-group-item d-flex justify-content-between lh-condensed">
               <div>
-                <p class="my-0">{{order.p_name}} ({{order.quantity}})</p>
+                <p class="my-0">{{order.p_name | titlecase}} ({{order.quantity}})</p>
                 
               </div>
               <p class="text-muted">Rs. {{order.discount_price}}</p>

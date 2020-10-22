@@ -22,6 +22,7 @@ export class CheckoutService {
     form.append('shipping_addr', formDat.shipping_addr);
     console.log(formDat, form);
     this.token = this.appService.getToken();
+    
     return this.http.post<Checkout>(this.apiUrl+`checkout/`, form,
       { headers: { Authorization: this.token } } );
   }
