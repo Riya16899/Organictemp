@@ -15,7 +15,7 @@ export class ProductsService {
   constructor(public http: HttpClient, private route: Router) { }
 
   getProductList(page: number): Observable<Products> {
-    console.log(page);
+   
     return this.http.get<Products>(this.apiUrl+`product_listing/?page=`+page+`&size=4`);
   }
 
@@ -23,6 +23,11 @@ export class ProductsService {
   	console.log(category);
   	return this.http.get<Products>(this.apiUrl+
   		`product_listing/filter/?f_cat=`+category+`&page=`+page+`&size=4&f_search&f_asc=true`);
+  }
+
+  getProductListFilter(category: string, page: number) {
+    // console.log(category, page);
+    return this.http.get<Products>(this.apiUrl+`demo/?f_cat=`+category+`&page=`+page+`&size=4&f_search&f_asc=true`);
   }
 
     // getProductPagination(offset: number): Observable<Products> {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 const paginate = require('jw-paginate');
 import { ProductsService } from '../Services/products.service';
 
@@ -12,6 +12,12 @@ export class ProductPaginationComponent implements OnInit {
   constructor(private productsService: ProductsService) { }
 
   @Output() changePage = new EventEmitter<any>(true);
+  
+  @Input('master') masterName: number;
+  @Input('master2') masterName2: string;
+
+  MainData: any;
+
     initialPage:number = 1;
     pageSize: number = 4;
     maxPages: any = 10
@@ -20,10 +26,11 @@ export class ProductPaginationComponent implements OnInit {
     items: Array<any>;
     totalLength: number;
     totalCountData: number;
-
+    check: boolean = false;
     pager: any = {};
 
     ngOnInit() {
+        console.log(this.masterName2);
         // set page if items array isn't empty
         // if (this.items && this.items.length) {
         //     // this.setPage(this.initialPage);
@@ -35,7 +42,10 @@ export class ProductPaginationComponent implements OnInit {
 	     //  this.totalLength = Number(d.headers.get('spacex-api-count'));
 	    });
         this.setPage(this.initialPage);
+
     }
+
+
 
     ngOnChanges(changes: SimpleChanges) {
         // reset page if items array has changed
@@ -45,38 +55,99 @@ export class ProductPaginationComponent implements OnInit {
     }
 
     setPage(page: number) {
-    		console.log(page);
-	      this.productsService.getProductList(page).subscribe((data) =>  {
+    		console.log('....................................');
+            console.log(this.masterName2);
+            if(this.masterName2 === undefined){
+                console.log(this.masterName2);
+                this.productsService.getProductList(page).subscribe((data) => {
+                    console.log(data);
+                    this.totalLength = data['meta']['total_count'];
+                    this.MainData = data;
+                       if(data['error']) {
+                           alert(data['error']);
+                       }
+                       else {
+                          const last: number = (page * 3) + (page - 1);
+                          const first: number = last - 3;
+                          
+                          this.items = Array(this.totalLength).fill(4, first, last+1).map(function(x,y) {
+                          
+                            y = y - first;
+                              
+                            return {dataa: data['data']['products'][y]};
+                          }.bind(this));
+                    
+                          this.pager = paginate(this.items.length, page, this.pageSize, this.maxPages)
+                          let pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
+                          this.changePage.emit(pageOfItems);
+                       }
+                    
+                });
+            }
 
-	      // to define start and end value into array to avoid misplace the data into pages. 
-		      // this.end = page * 10; 
-		      // this.start = this.end - 10; 
-		      // console.log(data);
-		      console.log(this.start, this.end);
-			  const last: number = (page * 3) + (page - 1);
-			  const first: number = last - 3;
-		      console.log(first, last); 
-		      
-		      this.items = Array(this.totalLength).fill(4, first, last+1).map(function(x,y) {
-		        // because our data starts from 0 to 10 
-		      	y = y - first;
-		      	console.log(y);
-		        return {dataa: data['data']['products'][y]};
-		      }.bind(this));
-		
+            else {
+               
+                this.productsService.getProductListFilter(this.masterName2, page).subscribe((data) => {
+                       if(data['error']) {
+                           alert(data['error']);
+                       }
+                       else {
+                          console.log(data['meta']['total_count']);
+                          this.totalLength = data['meta']['total_count'];
+                          const last: number = (page * 3) + (page - 1);
+                          const first: number = last - 3;
+                          
+                          this.items = Array(this.totalLength).fill(4, first, last+1).map(function(x,y) {
+                          
+                            y = y - first;
+                            if(data['data']['products'][y] !== undefined) {
+                                console.log('ok');
+                                this.check = true;
+                            }
+                            else {
+                                this.check = false;
+                                console.log('not ok');
+                            }
+                              
+                            return {dataa: data['data']['products'][y]};
+                          }.bind(this));
+                          
+                          this.pager = paginate(this.items.length, page, this.pageSize, this.maxPages)
+                          let pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
+                          this.changePage.emit(pageOfItems);
+                            
+                       }
+                });
+            }
 
-		      this.pager = paginate(this.items.length, page, this.pageSize, this.maxPages)
-	          
-	          console.log('see here ..........');
-	          // console.log(this.items.length, page, this.pageSize, this.maxPages);
-	          // console.log(this.pager.startIndex, this.pager.endIndex);
-	          // console.log(this.pager);
-	          // console.log(this.items);
-		      let pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
-		   
-		      this.changePage.emit(pageOfItems);
-	     });
+            console.log('...............................');
+            
 
+
+      //       this.productsService.getProductList(page).subscribe((data) => {
+               
+      //          if(data['error']) {
+      //              alert(data['error']);
+      //          }
+      //          else {
+      //             const last: number = (page * 3) + (page - 1);
+      //             const first: number = last - 3;
+                  
+      //             this.items = Array(this.totalLength).fill(4, first, last+1).map(function(x,y) {
+                  
+      //               y = y - first;
+                      
+      //               return {dataa: data['data']['products'][y]};
+      //             }.bind(this));
+            
+      //             this.pager = paginate(this.items.length, page, this.pageSize, this.maxPages)
+      //             let pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
+      //             this.changePage.emit(pageOfItems);
+      //          }
+
+	     // });
+
+         
 
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormArray, FormControl, Validators, FormBuilder} from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ProductsService } from '../Services/products.service';
@@ -17,10 +17,13 @@ export class ProductsComponent implements OnInit {
   dataDefined: boolean;
   valueQuantity: number;
   totalCountData: number;
+  master: number = 1;
+  master2: string = undefined;
+  name: any;
 
-  @ViewChild('quantity', { static: false } ) quantity:ElementRef;
+  @ViewChild('quant', { static: false } ) quant:ElementRef;
   @Output() changeCat = new EventEmitter<any>(true);
-
+ 
   public productForm = this.formBuilder.group({
     quantity: new FormControl('', [Validators.required]),
     pro_id: new FormControl('', [])
@@ -49,7 +52,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
 
   	this.productsService.getProductList(1).subscribe((data) => {
-  		console.log(data);
+  		
       this.totalCountData = data['meta']['total_count'];
   		this.category_data = data['data']['category'];
   		// console.log(data['meta']['status_code']);
@@ -80,18 +83,32 @@ export class ProductsComponent implements OnInit {
   }
 
   Submit() {
-    this.valueQuantity = this.quantity.nativeElement.value;
-    console.log(this.valueQuantity);
+   
+    this.valueQuantity = this.quant.nativeElement.value;
+    //this.productForm.controls['quantity'].setValue(this.valueQuantity);
+    // console.log(this.valueQuantity, this.productForm.value.quantity, this.productForm.value);
   }  
+
+  valueChange(value){
+   
+    console.log(value);
+  }
+ 
   
   onPriceSelected(event) {
   	const value = event.target.value;
-  	console.log(value);
+   
+
   	this.filterForm.controls['website'].setValue(value);
   	console.log(this.filterForm.value);
   }
   onCategorySelected(event) {
+    this.master++;
+
     	const value = event.target.value;
+      this.master2 = 'str2';
+      console.log(typeof value, typeof this.master2);
+      this.master2 = value;
       this.changeCat.emit(value);
     	this.filterForm.controls['category'].setValue(value);
     	const cat = this.filterForm.value.category;
@@ -106,7 +123,7 @@ export class ProductsComponent implements OnInit {
 
   Cart(pro_id: any) {
 
-    this.valueQuantity = this.quantity.nativeElement.value;
+    this.valueQuantity = this.quant.nativeElement.value;
     console.log(this.valueQuantity);
     if(!this.valueQuantity) {
       this.productForm.controls['quantity'].setValue(1);
@@ -114,7 +131,6 @@ export class ProductsComponent implements OnInit {
     this.productForm.controls['quantity'].setValue(this.valueQuantity);
   
     this.productForm.controls['pro_id'].setValue(pro_id);
-
     console.log(this.productForm.value);
     this.router.navigate(['/cart', this.productForm.value.quantity, this.productForm.value.pro_id]);
   }
@@ -126,10 +142,12 @@ export class ProductsComponent implements OnInit {
    
   onChangePage(OfItems: any) {
     this.pageOfItems = OfItems;
-    console.log(this.pageOfItems);
+    
     return this.pageOfItems;
     
   }
+
+
   
 }
 

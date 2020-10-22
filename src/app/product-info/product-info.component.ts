@@ -68,6 +68,7 @@ export class ProductInfoComponent implements OnInit {
   }
   
   Buy() {
+    console.log(this.valueQuantity);
     if(!this.valueQuantity) {
       this.productForm.controls['quantity'].setValue(1);
     }
@@ -75,8 +76,15 @@ export class ProductInfoComponent implements OnInit {
     console.log(this.productForm.value);
     this.productInfoService.postBuyProduct(this.productForm.value).subscribe((data) => {
       console.log(data);
-      this.buyFromCart = data['data']['buy_from_cart'];
-      console.log(this.buyFromCart);
+      if(data['error']) {
+
+        alert(data['error']);
+      }
+      else {
+        this.buyFromCart = data['data']['buy_from_cart'];
+      }
+      
+      
     });
     if(this.buyFromCart === true) {
       this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true } });

@@ -1,4 +1,4 @@
-
+<div class="d-flex justify-content-center">
 <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
     <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item first-item">
         <a (click)="setPage(1)" class="page-link">First</a>
@@ -16,4 +16,5 @@
         <a (click)="setPage(pager.totalPages)" class="page-link">Last</a>
     </li>
 </ul>
+</div>
 

@@ -14,6 +14,7 @@ export class CheckoutComponent implements OnInit {
   OrderSummery: any;
   orderId: number;
   checkBoolean: string;
+  Total: any;
 
   public checkoutForm = this.formBuilder.group({
     shipping_addr: new FormControl('', [Validators.required]),
@@ -29,10 +30,7 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
   	console.log(this.route.snapshot.queryParams);
   	this.checkBoolean = this.route.snapshot.queryParams['buy_from_cart'];
-  	var form = new FormData();
-    form.append('quantity', this.route.snapshot.queryParams['quantity']);
-    form.append('product_id', this.route.snapshot.queryParams['id']);
-    console.log(form);
+  	
   	if(this.checkBoolean == 'true') {
   		this.cartService.buyFromCart().subscribe((data) => {
   		    console.log(data);
@@ -42,12 +40,16 @@ export class CheckoutComponent implements OnInit {
           else {
             this.orderId = data['data']['order_id'];
             this.OrderSummery = data['data']['buy_products'];
+            this.Total = data['data']['total_pay']
           }
   		    //console.log(data['data']['buy_from_cart']);
   		    
   	    });
   	}
   	else {
+      var form = new FormData();
+      form.append('quantity', this.route.snapshot.queryParams['quantity']);
+      form.append('product_id', this.route.snapshot.queryParams['id']);
   		this.productInfoService.postBuyProduct(form).subscribe((data) => {
   	      	console.log(data);
             if(data['error']) {

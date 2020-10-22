@@ -60,16 +60,31 @@
           </div> 
         </a>
           <div class="card-footer">
-            <form>
+            <form >  <!-- [formGroup]="productForm"> -->
                       <div class="quantity-input">
-                <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="Submit()">
+                <!-- <button style="float: left;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="onQuantity($event)">
                   <b>-</b></button>
-                <input #quantity style="float: center;" class="quantity" min="1" name="quantity" value="1" type="number">
-                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="Submit()">
-                  <b> + </b></button>
+                <input #quant style="float: center;" class="quantity" min="1" name="quantity" value="quant" type="number" formControlName="quantity">
+                <button style="float: right;" type="button" class="btn btn-light btn-class" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="onQuantity($event)">
+                  <b> + </b></button> -->
+
+                  <div class="quantity-input">
+                <button type="button" class="btn btn-light" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="Submit()">
+                  <b>-</b></button>
+
+                <input #quant (ngModelChange)="valueChange($event)" 
+
+                class="quantity" min="1" name="quantity" value="1" type="number">
+                <button  type="button" class="btn btn-light" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="Submit()">
+                  <b>+</b></button>
+            </div>
+
+
             </div>
          <a (click)="Cart(item.dataa.id)"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a>
-       </form></div>
+       </form>
+
+     </div>
         </div>
       </div>
 
@@ -81,6 +96,7 @@
   </div> 
 
 
-             <!--  <div *ngFor="let item of pageOfItems">
-            {{item.dataa.discount_price}}</div> -->
-<app-product-pagination (changePage)="onChangePage($event)" ></app-product-pagination>
+<!--               <div *ngFor="let item of pageOfItems">
+          <p *ngIf="check" > {{item.dataa.discount_price}} </p>
+          </div> -->
+<app-product-pagination [master]="master" [master2]="master2" (changePage)="onChangePage($event)" ></app-product-pagination>
