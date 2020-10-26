@@ -25,7 +25,6 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     if (JSON.stringify(this.route.snapshot.params) == '{}') {
-      
   	  this.cartService.getCart().subscribe((data) => {
         if(data['error']) {
           alert(data['error']);
@@ -40,7 +39,6 @@ export class CartComponent implements OnInit {
       this.productForm.controls['quantity'].setValue(this.route.snapshot.params['quantity']);
       this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['pro_id']);
       this.cartService.postCart(this.productForm.value).subscribe((data) => {
-      
         if(data['error']) {
           alert(data['error']);
         }
@@ -48,11 +46,8 @@ export class CartComponent implements OnInit {
           this.cartData = data['data']['cart_product'];
           this.Total = data['data']['total_price'];
         }
-      
       });
     }
-
-
   }
 
   Checkout() {
@@ -62,8 +57,7 @@ export class CartComponent implements OnInit {
         }
         else {
           this.buyFromCart = data['data']['buy_from_cart'];
-        }
-        
+        } 
     });
     
     if(this.buyFromCart = true) {
@@ -76,7 +70,6 @@ export class CartComponent implements OnInit {
   }
 
   Remove(event, item) {
-  	
   	this.cartService.deleteCart(item).subscribe((data) => {
   		if(data['error']) {
   			alert(data['error']);

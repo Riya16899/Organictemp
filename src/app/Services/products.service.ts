@@ -16,14 +16,11 @@ export class ProductsService {
   constructor(public http: HttpClient, private route: Router) { }
 
   getProductList(page: number): Observable<Products> {
-     console.log(page);
-    return this.http.get<Products>(this.apiUrl+`product_listing/?page=`+page+`&size=4`);
+    return this.http.get<Products>(`${this.apiUrl}product_listing/?page=${page}&size=4`);
   }
 
   getProductFilter(category: string, page: number) {
-  	console.log(category);
-  	return this.http.get<Products>(this.apiUrl+
-  		`product_listing/filter/?f_cat=`+category+`&page=`+page+`&size=4&f_search&f_asc=true`);
+  	return this.http.get<Products>(`${this.apiUrl}product_listing/filter/?f_cat=${category}&page=${page}&size=4&f_search&f_asc=true`);
   }
 
   getProductListFilter(category: string, page: number, price: string, search: string) {
@@ -44,10 +41,8 @@ export class ProductsService {
         this.priceBoolean = false;
       }
     }
-    console.log(category, page, price, search);
-    console.log(this.apiUrl+`demo/?f_cat=`+category+`&page=`+page+`&size=4&f_asc=`+this.priceBoolean+`&f_search=`+search);
-
-    return this.http.get<Products>(this.apiUrl+`demo/?f_cat=`+category+`&page=`+page+`&size=4&f_asc=`+this.priceBoolean+`&f_search=`+search);
+    return this.http.get<Products>(`${this.apiUrl}demo/?f_cat=${category}&page=${page}&size=4&f_asc=${this.priceBoolean}&f_search=${search}`);
   }
 
 }
+

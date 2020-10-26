@@ -30,10 +30,8 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
   	
   	this.checkBoolean = this.route.snapshot.queryParams['buy_from_cart'];
-  	
   	if(this.checkBoolean == 'true') {
   		this.cartService.buyFromCart().subscribe((data) => {
-  		    
           if(data['error']) {
             alert(data['error']);
           }
@@ -57,11 +55,9 @@ export class CheckoutComponent implements OnInit {
               this.OrderSummery = data['data']['buy_product'];
               this.orderId = data['data']['order_id'];
               this.Total = data['data']['total_pay'];
-            }
-  	      	
+            }	
       	});
   	}
-
   }
 
 

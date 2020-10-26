@@ -19,7 +19,7 @@ export class ResetpwdService {
 
 
   getReset(): Observable<Resetpwd> {
-    return this.http.get<Resetpwd>(this.apiUrl+`reset_password/`);
+    return this.http.get<Resetpwd>(`${this.apiUrl}reset_password/`);
   }
 
   postReset(formData: any, urlToken: string): Observable<Resetpwd> {
@@ -27,8 +27,8 @@ export class ResetpwdService {
     var form = new FormData();
     form.append('pswd1', formData.pwd);
     form.append('pswd2', formData.cnfpwd);
-    console.log(this.apiUrl+`reset_password/`+urlToken);
-    return this.http.post<Resetpwd>(this.apiUrl+`reset_password/`+urlToken,
+    console.log(`${this.apiUrl}reset_password/${urlToken}`);
+    return this.http.post<Resetpwd>(`${this.apiUrl}reset_password/${urlToken}`,
       form
       // { headers: { Token: this.appService.getToken() } }
       );

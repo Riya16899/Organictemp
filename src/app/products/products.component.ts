@@ -11,7 +11,6 @@ import { Products } from '../Models/products';
 })
 export class ProductsComponent implements OnInit {
 
-  selectedValue = 0;
   category_data: any; 
   product_data: any;
   dataDefined: boolean;
@@ -22,20 +21,16 @@ export class ProductsComponent implements OnInit {
   priceName: string = undefined;
   name: any;
   price_filter: any;
-
-  // @ViewChild('quant', { static: false } ) quant:ElementRef;
-  // @Output() changeCat = new EventEmitter<any>(true);
+  index: number;
+  pageOfItems: Array<Products>;
  
   public productForm = this.formBuilder.group({
     quantity: new FormControl('', [Validators.required]),
     pro_id: new FormControl('', [])
   } );
+
   public searchForm = this.formBuilder.group({
     search: new FormControl('')
-  });
-
-  public filterForm = this.formBuilder.group({
-     category: new FormControl('', Validators.required)
   });
 
   constructor(private formBuilder: FormBuilder, 
@@ -43,13 +38,10 @@ export class ProductsComponent implements OnInit {
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-
   	this.productsService.getProductList(1).subscribe((data) => {
-  		
       this.totalCountData = data['meta']['total_count'];
   		this.category_data = data['data']['category'];
       this.price_filter = data['data']['price_filter'];
-   
 	    if(data['error']) {
 	    	this.dataDefined = false;
 	    	alert(data['error']);
@@ -58,24 +50,10 @@ export class ProductsComponent implements OnInit {
 	    	this.dataDefined = true;
   			this.product_data = data['data']['products'];
 	    }
-
   	});
   }
 
-  onCheckboxChange(e) {
-    const website: FormArray = this.filterForm.get('website') as FormArray;
-  
-    if (e.target.checked) {
-      website.push(new FormControl(e.target.value));
-    } else {
-       const index = website.controls.findIndex(x => x.value === e.target.value);
-       website.removeAt(index);
-    }
-  }
-
-
-
-  valueChange(value){
+  quantityChange(value){
     this.valueQuantity = value;
     console.log(value);
     if(value === undefined) {
@@ -83,47 +61,33 @@ export class ProductsComponent implements OnInit {
     }
   }
  
-  
   onPriceSelected(event) {
   	const value = event.target.value;
-   
     this.priceName = value;
   }
 
   onCategorySelected(event) {
     	const value = event.target.value;
       this.catName = value;
-    	this.filterForm.controls['category'].setValue(value);
-    	const cat = this.filterForm.value.category;
-    
+    	
   }
 
   Cart(pro_id: any) {
-
     if(!this.valueQuantity) {
       this.productForm.controls['quantity'].setValue(1);
     }
     this.productForm.controls['quantity'].setValue(this.valueQuantity);
     this.productForm.controls['pro_id'].setValue(pro_id);
-   
     this.router.navigate(['/cart', this.productForm.value.quantity, this.productForm.value.pro_id]);
   }
 
   Search() {
-    console.log(this.searchForm.value);
     this.searchName = this.searchForm.value.search;
   }
 
-  index: number;
-  pageOfItems: Array<Products>;
-
-
-   
   onChangePage(OfItems: any) {
     this.pageOfItems = OfItems;
-    
-    return this.pageOfItems;
-    
+    return this.pageOfItems; 
   }
 
 

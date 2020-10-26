@@ -34,7 +34,7 @@
 						<div class="quantity-input">
 							  <button type="button" class="btn btn-light" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="Submit()">
 							  	<b>-</b></button>
-							  <input #qua class="quantity" min="1" name="quantity" value="1" type="number">
+							  <input #quantity class="quantity" min="1" name="quantity" value="1" type="number">
 							  <button  type="button" class="btn btn-light" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="Submit()">
 							  	<b>+</b></button>
 						</div>
@@ -78,7 +78,6 @@
 				<div class="card">
 				  <div class="card-header justify-content-between">
 				  	<h4>Customer Reviews </h4>
-				  	<!-- <input #review type="text" name="review" placeholder="Write Review Here"> -->
 				  		<button class="btn btn-outline-info" (click)="Rate()">Rate Product</button>
 				   </div>
 				  <div class="card-body">
@@ -88,9 +87,7 @@
 				  </div>
 				  	<ul *ngFor="let review of reviews"> 
 				      	<li class=" text-muted d-flex justify-content-between my-0" >{{review.text | titlecase}}
-				      		 <div><!-- <img class="star" src="./assets/Group 83.svg" alt="">
-							      <img class="star" src="./assets/Group 83.svg" alt=""> -->
-							
+				      		 <div>
 							      <p> - {{review.first_name | titlecase}}</p>
 							  </div>
 						</li>

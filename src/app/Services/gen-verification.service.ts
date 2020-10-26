@@ -13,14 +13,14 @@ export class GenVerificationService {
   constructor(public http: HttpClient) { }
 
   getVerify(): Observable<GenVerification> {
-    return this.http.get<GenVerification>(this.apiUrl+`generate_verification/`);
+    return this.http.get<GenVerification>(`${this.apiUrl}generate_verification/`);
   }
 
   postVerify(formData: any): Observable<GenVerification> {
     var form = new FormData();
     form.append('email', formData.email);
 
-    return this.http.post<GenVerification>(this.apiUrl+`generate_verification/`, 
+    return this.http.post<GenVerification>(`${this.apiUrl}generate_verification/`, 
     	form );
   }
 

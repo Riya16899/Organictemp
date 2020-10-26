@@ -21,7 +21,7 @@ export class LoginService {
   }
 
   getLogin(): Observable<Login> {
-    return this.http.get<Login>(this.apiUrl+`login/`, { observe: 'body' });
+    return this.http.get<Login>(`${this.apiUrl}login/`, { observe: 'body' });
   }
 
   postLogin(formDat: any): Observable<Login> {
@@ -36,7 +36,7 @@ export class LoginService {
       console.log(this.redirect);
       this.route.navigate([this.redirect]);
     }
-    return this.http.post<Login>(this.apiUrl+`login/`, 
+    return this.http.post<Login>(`${this.apiUrl}login/`, 
       form );
   }
 

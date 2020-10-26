@@ -13,14 +13,14 @@ export class ForgetpwdService {
   constructor(public http: HttpClient) { }
 
   getForget(): Observable<Forgetpwd> {
-    return this.http.get<Forgetpwd>(this.apiUrl+`forgot_password/`);
+    return this.http.get<Forgetpwd>(`${this.apiUrl}forgot_password/`);
   }
 
   postForget(formData: any): Observable<Forgetpwd> {
     var form = new FormData();
     form.append('email', formData.email);
 
-    return this.http.post<Forgetpwd>(this.apiUrl+`forgot_password/`, 
+    return this.http.post<Forgetpwd>(`${this.apiUrl}forgot_password/`, 
     	form );
   }
 }

@@ -14,7 +14,7 @@ export class SignupService {
   constructor(public http: HttpClient) { }
 
   getSignup(): Observable<Signup> {
-    return this.http.get<Signup>(this.apiUrl+`signup/`);
+    return this.http.get<Signup>(`${this.apiUrl}signup/`);
   }
 
   postSignup(formData: any): Observable<Signup> {
@@ -25,7 +25,7 @@ export class SignupService {
     form.append('lname', formData.lastname);
     form.append('pswd1', formData.password);
     form.append('pswd2', formData.confirmpassword);
-    return this.http.post<Signup>(this.apiUrl+`signup/`, form
+    return this.http.post<Signup>(`${this.apiUrl}signup/`, form
       );
   }
   

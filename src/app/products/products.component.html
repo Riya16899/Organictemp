@@ -66,13 +66,12 @@
           </div> 
         </a>
           <div class="card-footer">
-            <form >  <!-- [formGroup]="productForm"> -->
-     
+            <form >  
                   <div class="quantity-input">
                <!--  <button type="button" class="btn btn-light" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="Submit()">
                   <b>-</b></button> -->
 
-                <input [ngModel]="name" (ngModelChange)="valueChange($event)" 
+                <input [ngModel]="name" (ngModelChange)="quantityChange($event)" 
                 style="float: center;" class="quantity" min="1" name="quantity" value="1" type="number">
 
                 <!-- <button  type="button" class="btn btn-light" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="Submit()">
@@ -94,4 +93,4 @@
   </div> 
 
 
-<app-product-pagination [catName]="catName" [priceName]="priceName" [searchName]="searchName" (changePage)="onChangePage($event)" ></app-product-pagination>
+<app-product-pagination [categoryFilter]="catName" [priceFilter]="priceName" [searchBox]="searchName" (changePage)="onChangePage($event)" ></app-product-pagination>

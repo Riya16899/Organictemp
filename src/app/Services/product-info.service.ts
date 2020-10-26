@@ -16,27 +16,24 @@ export class ProductInfoService {
   constructor(public http: HttpClient,  private appService: AppService) { }
 
   getProductInfo(id: number): Observable<Products> {
-    return this.http.get<Products>(this.apiUrl+`product_info/`+id+`/`);
+    return this.http.get<Products>(`${this.apiUrl}product_info/${id}/`);
   }
   
   postBuyProduct(formDat: any): Observable<Products> {
-
-   console.log(formDat);
     this.token = this.appService.getToken();
-  	return this.http.post<Products>(this.apiUrl+`buy_product`+`/`, formDat,
+  	return this.http.post<Products>(`${this.apiUrl}buy_product/`, formDat,
   	{ headers: { Authorization: this.token } } );
 
   }
 
-
   postReview(pro_id, review): Observable<Products> {
-    console.log(pro_id, review);
     var form = new FormData();
     form.append('review', review);
     this.token = this.appService.getToken();
 
-      return this.http.post<Products>(this.apiUrl+`review/`+pro_id+`/`, form, 
+    return this.http.post<Products>(`${this.apiUrl}review/${pro_id}/`, form, 
         { headers: { Authorization: this.token } } );
   }
 
 }
+

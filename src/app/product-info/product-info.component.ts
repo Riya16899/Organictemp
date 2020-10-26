@@ -17,9 +17,8 @@ export class ProductInfoComponent implements OnInit {
   buyFromCart: boolean;
   showInput: boolean = false;
 
-  @ViewChild('qua', { static: false } ) qua:ElementRef;
+  @ViewChild('quantity', { static: false } ) quantity:ElementRef;
   @ViewChild('review', { static: false } ) review:ElementRef;
-  @Output() getFormValue = new EventEmitter<any>(true);
  
   public productForm = this.formBuilder.group({
     quantity: new FormControl('', [Validators.required]),
@@ -31,37 +30,29 @@ export class ProductInfoComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.cartService.getCart().subscribe((data) => {
-      
-    });
-    
     const pro_id = this.route.snapshot.params['id'];
     this.productInfoService.getProductInfo(pro_id).subscribe((data) => {
-      
-      this.product_data = data['data']['product'];
-      this.reviews  = data['data']['review'];
-     
-      
       if(data['error']) { 
         alert(data['error']);
       }
+      else {
+        this.product_data = data['data']['product'];
+        this.reviews  = data['data']['review'];
+      }
     });
-
   }
   
   Submit() {
-  	this.valueQuantity = this.qua.nativeElement.value;
+  	this.valueQuantity = this.quantity.nativeElement.value;
   	this.productForm.controls['quantity'].setValue(this.valueQuantity);
     this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
   }  
 
   Cart(event: any) {
-    
     if(!this.valueQuantity) {
       this.productForm.controls['quantity'].setValue(1);
     }
     this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
-    
     this.router.navigate(['/cart', this.productForm.value.quantity, this.productForm.value.pro_id]);
   }
   
@@ -70,7 +61,6 @@ export class ProductInfoComponent implements OnInit {
       this.productForm.controls['quantity'].setValue(1);
     }
     this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
-    
     if(this.buyFromCart === true) {
       this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true } });
     }
@@ -90,7 +80,6 @@ export class ProductInfoComponent implements OnInit {
     
   }
   ReviewSubmit() {
-    
     this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
     this.productInfoService.postReview(this.productForm.value['pro_id'], 
       this.review.nativeElement.value).subscribe((data) => {
@@ -101,9 +90,7 @@ export class ProductInfoComponent implements OnInit {
           this.reviews = data['data']['product_review'];
         }
       });
-      this.review.nativeElement.value = '';
-      
-     
+      this.review.nativeElement.value = ''; 
   }
 
 }

@@ -23,7 +23,7 @@ export class CheckoutService {
     
     this.token = this.appService.getToken();
     
-    return this.http.post<Checkout>(this.apiUrl+`checkout/`, form,
+    return this.http.post<Checkout>(`${this.apiUrl}checkout/`, form,
       { headers: { Authorization: this.token } } );
   }
 }
