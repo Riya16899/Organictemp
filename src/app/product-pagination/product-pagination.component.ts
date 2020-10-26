@@ -14,6 +14,7 @@ export class ProductPaginationComponent implements OnInit {
   @Output() changePage = new EventEmitter<any>(true);
   @Input('catName') categoryName: string;
   @Input('priceName') priceName: string;
+  @Input('searchName') searchName: string;
 
     initialPage:number = 1;
     pageSize: number = 4;
@@ -24,29 +25,19 @@ export class ProductPaginationComponent implements OnInit {
 
     ngOnInit() {
 
+     //    this.productsService.getProductList(1).subscribe((data) => {
+     //    	this.totalLength = data['meta']['total_count'];
+	    // });
+
         this.productsService.getProductList(1).subscribe((data) => {
-        	this.totalLength = data['meta']['total_count'];
-	    });
-        this.setPage(this.initialPage);
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-
-    }
-
-    setPage(page: number) {
-    		
-            if(this.categoryName === undefined){
-                
-                this.productsService.getProductList(page).subscribe((data) => {
-                    
+                    console.log(data);
                     this.totalLength = data['meta']['total_count'];
                     
                        if(data['error']) {
                            alert(data['error']);
                        }
                        else {
-                          const last: number = (page * 3) + (page - 1);
+                          const last: number = (1 * 3) + (1 - 1);
                           const first: number = last - 3;
                           
                           this.items = Array(this.totalLength).fill(4, first, last+1).map(function(x,y) {
@@ -56,17 +47,82 @@ export class ProductPaginationComponent implements OnInit {
                             return {dataa: data['data']['products'][y]};
                           }.bind(this));
                     
-                          this.pager = paginate(this.items.length, page, this.pageSize, this.maxPages)
+                          this.pager = paginate(this.items.length, 1, this.pageSize, this.maxPages)
                           let pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
                           this.changePage.emit(pageOfItems);
                        }
                     
                 });
+
+
+        this.setPage(this.initialPage);
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+
+    }
+
+    setPage(page: number) {
+    		
+            // if(this.categoryName === undefined || this.priceName === undefined ){ 
+            //     console.log('first case');
+                
+            //     this.productsService.getProductListFilter(this.categoryName, page, this.priceName).subscribe((data) => {
+                    
+            //         // this.totalLength = data['meta']['total_count'];
+                    
+            //            if(data['error']) {
+            //                alert(data['error']);
+            //            }
+            //            else {
+            //               const last: number = (page * 3) + (page - 1);
+            //               const first: number = last - 3;
+                          
+            //               this.items = Array(this.totalLength).fill(4, first, last+1).map(function(x,y) {
+                          
+            //                 y = y - first;
+                              
+            //                 return {dataa: data['data']['products'][y]};
+            //               }.bind(this));
+                    
+            //               this.pager = paginate(this.items.length, page, this.pageSize, this.maxPages)
+            //               let pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
+            //               this.changePage.emit(pageOfItems);
+            //            }
+                    
+            //     });
+            // }
+            if (this.categoryName === undefined && this.priceName === undefined && this.searchName === undefined) {
+                console.log('second case');
+                 this.productsService.getProductList(1).subscribe((data) => {
+                    console.log(data);
+                    this.totalLength = data['meta']['total_count'];
+                       if(data['error']) {
+                           alert(data['error']);
+                       }
+                       else {
+                          const last: number = (1 * 3) + (1 - 1);
+                          const first: number = last - 3;
+                          
+                          this.items = Array(this.totalLength).fill(4, first, last+1).map(function(x,y) {
+                          
+                            y = y - first;
+                              
+                            return {dataa: data['data']['products'][y]};
+                          }.bind(this));
+                    
+                          this.pager = paginate(this.items.length, 1, this.pageSize, this.maxPages)
+                          let pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
+                          this.changePage.emit(pageOfItems);
+                       }
+                }); 
             }
 
             else {
                
-                this.productsService.getProductListFilter(this.categoryName, page, this.priceName).subscribe((data) => {
+                this.productsService.getProductListFilter(this.categoryName, page, this.priceName, this.searchName).subscribe((data) => {
+                        console.log(data);
+                        console.log('third case');
                        if(data['error']) {
                            alert(data['error']);
                        }

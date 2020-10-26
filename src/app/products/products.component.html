@@ -35,10 +35,15 @@
       </li>
 
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <form class="form form-inline my-2 my-lg-0" [formGroup]="searchForm" >
+      <div class="form-group">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" formControlName="search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" 
+      (click)="Search()">Search</button>
+    </div>
     </form>
+
+
   </div>
 </nav>
 
@@ -89,4 +94,4 @@
   </div> 
 
 
-<app-product-pagination [catName]="catName" [priceName]="priceName" (changePage)="onChangePage($event)" ></app-product-pagination>
+<app-product-pagination [catName]="catName" [priceName]="priceName" [searchName]="searchName" (changePage)="onChangePage($event)" ></app-product-pagination>

@@ -53,6 +53,15 @@ export class CartService {
 
 }
 
+// bad
+// function sayHi(name) {
+//   return 'How are you, ' + name + '?';
+// }
+// // good
+// function sayHi(name) {
+//   return `How are you, ${name}?`;
+// }
+
 
 // riya.patadiya@gmail.com
 // Riya@1234

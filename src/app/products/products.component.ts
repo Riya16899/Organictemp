@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
   dataDefined: boolean;
   valueQuantity: number;
   totalCountData: number;
- 
+  searchName: string = undefined;
   catName: string = undefined;
   priceName: string = undefined;
   name: any;
@@ -30,6 +30,9 @@ export class ProductsComponent implements OnInit {
     quantity: new FormControl('', [Validators.required]),
     pro_id: new FormControl('', [])
   } );
+  public searchForm = this.formBuilder.group({
+    search: new FormControl('')
+  });
 
   public filterForm = this.formBuilder.group({
      category: new FormControl('', Validators.required)
@@ -74,6 +77,7 @@ export class ProductsComponent implements OnInit {
 
   valueChange(value){
     this.valueQuantity = value;
+    console.log(value);
     if(value === undefined) {
       this.valueQuantity = 1;
     }
@@ -103,6 +107,11 @@ export class ProductsComponent implements OnInit {
     this.productForm.controls['pro_id'].setValue(pro_id);
    
     this.router.navigate(['/cart', this.productForm.value.quantity, this.productForm.value.pro_id]);
+  }
+
+  Search() {
+    console.log(this.searchForm.value);
+    this.searchName = this.searchForm.value.search;
   }
 
   index: number;

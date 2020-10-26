@@ -16,7 +16,7 @@ export class ProductsService {
   constructor(public http: HttpClient, private route: Router) { }
 
   getProductList(page: number): Observable<Products> {
-   
+     console.log(page);
     return this.http.get<Products>(this.apiUrl+`product_listing/?page=`+page+`&size=4`);
   }
 
@@ -26,22 +26,28 @@ export class ProductsService {
   		`product_listing/filter/?f_cat=`+category+`&page=`+page+`&size=4&f_search&f_asc=true`);
   }
 
-  getProductListFilter(category: string, page: number, price: string) {
-    
+  getProductListFilter(category: string, page: number, price: string, search: string) {
+    if (!search) {
+      search == 'undefined';
+    }
+    if(category === undefined) {
+      category = category;
+    }
     if(price === undefined) {
       this.priceBoolean = false;
     }
     else {
       if (price == 'low to high') {
         this.priceBoolean = true;
-        
       } 
       else {
         this.priceBoolean = false;
       }
     }
-    
-    return this.http.get<Products>(this.apiUrl+`demo/?f_cat=`+category+`&page=`+page+`&size=4&f_search&f_asc=`+this.priceBoolean);
+    console.log(category, page, price, search);
+    console.log(this.apiUrl+`demo/?f_cat=`+category+`&page=`+page+`&size=4&f_asc=`+this.priceBoolean+`&f_search=`+search);
+
+    return this.http.get<Products>(this.apiUrl+`demo/?f_cat=`+category+`&page=`+page+`&size=4&f_asc=`+this.priceBoolean+`&f_search=`+search);
   }
 
 }

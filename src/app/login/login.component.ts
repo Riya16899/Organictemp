@@ -33,17 +33,15 @@ export class LoginComponent implements OnInit {
     
   	this.loginService.postLogin(this.loginForm.value).
     subscribe((data) => {
-      
-      localStorage.setItem('token', JSON.stringify(data['meta']['token']));
-  	  if(data['meta']['status_code'] == 200) {
+      console.log(data);
+      if(data['error']) {
+        alert(data['error']);
+      }
+      else {
+        localStorage.setItem('token', JSON.stringify(data['meta']['token']));
         alert(data['meta']['success']);
       }
-      else if (data['status_code'] == 401) {
-        alert(data['error']);
-      }
-      else if (data['status_code'] == 400) {
-        alert(data['error']);
-      }
+      
     });
 
     this.loginForm.reset();

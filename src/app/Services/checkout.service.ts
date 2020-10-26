@@ -20,7 +20,7 @@ export class CheckoutService {
   	var form = new FormData();
     form.append('order_id', formDat.order_id);
     form.append('shipping_addr', formDat.shipping_addr);
-    console.log(formDat, form);
+    
     this.token = this.appService.getToken();
     
     return this.http.post<Checkout>(this.apiUrl+`checkout/`, form,
