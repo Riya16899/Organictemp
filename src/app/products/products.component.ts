@@ -12,7 +12,7 @@ import { Products } from '../Models/products';
 export class ProductsComponent implements OnInit {
 
   category_data: any; 
-  product_data: any;
+  // product_data: any;
   dataDefined: boolean;
   valueQuantity: number;
   totalCountData: number;
@@ -48,7 +48,7 @@ export class ProductsComponent implements OnInit {
 	    }
 	    else {
 	    	this.dataDefined = true;
-  			this.product_data = data['data']['products'];
+  			// this.product_data = data['data']['products'];
 	    }
   	});
   }
@@ -73,6 +73,9 @@ export class ProductsComponent implements OnInit {
   }
 
   Cart(pro_id: any) {
+    if(this.valueQuantity === undefined) {
+      this.valueQuantity = 1;
+    }
     if(!this.valueQuantity) {
       this.productForm.controls['quantity'].setValue(1);
     }
@@ -87,6 +90,7 @@ export class ProductsComponent implements OnInit {
 
   onChangePage(OfItems: any) {
     this.pageOfItems = OfItems;
+    console.log(OfItems);
     return this.pageOfItems; 
   }
 

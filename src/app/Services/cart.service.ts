@@ -31,7 +31,6 @@ export class CartService {
       { headers: { Authorization: this.Token } } );
   }
 
-
   deleteCart(id: number): Observable<Cart> {
     this.Token = this.appService.getToken();
     return this.http.delete<Cart>(`${this.apiUrl}cart/${id}/`,
@@ -46,8 +45,6 @@ export class CartService {
   }
 
 }
-
-
 
 // riya.patadiya@gmail.com
 // Riya@1234

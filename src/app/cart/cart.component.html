@@ -1,3 +1,5 @@
+
+
 <div class="front-class">
 	<div class="fifth-class">
 
@@ -9,24 +11,27 @@
 				<h5 style="text-align: left; margin-left: 20px;">1 ITEMS</h5>
 				<hr>
 				<div class="item-content row" *ngFor="let cart of cartData">
-
+	
+				
 					<div class="col-sm-4" >
 					<img src="{{cart.image_url}}" alt="">
 					</div>
 
 					<div class="data col-sm-6 justify-content-between">
+						<a routerLink="/product_info/{{cart.product_id}}">
 						<p> Product ID: {{cart.product_id}}
 						<h6> {{cart.p_name | titlecase}}</h6>
 
 						<p class="mb-3 text-muted text-uppercase small">Quantity: {{cart.quantity}}</p>
 					
 						<button class="btn btn-info" (click)="Remove($event, cart.product_id)">Remove</button>
-				
+				</a>
 					</div>
 					<div class="col-sm-2">
 						<h6> Rs. {{cart.discount_price}}  </h6>
-						<h6 style="color: #999999; text-decoration: line-through;">Rs. {{cart.price}} (1)</h6> 
+						<h6 style="color: #999999; text-decoration: line-through;">Rs. {{cart.price}} <br> per product</h6> 
 					</div>
+		
 				</div>
 
 				<hr>
@@ -38,11 +43,13 @@
 				<hr>
 				<div class="summery-content" >
 						
-							<ul class="list-unstyled" *ngFor="let cart of cartData">
+							<ul class="list-unstyled" *ngFor="let cart of cartData"> 
+					<!-- 	<a routerLink="/product_info/{{cart.id}}"> -->
 							<li class="d-flex justify-content-between">
 							<p style="" class="mb-3 text-muted text-uppercase small">{{cart.p_name | titlecase}} ( {{cart.quantity}} )</p>
 							
 							<p  style="" class="mb-3 text-muted text-uppercase small ">  {{cart.discount_price}}</p></li><hr>
+						
 							<hr>
 						</ul>
 						
@@ -60,5 +67,7 @@
 		</div>
 	</div>
 </div>
+
+
 
 

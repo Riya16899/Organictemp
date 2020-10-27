@@ -83,6 +83,7 @@ $tablet: 768px;
 		}
 		.price {
 			display: flex;
+			justify-content: left;
 			h4 {
 				
 				float: left;
@@ -110,30 +111,14 @@ $tablet: 768px;
 			opacity: 1;
 		}
 		.quantity {
-			width: 100px;
+			/* width: 100px; */
 			white-space: nowrap;
-			.quantity-input {
-				display: inline-block;
-
-				button {
-					margin: 5px;
-					/* border-radius: 40%; */
-					width: 40px;
-					border-color: #00DBD0;
-				}
+		/* 	form { */
+			/* 	margin-top: 10px; */
 				input {
-					margin: 5px;
-					/* border-radius: 20%; */
+					/* margin-left: 10px;	 */	
 					text-align: center;
-					width: 60px;
-					border-color: #00DBD0;
-				}
-			}
-			
-			form {
-				margin-top: 10px;
-				input {
-					margin-left: 10px;				
+					width: 60px;		
 					border-radius: 20%;
 					border-color: #00DBD0;
 				}
@@ -141,8 +126,8 @@ $tablet: 768px;
 					font: normal normal normal 16px/30px Libre Baskerville
 				}
 				button, btn {
-					margin-right: 10px;
-					margin-top: 20px;
+					/* margin-right: 10px; */
+					margin: 7px; 
 					border-radius: 10px;
 					border-color: #00DBD0;
 					font: normal normal normal 16px/20px Libre Baskerville;
@@ -150,11 +135,27 @@ $tablet: 768px;
 					color: #00DBD0;
 					opacity: 1;
 				}
-			}
+			/* } */
 		}
 	}
 }
+/* .quantity-input {
+				display: inline-block;
 
+				button {
+					 margin: 5px; 
+					border-radius: 40%;
+					 width: 40px;
+					border-color: #00DBD0;
+				}
+				input {
+					margin: 5px;
+					 border-radius: 20%; 
+					text-align: center;
+					 width: 60px; 
+					border-color: #00DBD0;
+				}
+			} */
 @media screen and (max-width: $tablet) {
 	.product-info {
 		/* margin:  100px 10% 0 10%; */
@@ -170,13 +171,17 @@ $tablet: 768px;
 			justify-content: center;
 			text-align: center;
 			h3 {
-				text-align: left;
+				text-align: center;
 				font: normal normal bold 26px/32px Libre Baskerville;
 			}
 			.price {
-				display: flex;
+				justify-content: center;
+				text-align: center;
+				align-items: center;
+				/* display: flex; */
 				h4 {
-					float: left;
+					text-align: center;
+					float: center;
 					font: normal normal bold 14px/22px Libre Baskerville;
 			
 				}
@@ -186,20 +191,27 @@ $tablet: 768px;
 				}
 			}
 			p {
-				text-align: left;
+				text-align: center;
 				font: normal normal normal 12px/20px Libre Baskerville;
 			}
 			.quantity {
 				form {
-					button, btn {
-						text-align: center;
-						margin-top: 20px;
-						border-radius: 10px;
+					input {
+						width: 60px;		
 					}
 					label {
 						font: normal normal normal 14px/30px Libre Baskerville
 					}
+					button {
+			
+						text-align: center;
+						border-radius: 7px;
+						margin: 5px;
+						font: normal normal normal 14px/20px Libre Baskerville;
+						
+					}
 				}
+				
 			}
 		}
 	}
@@ -239,25 +251,23 @@ $tablet: 768px;
 				}
 			}
 			.quantity {
-				text-align: center;
-				align-items: center;
-				justify-content: center;
-				align-content: center;
-				margin-left: 25%;
-				margin-right: 25%;
 				form {
 					input {
-						width: 60px;
-					}
-					button, btn {
-						margin-top: 20px;
-						border-radius: 10px;
+						width: 60px;		
 					}
 					label {
-						font: normal normal normal 14px/30px Libre Baskerville;
+						font: normal normal normal 14px/30px Libre Baskerville
 					}
-
+					button {
+			
+						text-align: center;
+						border-radius: 7px;
+						margin: 5px;
+						font: normal normal normal 14px/20px Libre Baskerville;
+						
+					}
 				}
+				
 			}
 		}
 	}

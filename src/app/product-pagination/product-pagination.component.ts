@@ -52,6 +52,7 @@ export class ProductPaginationComponent implements OnInit {
     }
 
     setPage(page: number) {
+      console.log(page);
         if (this.category === undefined && this.price === undefined && this.search === undefined) {
              this.productsService.getProductList(page).subscribe((data) => {
                 this.totalLength = data['meta']['total_count'];
@@ -73,7 +74,7 @@ export class ProductPaginationComponent implements OnInit {
         }
         else {
             this.productsService.getProductListFilter(this.category, page, this.price, this.search).subscribe((data) => {
-               if(data['error']) {
+               if(data['error']) { 
                    alert(data['error']);
                }
                else {

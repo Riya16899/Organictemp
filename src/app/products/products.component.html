@@ -42,8 +42,6 @@
       (click)="Search()">Search</button>
     </div>
     </form>
-
-
   </div>
 </nav>
 
@@ -54,9 +52,10 @@
 
     <div class="card-class">
       <div class="row">
-
       <div class="col-sm card-data" *ngFor="let item of pageOfItems"> 
-          <div *ngIf="dataDefined"> 
+          <div *ngIf="dataDefined && item.dataa"> 
+           
+          
           <a routerLink="/product_info/{{item.dataa.id}}" >
           <img class="card_img" src="{{item.dataa.image_url}}" alt="Mask Group 62">
           <h4>{{item.dataa.p_name | titlecase}}</h4>
@@ -68,28 +67,16 @@
           <div class="card-footer">
             <form >  
                   <div class="quantity-input">
-               <!--  <button type="button" class="btn btn-light" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="Submit()">
-                  <b>-</b></button> -->
-
                 <input [ngModel]="name" (ngModelChange)="quantityChange($event)" 
                 style="float: center;" class="quantity" min="1" name="quantity" value="1" type="number">
-
-                <!-- <button  type="button" class="btn btn-light" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" (click)="Submit()">
-                  <b>+</b></button> -->
-    
             </div>
          <a (click)="Cart(item.dataa.id)"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a>
        </form>
-
      </div>
         </div>
       </div>
-
-      
-
       </div>
     </div>
-
   </div> 
 
 

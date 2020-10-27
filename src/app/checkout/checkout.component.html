@@ -47,7 +47,26 @@
         <hr class=" ">
         <button style="background: #00DBD0; font: normal normal 600 18px/22px Libre Baskerville; color: #FFFFFF;" class="btn btn-outline-ligh btn-sm btn-block" type="submit" 
         >Place your Order</button>
+
+
+        <button class="btn btn-outline-ligh" (click)="payy(300)">Buyy</button>
+
+
       </form> 
 
 </div>
   </div>
+
+
+
+<!-- <script src="https://checkout.stripe.com/checkout.js"></script> -->
+
+<script
+    src="https://checkout.stripe.com/checkout.js"
+    class="stripe-button"
+    data-key="pk_test_51HgUIAE6HZ2spzZbur7T9XS40mmCNzq1n7yqzzKEvhFmiS8FgKQJlYBC5Xlcfllkg1yCGvWeGXFnZ6EfzLX41qQx00gRzx7ZmM"
+    data-name="Custom t-shirt"
+    data-description="Your custom designed t-shirt"
+    data-amount="600"
+    data-currency="inr">
+  </script>
