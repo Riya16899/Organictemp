@@ -21,7 +21,7 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { CartPipe } from './cart/cart.pipe';
 import { ProductPaginationComponent } from './product-pagination/product-pagination.component';
-
+import { NgxStripeModule } from 'ngx-stripe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +47,7 @@ import { ProductPaginationComponent } from './product-pagination/product-paginat
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    
+    NgxStripeModule.forRoot('pk_test_51HgUIAE6HZ2spzZbur7T9XS40mmCNzq1n7yqzzKEvhFmiS8FgKQJlYBC5Xlcfllkg1yCGvWeGXFnZ6EfzLX41qQx00gRzx7ZmM'),
   ],
   providers: [
     // {

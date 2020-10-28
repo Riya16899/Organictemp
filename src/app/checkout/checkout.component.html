@@ -57,11 +57,11 @@
 </div>
   </div>
 
+</div></div></div>
 
+<script src="https://checkout.stripe.com/checkout.js"></script>
 
-<!-- <script src="https://checkout.stripe.com/checkout.js"></script> -->
-
-<script
+<!-- <script
     src="https://checkout.stripe.com/checkout.js"
     class="stripe-button"
     data-key="pk_test_51HgUIAE6HZ2spzZbur7T9XS40mmCNzq1n7yqzzKEvhFmiS8FgKQJlYBC5Xlcfllkg1yCGvWeGXFnZ6EfzLX41qQx00gRzx7ZmM"
@@ -69,4 +69,68 @@
     data-description="Your custom designed t-shirt"
     data-amount="600"
     data-currency="inr">
-  </script>
+  </script> -->
+
+
+ <h3 class="d-flex justify-content-center pb-5" style="margin: 100px 50px 50px 50px;" > Please Do Payment </h3>
+<div class="d-flex justify-content-center">
+
+  <form [formGroup]="stripeForm" class="mb-5" (ngSubmit)="buy()" >
+
+    <div class="form-group">
+      <input type="text" class="form-control" formControlName="name" required
+      placeholder="Name">
+      <span class="text-danger" *ngIf="stripeForm.get('name').hasError('required') && submitted">Required</span>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" formControlName="addr1" required="" placeholder="101 star plaza">
+      <span class="text-danger" *ngIf="stripeForm.get('addr1').hasError('required') && submitted">Required</span>
+    </div>
+        <div class="form-group">
+      <input type="text" class="form-control" formControlName="addr2" required="" placeholder="city road">
+      <span class="text-danger" *ngIf="stripeForm.get('addr2').hasError('required') && submitted">Required</span>
+    </div>
+        <div class="form-group">
+      <input type="text" class="form-control" formControlName="city" required="" placeholder="City">
+      <span class="text-danger" *ngIf="stripeForm.get('city').hasError('required') && submitted">Required</span>
+    </div>
+        <div class="form-group">
+      <input type="text" class="form-control" formControlName="state" required="" placeholder="State">
+      <span class="text-danger" *ngIf="stripeForm.get('state').hasError('required') && submitted">Required</span>
+    </div>
+        <div class="form-group">
+      <input type="text" class="form-control" formControlName="country" required="" placeholder="Country">
+      <span class="text-danger" *ngIf="stripeForm.get('country').hasError('required') && submitted">Required</span>
+    </div>
+        <div class="form-group">
+      <input type="number" class="form-control" formControlName="postal_code" required="" placeholder="Postal_code">
+      <span class="text-danger" *ngIf="stripeForm.get('postal_code').hasError('required') && submitted">Required</span>
+    </div>
+        <div class="form-group">
+      <input type="phone" class="form-control" formControlName="phone" required="" placeholder="Phone">
+      <span class="text-danger" *ngIf="stripeForm.get('phone').hasError('required') && submitted">Required</span>
+    </div>
+    <div class="form-group">
+      <input type="number" class="form-control" formControlName="amount" required="" placeholder="Amount">
+      <span class="text-danger" *ngIf="stripeForm.get('amount').hasError('required') && submitted">Required</span>
+    </div>
+     <div class="form-group">
+      <input type="text" class="form-control" formControlName="currency" required="" placeholder="Currency">
+      <span class="text-danger" *ngIf="stripeForm.get('currency').hasError('required') && submitted">Required</span>
+    </div>
+    <div class="form-group">
+      <div id="card-element" class="field"></div>
+    </div>
+    <button class="btn w-25" type="submit">BUY</button>
+
+</form>
+
+</div>
+
+
+
+
+
+official email id : riya.patadiya@mindinventory.com
+personal email id : riya.patadiya@gmail.com
+personal skype id : live:.cid.7592c1dc58f5117f 

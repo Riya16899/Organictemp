@@ -26,4 +26,22 @@ export class CheckoutService {
     return this.http.post<Checkout>(`${this.apiUrl}checkout/`, form,
       { headers: { Authorization: this.token } } );
   }
+
+  stripePayment(formDat: any): Observable<Checkout> {
+    var form = new FormData();
+    
+    form.append('name', formDat.name);
+    form.append('addr_line1', formDat.addr1);
+    form.append('addr_line2', formDat.addr2);
+    form.append('city', formDat.city);
+    form.append('state', formDat.state);
+    form.append('country', formDat.country);
+    form.append('phone', formDat.phone);
+    form.append('postal_code', formDat.postal_code)
+    form.append('amount', formDat.amount);
+    form.append('currency', formDat.currency);
+    form.append('token', formDat.token['id']);
+
+    return this.http.post<Checkout>(`${this.apiUrl}stripe/`, form);
+  }
 }
