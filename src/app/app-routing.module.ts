@@ -14,7 +14,7 @@ import { AuthGuard } from './auth.guard';
 import { CartComponent } from './cart/cart.component';
 import { ProductInfoComponent } from './product-info/product-info.component';
 import { CheckoutComponent } from './checkout/checkout.component'; 
-
+import { PaymentDetailsComponent } from './payment-details/payment-details.component';
 const routes: Routes = [
 	{ path: 'contact', component: ContactComponent },
 	{ path: 'products', component: ProductsComponent },
@@ -44,6 +44,7 @@ const routes: Routes = [
 	// { path: 'checkout/:pro_id/:quantity', component: CheckoutComponent, canActivate: [AuthGuard] },
 	{ path: 'product_info/:id', component: ProductInfoComponent},
 	{ path: '', redirectTo: 'home', pathMatch: 'full' },
+	{ path: 'details', component: PaymentDetailsComponent }
 ];
 
 @NgModule({

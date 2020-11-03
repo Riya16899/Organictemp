@@ -17,13 +17,13 @@ export class AppComponent {
   }
 
   Cart() {
-    this.cartService.getCart().subscribe((data) => {
+    // this.cartService.getCart().subscribe((data) => {
       
-      if(data['error']){
-        alert(data['error']);
-      }
+    //   if(data['error']){
+    //     alert(data['error']);
+    //   }
 
-    });
+    // });
     this.router.navigate(['/cart']);
   }  
 

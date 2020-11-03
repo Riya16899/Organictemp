@@ -22,6 +22,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { CartPipe } from './cart/cart.pipe';
 import { ProductPaginationComponent } from './product-pagination/product-pagination.component';
 import { NgxStripeModule } from 'ngx-stripe';
+import { PaymentDetailsComponent } from './payment-details/payment-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { NgxStripeModule } from 'ngx-stripe';
     CartComponent,
     CheckoutComponent,
     CartPipe,
-    ProductPaginationComponent
+    ProductPaginationComponent,
+    PaymentDetailsComponent
   ],
   imports: [
     BrowserModule,

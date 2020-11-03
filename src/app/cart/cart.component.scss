@@ -11,6 +11,20 @@ $tablet: 768px;
 	flex: auto;
 	width: 100%;
 }
+div {
+	margin-top: 30px;
+}
+@media screen and (max-width: $tablet) {
+	div {
+		margin-top: 10px;
+	}
+}
+
+@media screen and (max-width: $tablet) {
+	.see {
+		margin: 10px;
+	}
+}
 
 .fifth-class {
 	/* top right bottom left */
@@ -23,32 +37,29 @@ $tablet: 768px;
 		margin-left: 40px;
 	}
 	h2 {
-		margin-left: 20px;
-		text-align: left;
+		
+		text-align: center;
 		font: normal normal 600 28px/30px Libre Baskerville;
 	}
 	h5 {
+		/* text-align: left; margin-left: 20px; */
 		font: normal normal normal 16px/30px Libre Baskerville;
 	}
 	h6 {
 		font: normal normal normal 16px/26px Libre Baskerville;
 	}
-
-
-
-
 	hr {
 		margin: 0 15px 0 15px;
 		/* border: 1px solid black; */
 	}
 	.item-content {
 		/* top right bottom left */
-		margin: 30px 0 20px 0;
+		margin: 0px 0 20px 0;
 		display: flex;
 		flex-wrap:  wrap;
 
 		img {
-			margin: 10px;
+			padding: 10px;
 			float: center;
 			width: 120px;
 			height: 150px;
@@ -60,9 +71,50 @@ $tablet: 768px;
 	.summery-content {
 		
 		display: block;
+		h5 {
+			
+			font: normal normal normal 16px/30px Libre Baskerville;
+		}
+		p {
+			font: normal normal normal 14px/22px Libre Baskerville;
+		}
 	}
 }
+
 @media screen and (max-width: $tablet) {
+	.fifth-class {
+		h2 {
+			font: normal normal 600 18px/24px Libre Baskerville;
+		}
+		h5 {
+			font: normal normal normal 14px/30px Libre Baskerville;
+		}
+		h6 {
+			font: normal normal normal 14px/30px Libre Baskerville;
+		}
+		.item-content {
+			margin: 30px 0 0 0;
+			img {
+
+				float: center;
+				width: 120px;
+				height: 150px;
+			}
+			.data {
+				margin-top: 20px;
+				text-align: center;
+			}
+		}
+		.summery-content {
+			margin: 30px 30px 0 10px;
+			display: block;
+
+		}
+	}
+}
+
+
+@media screen and (max-width: 880px) {
 	.fifth-class {
 		h2 {
 			font: normal normal 600 18px/24px Libre Baskerville;
@@ -88,7 +140,34 @@ $tablet: 768px;
 		.summery-content {
 			margin: 30px 30px 0 10px;
 			display: block;
+			h5 {
+				font: normal normal normal 14px/30px Libre Baskerville;
+			}
+			p {
+				font: normal normal normal 12px/22px Libre Baskerville;
+			}
+			button {
+				font: normal normal normal 16px/30px Libre Baskerville;
+			}
 		}
+	}
+}
+
+@media screen and (max-width: $mobile) {
+	.fifth-class {
+		.item-content {
+			margin: 30px 0 0 0;
+			img {
+				float: center;
+				width: 90px;
+				height: 110px;
+			}
+			.data {
+				margin-top: 20px;
+				text-align: center;
+			}
+		}
+
 	}
 }
 
@@ -106,5 +185,16 @@ $tablet: 768px;
 			width: 50px;
 			border-color: #00DBD0;
 		}
+	}
+}
+
+
+.error {
+	h3 {
+		text-align: center;
+		font: normal normal 500 28px/30px Libre Baskerville;
+	}
+	button {
+		font: normal normal normal 16px/30px Libre Baskerville;
 	}
 }

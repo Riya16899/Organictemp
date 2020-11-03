@@ -137,6 +137,10 @@ $tablet: 768px;
 				}
 			/* } */
 		}
+		.disabled-contenct {
+			pointer-events: none;
+			opacity: 0.4;
+		}
 	}
 }
 /* .quantity-input {

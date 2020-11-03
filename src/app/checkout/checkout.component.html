@@ -16,13 +16,13 @@
                 <p class="my-0">{{order.p_name | titlecase}} ({{order.quantity}})</p>
                 
               </div>
-              <p class="text-muted">Rs. {{order.discount_price}}</p>
+              <p class="text-muted">₹ {{Total}}</p>
             </li>
             
             <hr>
             <li class="list-group-item d-flex justify-content-between">
               <p>Order Total</p>
-              <p><strong>Rs. {{Total}}</strong></p>
+              <p><strong>₹ {{Total}}</strong></p>
             </li>
       </ul>
             </div>
@@ -32,34 +32,26 @@
 
    <div style="" class="col-sm billing_info">
     <div class="">
-          <form [formGroup]="checkoutForm" (ngSubmit)="Submit()">
-    
-        <div class="mb-3 form-group">
-         
-          <label style="float: left;" for="address">Address</label>
-          <input formControlName="shipping_addr" type="text" class="form-control" id="address" placeholder="8, city center, science city road, ahmedabad" required>
-          <div class="invalid-feedback">
-            Please enter your shipping address.
-          </div>
-        </div>
-
-  
+          <form [formGroup]="checkoutForm" (ngSubmit)="Submit()">   
+          <div class="mb-3 form-group">        
+            <label style="float: left;" for="currency">currency</label>
+            <input formControlName="currency" type="text" class="form-control" id="address" placeholder="inr" required>
+            <div class="invalid-feedback">
+              Please enter your currency.
+            </div>
+        </div>  
         <hr class=" ">
         <button style="background: #00DBD0; font: normal normal 600 18px/22px Libre Baskerville; color: #FFFFFF;" class="btn btn-outline-ligh btn-sm btn-block" type="submit" 
         >Place your Order</button>
-
-
-        <button class="btn btn-outline-ligh" (click)="payy(300)">Buyy</button>
-
-
+       
       </form> 
 
 </div>
   </div>
 
 </div></div></div>
-
-<script src="https://checkout.stripe.com/checkout.js"></script>
+<!-- 
+<script src="https://checkout.stripe.com/checkout.js"></script> -->
 
 <!-- <script
     src="https://checkout.stripe.com/checkout.js"
@@ -69,14 +61,10 @@
     data-description="Your custom designed t-shirt"
     data-amount="600"
     data-currency="inr">
-  </script> -->
-
-
+  </script>
  <h3 class="d-flex justify-content-center pb-5" style="margin: 100px 50px 50px 50px;" > Please Do Payment </h3>
 <div class="d-flex justify-content-center">
-
   <form [formGroup]="stripeForm" class="mb-5" (ngSubmit)="buy()" >
-
     <div class="form-group">
       <input type="text" class="form-control" formControlName="name" required
       placeholder="Name">
@@ -121,16 +109,7 @@
     <div class="form-group">
       <div id="card-element" class="field"></div>
     </div>
-    <button class="btn w-25" type="submit">BUY</button>
-
+        <button class="btn w-25" type="submit">BUY</button>
 </form>
-
 </div>
-
-
-
-
-
-official email id : riya.patadiya@mindinventory.com
-personal email id : riya.patadiya@gmail.com
-personal skype id : live:.cid.7592c1dc58f5117f 
+ -->

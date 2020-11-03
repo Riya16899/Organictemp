@@ -23,7 +23,6 @@ export class ProductInfoService {
     this.token = this.appService.getToken();
   	return this.http.post<Products>(`${this.apiUrl}buy_product/`, formDat,
   	{ headers: { Authorization: this.token } } );
-
   }
 
   postReview(pro_id, review): Observable<Products> {

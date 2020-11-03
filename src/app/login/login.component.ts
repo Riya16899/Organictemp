@@ -21,6 +21,9 @@ export class LoginComponent implements OnInit {
   	private formBuilder: FormBuilder, private route :ActivatedRoute) { }
 
   ngOnInit() {
+
+    
+
     let routeValue = this.route.snapshot.paramMap.get('value')
     this.show = JSON.parse(routeValue); // str to boolean
   }

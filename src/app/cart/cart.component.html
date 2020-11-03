@@ -2,68 +2,82 @@
 
 <div class="front-class">
 	<div class="fifth-class">
-
-		<div class="d-flex row">
-
-			<div class="col-sm-7 ">
+		<div class="d-flex row" *ngIf="heavyCart">
+			<div class="col-sm-8 ">
 				<h2> Your Shopping Cart </h2>
 				<br>
-				<h5 style="text-align: left; margin-left: 20px;">1 ITEMS</h5>
+				<h5 style="">{{totalItems}} ITEMS</h5>
 				<hr>
-				<div class="item-content row" *ngFor="let cart of cartData">
-	
-				
-					<div class="col-sm-4" >
+				<div class="item-content row justify-content-between" *ngFor="let cart of cartData" style="display: flex;">
+					<div class="col-sm-4 see" >
 					<img src="{{cart.image_url}}" alt="">
 					</div>
-
-					<div class="data col-sm-6 justify-content-between">
-						<a routerLink="/product_info/{{cart.product_id}}">
+					<div class="data col-sm-5 see justify-content-between">
+						<!-- <ul class="list-unstyled">
+							<li class="d-flex justify-content-between">
+								<div>
+								<p> Product ID: {{cart.product_id}}
+								<h6> {{cart.p_name | titlecase}}</h6>
+								<p class="mb-3 text-muted text-uppercase small">Quantity: {{cart.quantity}}</p>
+								<button class="btn btn-info" (click)="Remove($event, cart.product_id)">Remove</button>
+								</div>
+								<div>
+									Price
+									<h6> ₹ {{cart.discount_price}}  </h6>
+						<h6 style="color: #999999; text-decoration: line-through;">₹  {{cart.total_price}} </h6> 
+								</div>
+							</li>
+						</ul> -->
+						
 						<p> Product ID: {{cart.product_id}}
 						<h6> {{cart.p_name | titlecase}}</h6>
-
 						<p class="mb-3 text-muted text-uppercase small">Quantity: {{cart.quantity}}</p>
-					
+						<!-- <h6> ₹ {{cart.discount_price}}  </h6>
+						<h6 style="color: #999999; text-decoration: line-through;">₹  {{cart.total_price}} </h6>  -->
 						<button class="btn btn-info" (click)="Remove($event, cart.product_id)">Remove</button>
-				</a>
+
 					</div>
-					<div class="col-sm-2">
-						<h6> Rs. {{cart.discount_price}}  </h6>
-						<h6 style="color: #999999; text-decoration: line-through;">Rs. {{cart.price}} <br> per product</h6> 
+					<div class="col-sm-3 see" >
+
+						<h6> ₹ {{cart.discount_price}}  </h6>
+						<h6 style="color: #999999; text-decoration: line-through;">₹  {{cart.total_price}} </h6> 
+						
 					</div>
-		
 				</div>
-
+				
 				<hr>
-
 			</div>
 
-			<div class="col-sm-5 "><br>
+			<div class="col-sm-4 "><br>
 				<h5>ORDER SUMMERY</h5>
 				<hr>
 				<div class="summery-content" >
-						
 							<ul class="list-unstyled" *ngFor="let cart of cartData"> 
-					<!-- 	<a routerLink="/product_info/{{cart.id}}"> -->
+				
 							<li class="d-flex justify-content-between">
-							<p style="" class="mb-3 text-muted text-uppercase small">{{cart.p_name | titlecase}} ( {{cart.quantity}} )</p>
+							<p style="" class="mb-3 text-muted text-uppercase small">{{cart.p_name | titlecase}} ({{cart.quantity}})</p>
 							
-							<p  style="" class="mb-3 text-muted text-uppercase small ">  {{cart.discount_price}}</p></li><hr>
-						
-							<hr>
-						</ul>
-						
-					<hr>
-					<p style="float: left;" class="mb-3 mt-2 text-muted text-uppercase small font-weight-bold">Total amount: </p>
-					<p style="float: right;" class="mb-3 mt-2 text-muted text-uppercase small font-weight-bold"> Rs. {{Total}} </p>
-					<br><br>
-					<hr>
-					<br>
+							<p  style="margin-left: 10px;" class="mb-3 text-muted text-uppercase small ">  ₹ {{cart.discount_price}}</p>
 
-					<button class="btn btn-success btn-dark" (click)="Checkout()">Proceed to Checkout</button>
+
+						</li><hr>
+						
+						</ul>
+					<div class="justify-content-between">
+					<p style="float: left;" class="mb-3 mt-2 text-muted text-uppercase small font-weight">Total amount: </p>
+					<p style="float: right; margin-left: 10px;" class="mb-3 mt-2 text-muted text-uppercase small font-weight"> ₹ {{Total}} </p>
+					<br><br>
+				</div>
+		
+					<button class="btn btn-success btn-dark btn-block" (click)="Checkout()">Proceed to Checkout</button>
 				</div>
 			</div>
 
+		</div>
+
+		<div *ngIf="emptyCart" class="error">
+					<h3> You have an empty cart. </h3> 
+					<button class="btn btn-info" (click)="addItems()">ADD ITEMS</button>
 		</div>
 	</div>
 </div>

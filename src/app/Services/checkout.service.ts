@@ -19,8 +19,9 @@ export class CheckoutService {
   postCheckout(formDat: any): Observable<Checkout> {
   	var form = new FormData();
     form.append('order_id', formDat.order_id);
-    form.append('shipping_addr', formDat.shipping_addr);
-    
+    form.append('currency', formDat.currency);
+    form.append('token', formDat.token);
+
     this.token = this.appService.getToken();
     
     return this.http.post<Checkout>(`${this.apiUrl}checkout/`, form,
@@ -44,4 +45,12 @@ export class CheckoutService {
 
     return this.http.post<Checkout>(`${this.apiUrl}stripe/`, form);
   }
+
+  getCheckout(id: number): Observable<Checkout> {
+    console.log(id);
+    this.token = this.appService.getToken();
+    return this.http.get<Checkout>(`${this.apiUrl}checkout/?order_id=${id}`,
+      { headers: { Authorization: this.token } }  );
+  }
+
 }

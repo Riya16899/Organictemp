@@ -12,15 +12,14 @@
 				<div class="col-sm-7 card info-data" >
 					<h3>{{product.p_name | titlecase}}</h3>
 					<div class="price">
-						<h4> Rs.{{product.discount_price}}/- </h4>
-						<h5> Rs.{{product.price}} </h5>
+						<h4> ₹ {{product.discount_price}}/- </h4>
+						<h5> ₹ {{product.price}} </h5>
 					</div>
-					<p> Availability: <b> {{product.availability}} in stock</b> </p>
+					<p > Availability: <b> {{product.availability}} in stock</b> </p>
 					<p> {{product.description}}
 					</p>
-					<div class="quantity">
-					
-
+					<div class="quantity" [class.disabled-contenct]="isDisabledContent" *ngIf="product.availability > 0">
+				
 
 							  <button type="button" class="btn btn-light" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" (click)="Submit()">
 							  	<b>-</b></button>
@@ -34,8 +33,9 @@
 							</svg>
 						Add to cart</button>
 						<button class="btn btn-outline-info" (click)="Buy()">Buy</button>
-						<p>Categories: {{product.sub_cat_name | titlecase}}, {{product.cat_name | titlecase}}</p>	
+							
 					</div>
+					<p>Categories: {{product.sub_cat_name | titlecase}}, {{product.cat_name | titlecase}}</p>
 				</div>
 			</div>
 		</div>
@@ -77,13 +77,10 @@
 </div>
 
 
-<div class="d-flex justify-content-center">
-	<div class="row">
-		<div class="col-sm card">
-			<div class=""><img class="" src="./assets/Mask Group 61.png" alt="Mask Group 62"></div>
-		</div>
-		<div class="col-sm card">
-			<div class=""></div>
-		</div>
-	</div>
-</div>
+ <!-- <ul>
+    <li *ngFor="let offer of offers" ng-show="offer.isVisible">
+      Offer ID: <strong>{{offer.number}}</strong>
+      <br>Offer name: <strong>{{offer.name}}</strong>
+    </li>
+  </ul> -->
+  

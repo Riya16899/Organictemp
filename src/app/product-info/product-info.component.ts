@@ -17,6 +17,8 @@ export class ProductInfoComponent implements OnInit {
   buyFromCart: boolean;
   showInput: boolean = false;
 
+  isDisabledContent: boolean;
+
   @ViewChild('quantity', { static: false } ) quantity:ElementRef;
   @ViewChild('review', { static: false } ) review:ElementRef;
  
@@ -30,6 +32,9 @@ export class ProductInfoComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    
+    // this.showFirstTwo(this.offers, this.offer);
+
     const pro_id = this.route.snapshot.params['id'];
     this.productInfoService.getProductInfo(pro_id).subscribe((data) => {
       if(data['error']) { 
@@ -93,4 +98,11 @@ export class ProductInfoComponent implements OnInit {
       this.review.nativeElement.value = ''; 
   }
 
+ 
 }
+
+
+// for css change disable : https://stackoverflow.com/questions/45256076/angular-2-attr-disabled-is-not-working-for-div-when-i-try-to-iterate-ngfor-loop 
+// https://stackoverflow.com/questions/38326865/implementing-a-load-more-button-to-load-more-elements-when-its-clicked
+// https://jsfiddle.net/jaredwilli/xP48C/
+

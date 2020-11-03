@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { ProductsService } from '../Services/products.service';
 import { Products } from '../Models/products';
 
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -23,6 +24,7 @@ export class ProductsComponent implements OnInit {
   price_filter: any;
   index: number;
   pageOfItems: Array<Products>;
+  
  
   public productForm = this.formBuilder.group({
     quantity: new FormControl('', [Validators.required]),
@@ -38,6 +40,9 @@ export class ProductsComponent implements OnInit {
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+
+
   	this.productsService.getProductList(1).subscribe((data) => {
       this.totalCountData = data['meta']['total_count'];
   		this.category_data = data['data']['category'];
@@ -63,6 +68,9 @@ export class ProductsComponent implements OnInit {
  
   onPriceSelected(event) {
   	const value = event.target.value;
+    if(!value) {
+      console.log('default');
+    }
     this.priceName = value;
   }
 
@@ -90,12 +98,54 @@ export class ProductsComponent implements OnInit {
 
   onChangePage(OfItems: any) {
     this.pageOfItems = OfItems;
-    console.log(OfItems);
     return this.pageOfItems; 
   }
 
 
+  // offers = [];
+  // offer: any;
+  // pagesShown: number = 1;
+  // pageSize: number = 5;
+  // items: Array<any>;
+  // pager: any = {};
+  // page: number = 3;
+  // pageOfItem: Array<Products>;
+
+  // forlo() {
+  //   for (let i = 0; i < 20; i++) {
+  //       var number = i + 1;
+  //       this.offers.push({
+  //         number: number,
+  //         name: 'Offer ' + number
+  //       });
+  //     }
+  //     return this.offers;
+  // }
+
+ 
+  // Se() {
+  //   console.log(this.page);
+  //     const last: number = (this.page * 3) + (this.page - 1);
+  //     const first: number = last - 3;
+  //     console.log(first, last)
+  //     this.items = Array(20).fill(4, first, last+1).map(function(x,y) {
+
+  //       y = y - first;
+  //       console.log(first, y)
+  //       console.log(this.offers[y]);
+  //       return {dataa: this.offers[y]};
+  //     }.bind(this));
+
+  //     console.log(this.items);
+  //     this.pager = paginate(this.items.length, this.page, this.pageSize, 4);
+
+  //     this.pageOfItem = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  //     //console.log(this.offers);
+  //     this.page++;
   
+  //     return this.items;
+  // }
+
 }
 
 // for label http://jsfiddle.net/crrc7s7f/3/
