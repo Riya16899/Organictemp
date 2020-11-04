@@ -3,7 +3,7 @@
 	<div class="container ">
 		<div class="d-flex justify-content-center">
 
-<div *ngIf="addressFlag">
+<div *ngIf="addressFlagg">
 	<div class="user_card card">
 		<div class="card-header">
 
@@ -11,8 +11,7 @@
 		</div>
 		<div class="card-body justify-content-center">
 
-			<form [formGroup]="addressForm" class="mb-5" (ngSubmit)="submitAddress()" >
-				 
+			<form [formGroup]="addressForm" class="mb-5" (ngSubmit)="submitAddress()">
 			     <div class="form-group">
 			      <input type="text" class="form-control" formControlName="addr1" required placeholder="Address Line 1">
 			     <div *ngIf="f.addr1.invalid && (f.addr1.dirty || f.addr1.touched)" class="alert alert-danger">
@@ -35,26 +34,33 @@
 		      <input type="text" class="form-control" formControlName="state" required="" placeholder="State">
 		      <div *ngIf="f.state.invalid && (f.state.dirty || f.state.touched)" class="alert alert-danger">
 				<div *ngIf="f.state.invalid">Required</div></div>
-		      
 		    </div>
 		        <div class="form-group">
 		      <input type="text" class="form-control" formControlName="country" required="" placeholder="Country">
 		      <div *ngIf="f.country.invalid && (f.country.dirty || f.country.touched)" class="alert alert-danger">
 				<div *ngIf="f.country.invalid">Required</div></div>
-		     
 		    </div>
 		        <div class="form-group">
 		      <input type="number" class="form-control" formControlName="postal_code" required="" placeholder="Postal_code">
 		      <div *ngIf="f.postal_code.invalid && (f.postal_code.dirty || f.postal_code.touched)" class="alert alert-danger">
 				<div *ngIf="f.postal_code.invalid">Required</div></div>
-		      
 		    </div>
 		        <div class="form-group">
 		      <input type="phone" class="form-control" formControlName="phone" required="" placeholder="Phone">
 		      <div *ngIf="f.phone.invalid && (f.phone.dirty || f.phone.touched)" class="alert alert-danger">
 				<div *ngIf="f.phone.invalid">Required</div></div>
+		    </div>
+
+		     <div class="form-group">
+		   		<input class="form-check-input" type="radio" formControlName="defaultAddress" value="true" [checked]="false" (change)="onAddrChange($event.target.value)"/>
+               <label class="form-check-label" for="defaultAddress">
+			    Default Address
+			   </label>
 		     
 		    </div>
+
+
+	
 				
 		 			<button class="btn w-25 btn-primary" type="submit">Submit</button>
 
@@ -68,7 +74,7 @@
 <!-- <div id="card-element" class="field"></div> -->
   
 
-<div *ngIf="cardFlag">
+<div *ngIf="cardFlagg">
 		<div class="user_card card">
 			<div class="card-header">
 				<h4> Payment Card Details </h4>
@@ -100,6 +106,15 @@
 		      <div *ngIf="c.exdate.invalid && (c.exdate.dirty || c.exdate.touched)" class="alert alert-danger">
 				<div *ngIf="c.exdate.invalid">Required</div></div>
 		    </div>
+
+		     <div class="form-group">
+		   		<input class="form-check-input" type="radio" formControlName="defaultCard" value="true" [checked]="false" (change)="onCardChange($event.target.value)"/>
+               <label class="form-check-label" for="defaultCard">
+			    Default Card
+			   </label>
+		     
+		    </div>
+
 
 		 	<button class="btn w-25 btn-primary" [disabled]="!cardDetailsForm.valid" type="submit">Submit</button>
 		  

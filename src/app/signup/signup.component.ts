@@ -46,14 +46,11 @@ export class SignupComponent implements OnInit {
   Submit() {
     
     this.signupService.postSignup(this.signupForm.value).subscribe((data) => {
-      if(data['status_code'] == 200) {
+      if(data['error']) {
+        alert(data['error']);
+      }
+      else {
         alert(data['success']);
-      }
-      else if (data['status_code'] == 401) {
-        alert(data['error']);
-      }
-      else if(data['status_code'] == 400) {
-        alert(data['error']);
       }
     });
     this.signupForm.reset();

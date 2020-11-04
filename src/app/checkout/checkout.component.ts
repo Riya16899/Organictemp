@@ -19,6 +19,8 @@ export class CheckoutComponent implements OnInit {
   handler:any = null;
   stripeToken: string;
   totalPrice: number;
+  Addresses: any;
+  Cards: any;
 
   // elements: Elements;
   // card: StripeElement;
@@ -59,8 +61,6 @@ export class CheckoutComponent implements OnInit {
    ) { }
 
   ngOnInit() {
-   // this.loadStripe();
-
    console.log(this.route.snapshot.queryParams['buy_from_cart']);
   	this.checkBoolean = this.route.snapshot.queryParams['buy_from_cart'];
   	if(this.checkBoolean == 'true') {
@@ -76,11 +76,14 @@ export class CheckoutComponent implements OnInit {
            // this.OrderSummery = data['data']['buy_products'];
             this.Total = data['data']['total_pay'];
             this.stripeToken = data['data']['token'];
-            console.log(this.orderId);
+           
             this.checkoutService.getCheckout(this.orderId).subscribe((data) => {
              console.log(data);
+             this.Addresses = data['data']['address'];
+             this.Cards = data['data']['card'];
              this.OrderSummery = data['data']['products'];
              this.Total = data['data']['total_price'];
+             
             }); 
           }
   	    });
@@ -107,6 +110,8 @@ export class CheckoutComponent implements OnInit {
             console.log(this.orderId);
             this.checkoutService.getCheckout(this.orderId).subscribe((data) => {
              console.log(data['data']['products']);
+             this.Addresses = data['data']['address'];
+             this.Cards = data['data']['card'];
              this.OrderSummery = data['data']['products'];
              this.Total = data['data']['total_price'];
             });
@@ -118,7 +123,7 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-    Submit() {
+  Submit() {
     this.checkoutForm.controls['order_id'].setValue(this.orderId);
     this.checkoutForm.controls['token'].setValue(this.stripeToken);
     console.log(this.checkoutForm.value);
@@ -131,6 +136,13 @@ export class CheckoutComponent implements OnInit {
       }
     });
     this.checkoutForm.reset();
+  }
+
+  addAddress() {
+    
+  }
+  addCard() {
+    
   }
 
 
@@ -154,7 +166,7 @@ export class CheckoutComponent implements OnInit {
     //     this.card.mount('#card-element');
     //   }
     // });
-  }
+}
 
   // loadStripe() {
 

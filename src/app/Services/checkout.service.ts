@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { Checkout } from '../Models/checkout';
+import { CardDetails } from '../Models/card-details';
+import { Address } from '../Models/address';
+
 import { AppService } from '../app.service';
 
 @Injectable({
@@ -53,4 +56,19 @@ export class CheckoutService {
       { headers: { Authorization: this.token } }  );
   }
 
+  getCardDetails(): Observable<CardDetails> {
+    this.token = this.appService.getToken();
+    return this.http.get<CardDetails>(`${this.apiUrl}card_detail/`,
+      { headers: { Authorization: this.token } } );
+  }
+
+  getAddressDetails(): Observable<Address> {
+    this.token = this.appService.getToken();
+    return this.http.get<Address>(`${this.apiUrl}address/`,
+      { headers: { Authorization: this.token } } );
+  }
+
 }
+
+
+

@@ -11,8 +11,8 @@ import { DetailsService } from '../Services/details.service';
 })
 export class PaymentDetailsComponent implements OnInit {
 
-  addressFlag: boolean = false;
-  cardFlag: boolean = false;
+  addressFlagg: boolean;
+  cardFlagg: boolean;
 
   elements: Elements;
   card: StripeElement;
@@ -34,6 +34,7 @@ export class PaymentDetailsComponent implements OnInit {
     state: new FormControl('', [Validators.required, Validators.minLength(3)]),
     country: new FormControl('', [Validators.required, Validators.minLength(2)]),
     postal_code: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    defaultAddress: new FormControl('', [Validators.required])
   });
 
   public cardDetailsForm = this.formBuilder.group({
@@ -42,44 +43,50 @@ export class PaymentDetailsComponent implements OnInit {
   		]),
   	cvv: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]),
   	exdate: new FormControl('', [Validators.required]),
+    defaultCard: new FormControl('', [Validators.required])
   });	
 
   constructor(private formBuilder: FormBuilder,
   	private stripeService: StripeService,
     private route: ActivatedRoute,
-    private detailsService: DetailsService) { }
+    private detailsService: DetailsService,
+    private router: Router ) { }
 
   ngOnInit() {
     console.log(this.route.snapshot.queryParams);
+    console.log(`address`, this.route.snapshot.queryParams['addressFlag']);
+    console.log(`card` , this.route.snapshot.queryParams['cardFlag']);
 
 
-    if(this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']) {
-        console.log(this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']);
-        this.addressFlag = false;
-        this.cardFlag = true;
-        console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
-    }
-    else if(!this.route.snapshot.queryParams['addressFlag'] && this.route.snapshot.queryParams['cardFlag']) {
-        this.addressFlag = true;
-        this.cardFlag = false;
-        console.log(!this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']);
-        console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
-    }
-    else {
-      console.log();
-        this.addressFlag = true;
-    }
-
-
+    // if(this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']) {
+    //     console.log(this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']);
+    //     this.addressFlagg = false;
+    //     this.cardFlagg = true;
+    //     console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
+    // }
+    // else if(!this.route.snapshot.queryParams['addressFlag'] && this.route.snapshot.queryParams['cardFlag']) {
+    //     this.addressFlagg = true;
+    //     this.cardFlagg = false;
+    //     console.log(!this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']);
+    //     console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
+    // }
+    // else {
+    //   console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
+    //   this.addressFlagg = true;
+    // }
     this.OrderId = this.route.snapshot.queryParams['order_id'];
 
-  	this.loadStripe();
-  	this.stripeService.elements(this.elementsOptions)
-    .subscribe(elements => {
-      this.elements = elements;
-      
 
-    });
+  }
+
+  onAddrChange(value: any) {
+    console.log(value);
+    this.addressForm.controls['defaultAddress'].setValue(value);
+  }
+
+  onCardChange(value: any) {
+    console.log(value);
+    this.cardDetailsForm.controls['defaultCard'].setValue(value);
   }
 
   cardPaymentEle() {
@@ -118,8 +125,8 @@ export class PaymentDetailsComponent implements OnInit {
 
   submitAddress() {
   	console.log(this.addressForm.value);
-  	this.addressFlag = false;
-  	this.cardFlag = true;	
+  	this.addressFlagg = false;
+  	this.cardFlagg = true;	
     this.detailsService.postAddress(this.addressForm.value).subscribe((data) => {
       if(data['error']) {
         alert(data['error']);
@@ -146,6 +153,7 @@ export class PaymentDetailsComponent implements OnInit {
         console.log(data);
       }
     });
+    this.router.navigate(['/checkout']);
   }
 
 }

@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
 
 
   public loginForm = this.formBuilder.group({
-    email: new FormControl('', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
+    email: new FormControl('', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]),
     password : new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
@@ -21,9 +21,7 @@ export class LoginComponent implements OnInit {
   	private formBuilder: FormBuilder, private route :ActivatedRoute) { }
 
   ngOnInit() {
-
     
-
     let routeValue = this.route.snapshot.paramMap.get('value')
     this.show = JSON.parse(routeValue); // str to boolean
   }

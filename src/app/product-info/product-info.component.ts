@@ -32,7 +32,7 @@ export class ProductInfoComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    
+
     // this.showFirstTwo(this.offers, this.offer);
 
     const pro_id = this.route.snapshot.params['id'];
@@ -41,49 +41,50 @@ export class ProductInfoComponent implements OnInit {
         alert(data['error']);
       }
       else {
+        console.log(data);
         this.product_data = data['data']['product'];
         this.reviews  = data['data']['review'];
+        console.log(this.reviews);
       }
     });
   }
   
   Submit() {
-  	this.valueQuantity = this.quantity.nativeElement.value;
-  	this.productForm.controls['quantity'].setValue(this.valueQuantity);
-    this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
+      this.valueQuantity = this.quantity.nativeElement.value;
+      this.productForm.controls['quantity'].setValue(this.valueQuantity);
+      this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
   }  
 
   Cart(event: any) {
-    if(!this.valueQuantity) {
-      this.productForm.controls['quantity'].setValue(1);
-    }
-    this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
-    this.router.navigate(['/cart', this.productForm.value.quantity, this.productForm.value.pro_id]);
+      if(!this.valueQuantity) {
+        this.productForm.controls['quantity'].setValue(1);
+      }
+      this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
+      this.router.navigate(['/cart', this.productForm.value.quantity, this.productForm.value.pro_id]);
   }
   
   Buy() {
-    if(!this.valueQuantity) {
-      this.productForm.controls['quantity'].setValue(1);
-    }
-    this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
-    if(this.buyFromCart === true) {
-      this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true } });
-    }
-    else {
-      this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false, id: this.productForm.value.pro_id, quantity: this.productForm.value.quantity } });
-    }
-    
+      if(!this.valueQuantity) {
+          this.productForm.controls['quantity'].setValue(1);
+      }
+      this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
+      if(this.buyFromCart === true) {
+          this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true } });
+      }
+      else {
+          this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false, id: this.productForm.value.pro_id, quantity: this.productForm.value.quantity } });
+      }
   }
 
   Rate() {
-    if(localStorage.getItem('token')) {
-        this.showInput = true;
-    }
-    else {
-      alert('Please Login ');
-    }
-    
+      if(localStorage.getItem('token')) {
+          this.showInput = true;
+      }
+      else {
+          alert('Please Login ');
+      }
   }
+
   ReviewSubmit() {
     this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
     this.productInfoService.postReview(this.productForm.value['pro_id'], 
@@ -96,6 +97,25 @@ export class ProductInfoComponent implements OnInit {
         }
       });
       this.review.nativeElement.value = ''; 
+  }
+
+  start: number = 0
+  end: number = 2
+  loadIndex: number = 2;
+
+  more() {
+    this.start = this.loadIndex;
+    if (this.loadIndex < this.reviews.length) {
+      this.loadIndex += 2;
+    }
+    this.end = this.loadIndex;
+  }
+  less() {
+    this.end = this.loadIndex;
+    if (this.loadIndex > 2) {
+      this.loadIndex -= 2;
+    }
+    this.start = this.loadIndex;
   }
 
  

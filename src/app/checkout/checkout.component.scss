@@ -19,14 +19,13 @@ $tablet: 768px;
 	align-content: center;
 	text-align: center;
 	.row {
-		.col-sm, .order_sum {
-			border-radius: 20%;
-		}
+		margin: 0 30px 10px 30px;
 		.order_sum {
-			margin: 0 30px 0 50px;
+			/* top right bottom left */
+			margin-bottom: 20px;
 		
 			.card {
-				min-width: 300px;
+				/* min-width: 300px; */
 				h3 {
 					text-align: center;
 					font: normal normal bold 32px/40px Libre Baskerville;
@@ -45,7 +44,7 @@ $tablet: 768px;
 			}
 		}
 		.billing_info {
-			margin: 0 80px 0 80px;
+			margin: 0 30px 10px 30px;
 			.form {
 				.row {
 					.col-sm {
@@ -65,6 +64,57 @@ $tablet: 768px;
 
 			}
 		}
+		.address-data {
+			/* min-width: 300px; */
+
+			h3 {
+				text-align: center;
+				font: normal normal bold 32px/40px Libre Baskerville;
+				letter-spacing: 0px;
+				color: #374B5C;
+				opacity: 1;
+			}
+			p {
+				text-align: left;
+				font: normal normal normal 14px/20px Libre Baskerville;
+				letter-spacing: 0px;
+				color: #374B5C;
+				opacity: 1;
+			}
+			.btn-group {
+				margin:  15px;
+				button {
+					margin: 5px;
+					text-align: center;
+					font: normal normal normal 16px/20px Libre Baskerville;
+				}
+			}
+			
+		}
+		.card-data {
+			h3 {
+				text-align: center;
+				font: normal normal bold 32px/40px Libre Baskerville;
+				letter-spacing: 0px;
+				color: #374B5C;
+				opacity: 1;
+			}
+			p {
+				text-align: left;
+				font: normal normal normal 14px/20px Libre Baskerville;
+				letter-spacing: 0px;
+				color: #374B5C;
+				opacity: 1;
+			}
+			.btn-group {
+				margin: 15px;
+				button {
+					margin: 5px;
+					text-align: center;
+					font: normal normal normal 16px/20px Libre Baskerville;
+				}
+			}
+		}
 	}
 
 }	
@@ -78,20 +128,67 @@ $tablet: 768px;
 		align-content: center;
 		text-align: center;
 		.row {
-
-			.col-sm, .order_sum {
-				border-radius: 20%;
-			}
 			.order_sum {
-				margin: 0 50px 0 50px;
+				margin: 0 15px 20px 15px;
 			
 				.card {
-					min-width: 200px;
+					/* min-width: 200px; */
+					h3 {
+						font: normal normal bold 26px/28px Libre Baskerville;
+					}
+					p {
+						text-align: center;
+						font: normal normal normal 16px/26px Libre Baskerville;
+						letter-spacing: 0px;
+						color: #374B5C;
+						opacity: 1;
+					}
+
 				}
 			}
 			.billing_info {
 				margin: 30px 40px 0 40px;
 			}
+			.address-data {
+			/* min-width: 300px; */
+
+			h3 {
+			
+				font: normal normal bold 26px/30px Libre Baskerville;
+		
+			}
+			p {
+			
+				font: normal normal normal 12px/20px Libre Baskerville;
+		
+			}
+			.btn-group {
+				margin:  5px;
+				button {
+					margin: 5px;
+					font: normal normal normal 12px/20px Libre Baskerville;
+				}
+			}
+			
+		}
+		.card-data {
+			h3 {
+				
+				font: normal normal bold 26px/30px Libre Baskerville;
+				
+			}
+			p {
+				font: normal normal normal 12px/20px Libre Baskerville;
+				
+			}
+			.btn-group {
+				margin: 5px;
+				button {
+					margin: 5px;
+					font: normal normal normal 12px/20px Libre Baskerville;
+				}
+			}
+		}
 		}
 
 	}
@@ -103,10 +200,10 @@ $tablet: 768px;
 		/* top right bottom left */
 		.row {
 			.order_sum {
-				margin: 0 50px 0 50px;
+				margin: 0 10px 15px 10px;
 			
 				.card {
-					min-width: 200px;
+					/* min-width: 200px; */
 				}
 			}
 			.billing_info {

@@ -1,13 +1,13 @@
 <div class="front-class">
 
-<img alt="Group 196" class="right-side-img" src="./assets/Group 196.png">
-<img alt="Group 228" class="left-side-img" src="./assets/Group 228.png">
+<img alt="Group 196" class="right-side-img" alt="right background image" src="./assets/Group 196.png">
+<img alt="Group 228" class="left-side-img" alt="left background image" src="./assets/Group 228.png">
 
 	<div class="d-flex justify-content-center">
 		<div class="product-info">
 			<div class="row" *ngFor="let product of product_data">
 				<div class="col-sm-5 card">
-					<img class="" src="{{product.image_url}}" alt="Mask Group 62">
+					<img class="" src="{{product.image_url}}" alt="product image">
 				</div>
 				<div class="col-sm-7 card info-data" >
 					<h3>{{product.p_name | titlecase}}</h3>
@@ -59,15 +59,16 @@
 				  	<input #review type="text" name="review" placeholder="Write Review Here">
 				  	<button class="btn btn-outline-info" (click)="ReviewSubmit()">Submit</button>
 				  </div>
-				  	<ul *ngFor="let review of reviews"> 
-				      	<li class=" text-muted d-flex justify-content-between my-0" >{{review.text | titlecase}}
+				  	<ul *ngFor="let review of reviews | slice:start:end; index as i;"> 
+				      	<li class=" text-muted d-flex justify-content-between my-0" *ngIf="i < loadIndex ">{{review.text | titlecase}}
 				      		 <div>
 				      		 	 <footer class="blockquote-footer"> {{review.first_name | titlecase}}</footer>
-							     <!--  <p> - {{review.first_name | titlecase}}</p> -->
 							  </div>
 						</li>
 						<hr style="margin: 0 20px 0 20px;">
 				  	</ul>
+				  	<button class="btn btn-outline-info" (click)="more()">more</button>
+  					<button class="btn btn-outline-info" (click)="less()">less</button>
 				  </div>
 				</div>
             </div>
@@ -77,10 +78,12 @@
 </div>
 
 
- <!-- <ul>
-    <li *ngFor="let offer of offers" ng-show="offer.isVisible">
-      Offer ID: <strong>{{offer.number}}</strong>
-      <br>Offer name: <strong>{{offer.name}}</strong>
+<!-- <ul>
+    <li *ngFor="let offer of reviews | slice:start:end; index as i; ">
+      <p *ngIf="i < loadIndex ">{{offer.text}}</p>
+     
     </li>
-  </ul> -->
-  
+  </ul>
+
+  <button (click)="more()">more</button>
+  <button (click)="less()">less</button> -->

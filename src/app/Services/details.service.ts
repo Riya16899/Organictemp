@@ -27,6 +27,7 @@ export class DetailsService {
     form.append('state', formDat.state);
     form.append('country', formDat.country);
     form.append('postal_code', formDat.postal_code);
+    form.append('default_addr', formDat.defaultAddress)
     console.log(formDat);
     this.token = this.appService.getToken();
     
@@ -47,6 +48,7 @@ export class DetailsService {
     form.append('card_exp_month', sp[1]);
     form.append('card_exp_year', sp[0]);
     form.append('order_id', order_id);
+    form.append('default_card', formDat.defaultCard)
     return this.http.post<CardDetails>(`${this.apiUrl}card_detail/`, form,
     { headers: { Authorization: this.token } } );
   }

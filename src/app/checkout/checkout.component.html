@@ -2,8 +2,61 @@
 <div class="front-class">
 	<div class="fifth-class">
     <div class="row">
+      <div style="" class="col-sm address-data">
+          <div class="">
+              <div class="card border-secondary rounded" style="">
+                <h3 class="text-muted">Address Summery</h3>
+                <div class="row card " *ngFor="let address of Addresses" >
+              <div class=" col-sm card-body">
+             <span class="badge badge-secondary" >Default</span>
+                <p>{{address.addr_line1 | titlecase}} </p>
+                <p> {{address.addr_line2 | titlecase}}</p>
+                <p class="">{{address.city | titlecase}}</p>
+                <p class="">{{address.country | titlecase}}</p>
+                <p class="">Phone: {{address.phone}}</p>
+              </div>
+            </div>
+            <div class="btn-group ">
+            <button type="button" class="btn btn-primary">
+            Add Address + 
+            </button>
+            <button type="button" class=" btn btn-primary">
+            Change Default 
+            </button>
+          </div>
+              </div>
 
-    <div style="" class="col-sm-3 order_sum">
+        </div>
+      </div>
+
+      <div class="col-sm-4 card-data">
+      <div class="justify-content-center ">
+          <div class="card border-secondary rounded">
+            <h3 class="text-muted">Card Details</h3>
+            <div class="row card " *ngFor="let card of Cards" >
+          <div class="data col-sm card-body">
+            <span class="badge badge-secondary" >Default</span>
+            <p>Card Brand : {{card.card_brand | titlecase}} </p>
+            <p>Last 4 digits:  {{card.last4 }}</p>
+           
+          </div>
+        </div>
+        <div class="btn-group ">
+         <button type="button" class=" btn btn-primary">
+            Add Card + 
+            </button>
+             <button type="button" class="btn btn-primary">
+            Change Default
+            </button>
+          </div>
+          </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+
+        <div style="" class="col-sm-4 order_sum">
       <div class="justify-content-center ">
         
           <div class="card border-secondary rounded" style="">
@@ -28,7 +81,8 @@
             </div>
           </div>
     </div>
-	</div>
+  </div>
+
 
    <div style="" class="col-sm billing_info">
     <div class="">
@@ -48,8 +102,12 @@
 
 </div>
   </div>
+</div>
+</div></div>
 
-</div></div></div>
+
+
+      
 <!-- 
 <script src="https://checkout.stripe.com/checkout.js"></script> -->
 

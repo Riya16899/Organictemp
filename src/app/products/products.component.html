@@ -54,7 +54,7 @@
            
           
           <a routerLink="/product_info/{{item.dataa.id}}" >
-          <img class="card_img" src="{{item.dataa.image_url}}" alt="Mask Group 62">
+          <img class="card_img" src="{{item.dataa.image_url}}" alt="Product image">
           <h4>{{item.dataa.p_name | titlecase}}</h4>
           <p>{{item.dataa.description}}</p>
           <div class="price"><p>Rs. {{item.dataa.discount_price}}</p>
@@ -78,3 +78,8 @@
 
 
 <app-product-pagination [categoryFilter]="catName" [priceFilter]="priceName" [searchBox]="searchName" (changePage)="onChangePage($event)" ></app-product-pagination>
+
+
+
+
+ 

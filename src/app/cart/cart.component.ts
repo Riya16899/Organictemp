@@ -27,6 +27,7 @@ export class CartComponent implements OnInit {
    private cartService: CartService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    
     if (JSON.stringify(this.route.snapshot.params) == '{}') {
   	  this.cartService.getCart().subscribe((data) => {
         console.log(data);
@@ -36,7 +37,7 @@ export class CartComponent implements OnInit {
         }
 
         if(data['error']) {
-          // alert(data['error']);
+          alert(data['error']);
         }
         else {
           this.heavyCart = true;
@@ -56,7 +57,7 @@ export class CartComponent implements OnInit {
           this.emptyCart = true;
         }
         if(data['error']) {
-          // alert(data['error']);
+          alert(data['error']);
         }
         else {
           this.heavyCart = true;
@@ -73,46 +74,30 @@ export class CartComponent implements OnInit {
       console.log(data);
         if(data['error']) {
           alert(data['error']);
+  
         }
         else {
           this.OrderId = data['data']['order_id'];
       
           this.buyFromCart = data['data']['buy_from_cart'];
-
+          console.log(this.buyFromCart);
           if(data['data']['address_available'] && data['data']['card_available']) {
-            //this.router.navigate(['/checkout']);
+              console.log('send from checkout');
               if(this.buyFromCart) {
                 this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true } });
               }
               else {
                 this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false } });
               }
-            //this.router.navigate(['/checkout']);
-
-            // this.router.navigate(['/details'],
-            //   { queryParams: { 'order_id':this.OrderId, 'addressFlag': true, 
-            //   'cardFlag': false  } });
             console.log('true both');
             console.log(data['data']['token']);
           }
-          // else if(data['data']['address_available'] && !data['data']['card_available']) {
-          //   console.log('false card');
-          //   this.router.navigate(['/details'],
-          //     { queryParams: { 'order_id':this.OrderId, 'addressFlag': data['data']['address_available'], 
-          //     'cardFlag': data['data']['card_available']  } });
-          // }
-          // else if(!data['data']['address_available'] && data['data']['card_available']) {
-          //   console.log('false address');
-          //   this.router.navigate(['/details'],
-          //     { queryParams: { 'order_id':this.OrderId, 'addressFlag': data['data']['address_available'], 
-          //     'cardFlag': data['data']['card_available']  } });
-          // }
           else {
+            console.log('sent from details');
             this.router.navigate(['/details'],
               { queryParams: { 'order_id':this.OrderId, 'addressFlag': data['data']['address_available'], 
               'cardFlag': data['data']['card_available']  } });
           }
-          // alert(data['data']['order_id'] );
           
         } 
     });
