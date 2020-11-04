@@ -1,130 +1,194 @@
 <div class="front-class">
-
 	<div class="container ">
-		<div class="d-flex justify-content-center">
+		<div class="">
+		
+			<div *ngIf="addressFlagg">
+				<div class="row">
+				<div class="col-sm">
+				<div class="user_card card">
+					<div class="card-header">
+						<h4> Address Details </h4>
+					</div>
+					<div class="card-body justify-content-center">
+						<form [formGroup]="addressForm" class="mb-5" (ngSubmit)="submitAddress()">
+						     <div class="form-group">
+						      <input type="text" class="form-control" formControlName="addr1" required placeholder="Address Line 1">
+						     <div *ngIf="f.addr1.invalid && (f.addr1.dirty || f.addr1.touched)" class="alert alert-danger">
+							<div *ngIf="f.addr1.invalid">Required</div></div>
+						    </div>
+						     <div class="form-group">
+						      <input type="text" class="form-control" formControlName="addr2" required
+						      placeholder="Address Line 2">
+						      <div *ngIf="f.addr2.invalid && (f.addr2.dirty || f.addr2.touched)" class="alert alert-danger">
+							<div *ngIf="f.addr2.invalid">Required</div></div>
+						 
+						    </div>
+						     <div class="form-group">
+					      <input type="text" class="form-control" formControlName="city" required="" placeholder="City">
+					      <div *ngIf="f.city.invalid && (f.city.dirty || f.city.touched)" class="alert alert-danger">
+							<div *ngIf="f.city.invalid">Required</div></div>
+					    </div>
+					        <div class="form-group">
+					      <input type="text" class="form-control" formControlName="state" required="" placeholder="State">
+					      <div *ngIf="f.state.invalid && (f.state.dirty || f.state.touched)" class="alert alert-danger">
+							<div *ngIf="f.state.invalid">Required</div></div>
+					    </div>
+					        <div class="form-group">
+					      <input type="text" class="form-control" formControlName="country" required="" placeholder="Country">
+					      <div *ngIf="f.country.invalid && (f.country.dirty || f.country.touched)" class="alert alert-danger">
+							<div *ngIf="f.country.invalid">Required</div></div>
+					    </div>
+					        <div class="form-group">
+					      <input type="number" class="form-control" formControlName="postal_code" required="" placeholder="Postal_code">
+					      <div *ngIf="f.postal_code.invalid && (f.postal_code.dirty || f.postal_code.touched)" class="alert alert-danger">
+							<div *ngIf="f.postal_code.invalid">Required</div></div>
+					    </div>
+					        <div class="form-group">
+					      <input type="phone" class="form-control" formControlName="phone" required="" placeholder="Phone">
+					      <div *ngIf="f.phone.invalid && (f.phone.dirty || f.phone.touched)" class="alert alert-danger">
+							<div *ngIf="f.phone.invalid">Required</div></div>
+					    </div>
 
-<div *ngIf="addressFlagg">
-	<div class="user_card card">
-		<div class="card-header">
-
-			<h4> Address Details </h4>
-		</div>
-		<div class="card-body justify-content-center">
-
-			<form [formGroup]="addressForm" class="mb-5" (ngSubmit)="submitAddress()">
-			     <div class="form-group">
-			      <input type="text" class="form-control" formControlName="addr1" required placeholder="Address Line 1">
-			     <div *ngIf="f.addr1.invalid && (f.addr1.dirty || f.addr1.touched)" class="alert alert-danger">
-				<div *ngIf="f.addr1.invalid">Required</div></div>
-			    </div>
-			     <div class="form-group">
-			      <input type="text" class="form-control" formControlName="addr2" required
-			      placeholder="Address Line 2">
-			      <div *ngIf="f.addr2.invalid && (f.addr2.dirty || f.addr2.touched)" class="alert alert-danger">
-				<div *ngIf="f.addr2.invalid">Required</div></div>
-			 
-			    </div>
-			     <div class="form-group">
-		      <input type="text" class="form-control" formControlName="city" required="" placeholder="City">
-		      <div *ngIf="f.city.invalid && (f.city.dirty || f.city.touched)" class="alert alert-danger">
-				<div *ngIf="f.city.invalid">Required</div></div>
-		     
-		    </div>
-		        <div class="form-group">
-		      <input type="text" class="form-control" formControlName="state" required="" placeholder="State">
-		      <div *ngIf="f.state.invalid && (f.state.dirty || f.state.touched)" class="alert alert-danger">
-				<div *ngIf="f.state.invalid">Required</div></div>
-		    </div>
-		        <div class="form-group">
-		      <input type="text" class="form-control" formControlName="country" required="" placeholder="Country">
-		      <div *ngIf="f.country.invalid && (f.country.dirty || f.country.touched)" class="alert alert-danger">
-				<div *ngIf="f.country.invalid">Required</div></div>
-		    </div>
-		        <div class="form-group">
-		      <input type="number" class="form-control" formControlName="postal_code" required="" placeholder="Postal_code">
-		      <div *ngIf="f.postal_code.invalid && (f.postal_code.dirty || f.postal_code.touched)" class="alert alert-danger">
-				<div *ngIf="f.postal_code.invalid">Required</div></div>
-		    </div>
-		        <div class="form-group">
-		      <input type="phone" class="form-control" formControlName="phone" required="" placeholder="Phone">
-		      <div *ngIf="f.phone.invalid && (f.phone.dirty || f.phone.touched)" class="alert alert-danger">
-				<div *ngIf="f.phone.invalid">Required</div></div>
-		    </div>
-
-		     <div class="form-group">
-		   		<input class="form-check-input" type="radio" formControlName="defaultAddress" value="true" [checked]="false" (change)="onAddrChange($event.target.value)"/>
-               <label class="form-check-label" for="defaultAddress">
-			    Default Address
-			   </label>
-		     
-		    </div>
+					     <div class="form-group">
+					   		<input class="form-check-input" type="radio" formControlName="defaultAddress" value="true" [checked]="false" (change)="onAddrChange($event.target.value)"/>
+			               <label class="form-check-label" for="defaultAddress">
+						    Default Address
+						   </label>
+					     
+					    </div>
 
 
-	
 				
-		 			<button class="btn w-25 btn-primary" type="submit">Submit</button>
+							
+					 			<button class="btn w-25 btn-primary" type="submit">Submit</button>
 
-		 			<!--  [disabled]="!addressForm.valid" -->
-		  
-			</form>
-			<br>
+					 			<!--  [disabled]="!addressForm.valid" -->
+					  
+						</form>
+						<br>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-sm">
+				<div class="card border-secondary rounded address-data" style="">
+			               
+			                <div class="row card" *ngFor="let address of Addresses" >
+			              <div class=" col-sm card-body">
+			              	<button class="btn btn-primary" (click)="changeDefault(address.id)">Keep Default</button>
+			             <span class="badge badge-secondary" *ngIf="address.default_addr === 1">Default</span>
+			                <p>{{address.addr_line1 | titlecase}} </p>
+			                <p> {{address.addr_line2 | titlecase}}</p>
+			                <p class="">{{address.city | titlecase}}</p>
+			                <p class="">{{address.country | titlecase}}</p>
+			                <p class="">Phone: {{address.phone}}</p>
+			              </div>
+
+			            </div>
+			    </div>
+			</div>
 		</div>
-	</div>
-</div>
+			</div>
 <!-- <div id="card-element" class="field"></div> -->
   
 
 <div *ngIf="cardFlagg">
+	<div class="row">
+		<div class="col-sm">
 		<div class="user_card card">
 			<div class="card-header">
 				<h4> Payment Card Details </h4>
 			</div>
 			<div class="card-body justify-content-center">
 				<form [formGroup]="cardDetailsForm" class="mb-5" (ngSubmit)="submitCard()" >
-				 
 			     <div class="form-group">
 			      <input type="text" class="form-control" formControlName="name" required placeholder="Name">
 			     <div *ngIf="c.name.invalid && (c.name.dirty || c.name.touched)" class="alert alert-danger">
 				<div *ngIf="c.name.invalid">Required</div></div>
 			    </div>
-
 			     <div class="form-group">
 			      <input type="text" class="form-control" formControlName="cardnumber" required
 			      placeholder="Card Number">
 			      <div *ngIf="c.cardnumber.invalid && (c.cardnumber.dirty || c.cardnumber.touched)" class="alert alert-danger">
 				<div *ngIf="c.cardnumber.invalid">must be 16 digits</div></div>
 			    </div>
-
 			     <div class="form-group">
 		      <input type="text" class="form-control" formControlName="cvv" required="" placeholder="CVV">
 		      <div *ngIf="c.cvv.invalid && (c.cvv.dirty || c.cvv.touched)" class="alert alert-danger">
 				<div *ngIf="c.cvv.invalid">must be 3 digits</div></div>
 		    </div>
-
 		        <div class="form-group">
 		      <input type="month" class="form-control" formControlName="exdate" required="" placeholder="State">
 		      <div *ngIf="c.exdate.invalid && (c.exdate.dirty || c.exdate.touched)" class="alert alert-danger">
 				<div *ngIf="c.exdate.invalid">Required</div></div>
 		    </div>
-
 		     <div class="form-group">
 		   		<input class="form-check-input" type="radio" formControlName="defaultCard" value="true" [checked]="false" (change)="onCardChange($event.target.value)"/>
                <label class="form-check-label" for="defaultCard">
 			    Default Card
 			   </label>
-		     
 		    </div>
-
-
 		 	<button class="btn w-25 btn-primary" [disabled]="!cardDetailsForm.valid" type="submit">Submit</button>
 		  
 			</form>
 				<br>
 			</div>
 		</div>
+	</div>
+	<div class="col-sm">
+  			
+				<div class="card border-secondary rounded card-data" style="">
+			               
+			                <div class="row card " *ngFor="let card of Cards" >
+			              <div class=" col-sm card-body">
+			             <!-- <span class="badge badge-secondary" *ngIf="card.default_card === 1">Default</span> -->
+			                <p>Card Brand : {{card.card_brand | titlecase}} </p>
+            <p>Last 4 digits:  {{card.last4 }}</p>
+
+            <button type="button" class="btn btn-primary" (click)="verifyCvv()">Verify CVV</button>
+			              </div>
+
+			            </div>
+			    </div>
+			
+
+	</div>
+</div>
 </div>
 
 		</div>
 	</div>
 </div>
 
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Verify</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-user prefix grey-text"></i>
+          <input type="number" id="orangeForm-name" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-name">Last 4 digit of your card</label>
+        </div>
+        <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+          <input type="number" id="orangeForm-email" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="orangeForm-email">CVV</label>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-deep-orange">Verify</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Launch Modal Register Form</a>
+</div>

@@ -58,6 +58,7 @@ export class CheckoutComponent implements OnInit {
   	private route: ActivatedRoute,
    private formBuilder: FormBuilder,
    private stripeService: StripeService,
+   private router: Router,
    ) { }
 
   ngOnInit() {
@@ -138,11 +139,11 @@ export class CheckoutComponent implements OnInit {
     this.checkoutForm.reset();
   }
 
-  addAddress() {
-    
+  addrBtn() {
+    this.router.navigate(['/details'],  { queryParams: { address: true } });
   }
-  addCard() {
-    
+  cardBtn() {
+    this.router.navigate(['/details'],  { queryParams: { card: true } });
   }
 
 

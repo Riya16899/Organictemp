@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
 import { StripeService, Elements, Element as StripeElement, ElementsOptions } from 'ngx-stripe';
 import { Router, ActivatedRoute } from "@angular/router";
 import { DetailsService } from '../Services/details.service'; 
-
+import { CheckoutService } from '../Services/checkout.service';
 @Component({
   selector: 'app-payment-details',
   templateUrl: './payment-details.component.html',
@@ -21,6 +21,8 @@ export class PaymentDetailsComponent implements OnInit {
   submitted: any;
   loading: any;
   OrderId: string;
+  Addresses: any;
+  Cards: any;
 
   elementsOptions:  ElementsOptions = {
     locale: "en"
@@ -39,43 +41,62 @@ export class PaymentDetailsComponent implements OnInit {
 
   public cardDetailsForm = this.formBuilder.group({
   	name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-  	cardnumber: new FormControl('', [Validators.required
-  		]),
+  	cardnumber: new FormControl('', [Validators.required]),
   	cvv: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]),
   	exdate: new FormControl('', [Validators.required]),
     defaultCard: new FormControl('', [Validators.required])
   });	
 
+  public verifyForm = this.formBuilder.group({
+    cvv: new FormControl('', [Validators.required]),
+    last4: new FormControl('', [Validators.required]),
+    card_id: new FormControl('', [Validators.required])
+  })
+
   constructor(private formBuilder: FormBuilder,
   	private stripeService: StripeService,
     private route: ActivatedRoute,
     private detailsService: DetailsService,
-    private router: Router ) { }
+    private router: Router,
+    private checkoutService: CheckoutService ) { }
 
   ngOnInit() {
+
     console.log(this.route.snapshot.queryParams);
-    console.log(`address`, this.route.snapshot.queryParams['addressFlag']);
-    console.log(`card` , this.route.snapshot.queryParams['cardFlag']);
-
-
-    // if(this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']) {
-    //     console.log(this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']);
-    //     this.addressFlagg = false;
-    //     this.cardFlagg = true;
-    //     console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
-    // }
-    // else if(!this.route.snapshot.queryParams['addressFlag'] && this.route.snapshot.queryParams['cardFlag']) {
-    //     this.addressFlagg = true;
-    //     this.cardFlagg = false;
-    //     console.log(!this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']);
-    //     console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
-    // }
-    // else {
-    //   console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
-    //   this.addressFlagg = true;
-    // }
-    this.OrderId = this.route.snapshot.queryParams['order_id'];
-
+    if (JSON.stringify(this.route.snapshot.queryParams['address'])) {
+        this.checkoutService.getAddressDetails().subscribe((data) => {
+            console.log(data);
+            this.Addresses = data['data']['address'];
+            this.addressFlagg = true;
+        });
+    }
+    else if (JSON.stringify(this.route.snapshot.queryParams['card'])) {
+        this.checkoutService.getCardDetails().subscribe((data) => {
+            console.log(data);
+            this.cardFlagg = true;
+            this.Cards = data['data']['card'];
+            
+        });
+    }
+    else {
+        if(this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']) {
+            console.log(this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']);
+            this.addressFlagg = false;
+            this.cardFlagg = true;
+            console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
+        }
+        else if(!this.route.snapshot.queryParams['addressFlag'] && this.route.snapshot.queryParams['cardFlag']) {
+            this.addressFlagg = true;
+            this.cardFlagg = false;
+            console.log(!this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']);
+            console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
+        }
+        else {
+          console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
+          this.addressFlagg = true;
+        }
+        this.OrderId = this.route.snapshot.queryParams['order_id'];
+    }
 
   }
 
@@ -154,6 +175,23 @@ export class PaymentDetailsComponent implements OnInit {
       }
     });
     this.router.navigate(['/checkout']);
+  }
+
+  changeDefault(id: any) {
+    console.log(typeof id);
+    this.detailsService.changeDefAddr(id).subscribe((data) => {
+      console.log(data);
+      if(data['error']) {
+        alert(data['error']);
+      }
+      else {
+        console.log(data);
+      }
+    });
+  }
+
+  verifyCvv() {
+    this.detailsService.cvvVerify(this.verifyForm.value).subscribe();
   }
 
 }

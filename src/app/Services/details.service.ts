@@ -53,4 +53,23 @@ export class DetailsService {
     { headers: { Authorization: this.token } } );
   }
 
+  changeDefAddr(id) {
+    console.log(id);
+    var form = new FormData();
+    form.append('address_id', id);
+    return this.http.post(`${this.apiUrl}change_address/`, form,
+    { headers: { Authorization: this.token } }  );
+  }
+
+  cvvVerify(formDat: any) {
+    this.token = this.appService.getToken();
+    var form = new FormData();
+    form.append('cvv',formDat);
+    form.append('last4',formDat);
+    form.append('card_id',formDat);
+
+    return this.http.post(`${this.apiUrl}cvv_verification/`, form, 
+     { headers: { Authorization: this.token } } );
+  }
+
 }
