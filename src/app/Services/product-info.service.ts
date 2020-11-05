@@ -20,6 +20,9 @@ export class ProductInfoService {
   }
   
   postBuyProduct(formDat: any): Observable<Products> {
+    var form = new FormData();
+    form.append('product_id', formDat.product_id);
+    form.append('quantity', formDat.quantity);
     this.token = this.appService.getToken();
   	return this.http.post<Products>(`${this.apiUrl}buy_product/`, formDat,
   	{ headers: { Authorization: this.token } } );

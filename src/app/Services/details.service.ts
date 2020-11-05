@@ -35,11 +35,14 @@ export class DetailsService {
       { headers: { Authorization: this.token } } );
   }
 
-  getAddress() {
-    return this.http.get<Checkout>(`${this.apiUrl}address/`);
+  getAddress():  Observable<Address> {
+    this.token = this.appService.getToken();
+    return this.http.get<Address>(`${this.apiUrl}address/`,
+      { headers: { Authorization: this.token } } );
   }
 
-  postCardDetails(formDat: any, order_id: string): Observable<CardDetails> {
+  postCardDetails(formDat: any) {
+    console.log(formDat);
     let sp = formDat.exdate.split("-");
   	var form = new FormData();
     form.append('card_name', formDat.name);
@@ -47,9 +50,11 @@ export class DetailsService {
     form.append('card_cvc', formDat.cvv);
     form.append('card_exp_month', sp[1]);
     form.append('card_exp_year', sp[0]);
-    form.append('order_id', order_id);
+    form.append('order_id', formDat.order_id);
     form.append('default_card', formDat.defaultCard)
-    return this.http.post<CardDetails>(`${this.apiUrl}card_detail/`, form,
+    console.log(form);
+    this.token = this.appService.getToken();
+    return this.http.post(`${this.apiUrl}card_detail/`, form,
     { headers: { Authorization: this.token } } );
   }
 
@@ -57,17 +62,18 @@ export class DetailsService {
     console.log(id);
     var form = new FormData();
     form.append('address_id', id);
+    this.token = this.appService.getToken();
     return this.http.post(`${this.apiUrl}change_address/`, form,
     { headers: { Authorization: this.token } }  );
   }
 
-  cvvVerify(formDat: any) {
+  postCvvVerify(formDat: any) {
     this.token = this.appService.getToken();
     var form = new FormData();
-    form.append('cvv',formDat);
-    form.append('last4',formDat);
-    form.append('card_id',formDat);
-
+    form.append('cvc',formDat.cvv);
+    form.append('last4',formDat.last4);
+    form.append('card_id',formDat.card_id);
+    form.append('order_id', formDat.order_id);
     return this.http.post(`${this.apiUrl}cvv_verification/`, form, 
      { headers: { Authorization: this.token } } );
   }

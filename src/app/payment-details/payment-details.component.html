@@ -54,16 +54,9 @@
 			               <label class="form-check-label" for="defaultAddress">
 						    Default Address
 						   </label>
-					     
 					    </div>
-
-
-				
-							
 					 			<button class="btn w-25 btn-primary" type="submit">Submit</button>
-
 					 			<!--  [disabled]="!addressForm.valid" -->
-					  
 						</form>
 						<br>
 					</div>
@@ -135,21 +128,43 @@
 			</div>
 		</div>
 	</div>
+
+
 	<div class="col-sm">
-  			
-				<div class="card border-secondary rounded card-data" style="">
-			               
-			                <div class="row card " *ngFor="let card of Cards" >
-			              <div class=" col-sm card-body">
-			             <!-- <span class="badge badge-secondary" *ngIf="card.default_card === 1">Default</span> -->
-			                <p>Card Brand : {{card.card_brand | titlecase}} </p>
-            <p>Last 4 digits:  {{card.last4 }}</p>
-
-            <button type="button" class="btn btn-primary" (click)="verifyCvv()">Verify CVV</button>
-			              </div>
-
-			            </div>
-			    </div>
+		<div class="card border-secondary rounded card-data" style="">
+			<div class="row card " *ngFor="let card of Cards" >
+			    <div class=" col-sm card-body">
+					<p>Card Brand : {{card.card_brand | titlecase}} </p>
+            		<p>Last 4 digits:  {{card.last4 }}</p>
+					<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  		<div class="modal-dialog" role="document">
+			    		<div class="modal-content">
+			      			<div class="modal-header text-center">
+						        <h4 class="modal-title w-100 font-weight-bold">Verify</h4>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          <span aria-hidden="true" (click)="close()">&times;</span>
+						        </button>
+			      			</div>
+			    
+			      			<form [formGroup]="verifyForm" class="mb-5" >
+						     <div class="form-group">
+						      <input type="text" class="form-control" formControlName="last4" required placeholder="Last 4 digit of Card">
+						    </div>
+						     <div class="form-group">
+						      <input type="text" class="form-control" formControlName="cvv" required
+						      placeholder="Card CVV">
+						    </div> 
+						  
+					 		<button class="btn w-25 btn-primary" (click)="verifyCvv()" type="submit">Verify</button>
+							</form>
+			    		</div>
+			  		</div>
+				</div>
+				
+        		<button class="btn btn-primary" data-toggle="modal" data-target="#modalRegisterForm" (click)="sendCardId(card.id)">Verify CVV</button>
+			</div>
+		</div>
+	</div>
 			
 
 	</div>
@@ -160,7 +175,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<!-- <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -170,25 +185,30 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <i class="fas fa-user prefix grey-text"></i>
-          <input type="number" id="orangeForm-name" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="orangeForm-name">Last 4 digit of your card</label>
-        </div>
-        <div class="md-form mb-5">
-          <i class="fas fa-envelope prefix grey-text"></i>
-          <input type="number" id="orangeForm-email" class="form-control validate">
-          <label data-error="wrong" data-success="right" for="orangeForm-email">CVV</label>
-        </div>
-      </div>
-      <div class="modal-footer d-flex justify-content-center">
-        <button class="btn btn-deep-orange">Verify</button>
-      </div>
+    
+      <form [formGroup]="verifyForm" class="mb-5" >
+			     <div class="form-group">
+			      <input type="text" class="form-control" formControlName="last4" required placeholder="Last 4 digit of Card">
+			    </div>
+			     <div class="form-group">
+			      <input type="text" class="form-control" formControlName="cvv" required
+			      placeholder="Card CVV">
+			    </div> 
+		 	<button class="btn w-25 btn-primary" (click)="verifyCvv(card.id)" type="submit">Verify</button>
+			</form>
     </div>
   </div>
-</div>
+</div> -->
+
+
+<button class="btn btn-outline-info" (click)="close()">Continue</button>
+
 
 <div class="text-center">
-  <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Launch Modal Register Form</a>
+  <button class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Launch Modal Register Form</button>
 </div>
+
+
+
+	<!-- https://mdbootstrap.com/docs/jquery/modals/forms/ -->
+

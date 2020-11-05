@@ -74,26 +74,35 @@ export class CartComponent implements OnInit {
       console.log(data);
         if(data['error']) {
           alert(data['error']);
-  
         }
         else {
           this.OrderId = data['data']['order_id'];
-      
           this.buyFromCart = data['data']['buy_from_cart'];
-          console.log(this.buyFromCart);
+         
           if(data['data']['address_available'] && data['data']['card_available']) {
-              console.log('send from checkout');
+             
+              // if(this.buyFromCart) {
+              //   this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true } });
+              // }
+              // else {
+              //   this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false } });
+              // }
+
               if(this.buyFromCart) {
-                this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true } });
+                this.router.navigate(['/details'], { queryParams: { buy_from_cart : true, 
+                'order_id':this.OrderId, 'addressFlag': data['data']['address_available'], 
+              'cardFlag': data['data']['card_available'] } });
               }
               else {
-                this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false } });
+                this.router.navigate(['/details'], { queryParams: { buy_from_cart : false,
+                'order_id':this.OrderId, 'addressFlag': data['data']['address_available'], 
+              'cardFlag': data['data']['card_available'] } });
               }
-            console.log('true both');
-            console.log(data['data']['token']);
+           
+            
           }
           else {
-            console.log('sent from details');
+           
             this.router.navigate(['/details'],
               { queryParams: { 'order_id':this.OrderId, 'addressFlag': data['data']['address_available'], 
               'cardFlag': data['data']['card_available']  } });

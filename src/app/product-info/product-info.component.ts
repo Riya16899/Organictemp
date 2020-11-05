@@ -16,7 +16,6 @@ export class ProductInfoComponent implements OnInit {
   reviews: any;
   buyFromCart: boolean;
   showInput: boolean = false;
-
   isDisabledContent: boolean;
 
   @ViewChild('quantity', { static: false } ) quantity:ElementRef;
@@ -33,7 +32,7 @@ export class ProductInfoComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.showFirstTwo(this.offers, this.offer);
+
 
     const pro_id = this.route.snapshot.params['id'];
     this.productInfoService.getProductInfo(pro_id).subscribe((data) => {
@@ -64,16 +63,44 @@ export class ProductInfoComponent implements OnInit {
   }
   
   Buy() {
+
       if(!this.valueQuantity) {
           this.productForm.controls['quantity'].setValue(1);
       }
       this.productForm.controls['pro_id'].setValue(this.route.snapshot.params['id']);
-      if(this.buyFromCart === true) {
-          this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true } });
-      }
-      else {
-          this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false, id: this.productForm.value.pro_id, quantity: this.productForm.value.quantity } });
-      }
+      var form = new FormData();
+      form.append('quantity', this.productForm.value.quantity);
+      form.append('product_id', this.productForm.value.pro_id);
+      this.productInfoService.postBuyProduct(form).subscribe((data) => {
+        console.log(data);
+        if(data['error']) {
+          alert(data['error']);
+        }
+        else {
+          this.buyFromCart = data['data']['buy_from_cart'];
+          if(data['data']['address_available'] && data['data']['card_available']) {
+              if(this.buyFromCart) {
+                this.router.navigate(['/details'], { queryParams: { buy_from_cart : true, 
+                'order_id': data['data']['order_id'], 'addressFlag': data['data']['address_available'], 
+              'cardFlag': data['data']['card_available'] } });
+           }
+           else {
+                this.router.navigate(['/details'], { queryParams: { buy_from_cart : false,
+                'order_id': data['data']['order_id'], 'addressFlag': data['data']['address_available'], 
+              'cardFlag': data['data']['card_available'], 'quantity': this.productForm.value.quantity, 
+              'product_id': this.productForm.value.pro_id } });
+           }
+        
+         }
+        }
+      });
+
+      // if(this.buyFromCart === true) {
+      //     this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true } });
+      // }
+      // else {
+      //     this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false, id: this.productForm.value.pro_id, quantity: this.productForm.value.quantity } });
+      // }
   }
 
   Rate() {

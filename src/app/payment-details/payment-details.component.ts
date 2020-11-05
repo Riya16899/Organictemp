@@ -4,6 +4,8 @@ import { StripeService, Elements, Element as StripeElement, ElementsOptions } fr
 import { Router, ActivatedRoute } from "@angular/router";
 import { DetailsService } from '../Services/details.service'; 
 import { CheckoutService } from '../Services/checkout.service';
+import { CartService } from '../Services/cart.service';
+
 @Component({
   selector: 'app-payment-details',
   templateUrl: './payment-details.component.html',
@@ -16,17 +18,12 @@ export class PaymentDetailsComponent implements OnInit {
 
   elements: Elements;
   card: StripeElement;
-  paymentStatus: any;
-  stripeData: any;
   submitted: any;
   loading: any;
   OrderId: string;
   Addresses: any;
   Cards: any;
 
-  elementsOptions:  ElementsOptions = {
-    locale: "en"
-  }
 
   public addressForm = this.formBuilder.group({
     addr1: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -44,13 +41,15 @@ export class PaymentDetailsComponent implements OnInit {
   	cardnumber: new FormControl('', [Validators.required]),
   	cvv: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]),
   	exdate: new FormControl('', [Validators.required]),
-    defaultCard: new FormControl('', [Validators.required])
+    defaultCard: new FormControl('', []),
+    order_id: new FormControl('', [])
   });	
 
   public verifyForm = this.formBuilder.group({
     cvv: new FormControl('', [Validators.required]),
     last4: new FormControl('', [Validators.required]),
-    card_id: new FormControl('', [Validators.required])
+    card_id: new FormControl('', [Validators.required]),
+    order_id: new FormControl('', [Validators.required])
   })
 
   constructor(private formBuilder: FormBuilder,
@@ -58,41 +57,47 @@ export class PaymentDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private detailsService: DetailsService,
     private router: Router,
-    private checkoutService: CheckoutService ) { }
+    private checkoutService: CheckoutService,
+    private cartService: CartService ) { }
 
   ngOnInit() {
-
     console.log(this.route.snapshot.queryParams);
-    if (JSON.stringify(this.route.snapshot.queryParams['address'])) {
-        this.checkoutService.getAddressDetails().subscribe((data) => {
-            console.log(data);
-            this.Addresses = data['data']['address'];
-            this.addressFlagg = true;
-        });
-    }
-    else if (JSON.stringify(this.route.snapshot.queryParams['card'])) {
-        this.checkoutService.getCardDetails().subscribe((data) => {
-            console.log(data);
-            this.cardFlagg = true;
-            this.Cards = data['data']['card'];
-            
-        });
-    }
-    else {
+    this.checkoutService.getAddressDetails().subscribe((data) => {
+        console.log(data);
+        this.Addresses = data['data']['address'];
+    });
+
+    if(this.route.snapshot.queryParams){
+      // this.detailsService.getAddress().subscribe((data) => {
+      //   console.log(data);
+      //   this.Addresses = data['data']['address'];
+      // });
         if(this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']) {
             console.log(this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']);
             this.addressFlagg = false;
             this.cardFlagg = true;
             console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
         }
+        else if(this.route.snapshot.queryParams['addressFlag'] && this.route.snapshot.queryParams['cardFlag']) {
+            this.addressFlagg = false;
+            this.cardFlagg = true;
+            this.checkoutService.getCardDetails().subscribe((data) => {
+              console.log(data);
+              if(data['error']) {
+                  alert(data['error']);
+              }
+              else {
+                 this.cardFlagg = true;
+                 this.Cards = data['data']['card'];
+              }
+            });
+        }
         else if(!this.route.snapshot.queryParams['addressFlag'] && this.route.snapshot.queryParams['cardFlag']) {
             this.addressFlagg = true;
-            this.cardFlagg = false;
-            console.log(!this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']);
-            console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
+            this.cardFlagg = false;   
         }
         else {
-          console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
+          // console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
           this.addressFlagg = true;
         }
         this.OrderId = this.route.snapshot.queryParams['order_id'];
@@ -110,36 +115,6 @@ export class PaymentDetailsComponent implements OnInit {
     this.cardDetailsForm.controls['defaultCard'].setValue(value);
   }
 
-  cardPaymentEle() {
-  	
-	  if (!this.card) {
-	    this.card = this.elements.create('card', {
-	      iconStyle: 'solid',
-	      style: {
-	        base: {
-	          iconColor: '#666EE8',
-	          color: '#31325F',
-	          lineHeight: '40px',
-	          fontWeight: 300,
-	          fontFamily: 'Helvetica',
-	          fontSize: '18px',
-	        }
-	      }
-	    });
-	   this.card.mount('#card-element');
-	  }
-  }
-
-   loadStripe() {
-    if(!window.document.getElementById('stripe-script')) {
-      var s = window.document.createElement("script");
-      s.id = "stripe-script";
-      s.type = "text/javascript";
-      s.src = "https://checkout.stripe.com/checkout.js";
-      window.document.body.appendChild(s);
-    }
-  }
-
   get f(){
     return this.addressForm.controls;
   }
@@ -149,13 +124,17 @@ export class PaymentDetailsComponent implements OnInit {
   	this.addressFlagg = false;
   	this.cardFlagg = true;	
     this.detailsService.postAddress(this.addressForm.value).subscribe((data) => {
+      console.log(data);
       if(data['error']) {
         alert(data['error']);
       }
       else {
         alert(data['meta']['success']);
-        console.log(data);
       }
+    });
+    this.checkoutService.getAddressDetails().subscribe((data) => {
+        console.log(data);
+        this.Addresses = data['data']['address'];
     });
   }
 
@@ -164,8 +143,15 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   submitCard() {
-  	console.log(this.cardDetailsForm.value);
-    this.detailsService.postCardDetails(this.cardDetailsForm.value, this.OrderId).subscribe((data) => {
+ 
+  	console.log(this.cardDetailsForm.value, this.OrderId);
+    if(this.cardDetailsForm.controls['defaultCard']) {
+      this.cardDetailsForm.controls['defaultCard'].setValue("false");
+    }
+    this.cardDetailsForm.controls['order_id'].setValue(this.route.snapshot.queryParams['order_id']);
+
+    this.detailsService.postCardDetails(this.cardDetailsForm.value).subscribe((data) => {
+      console.log(data);
       if(data['error']) {
         alert(data['error']);
       }
@@ -174,7 +160,7 @@ export class PaymentDetailsComponent implements OnInit {
         console.log(data);
       }
     });
-    this.router.navigate(['/checkout']);
+   
   }
 
   changeDefault(id: any) {
@@ -185,13 +171,60 @@ export class PaymentDetailsComponent implements OnInit {
         alert(data['error']);
       }
       else {
-        console.log(data);
+       alert(data['meta']['success']);
       }
     });
   }
 
+  sendCardId(id) {
+    console.log(id);
+    this.verifyForm.controls['card_id'].setValue(id);
+  }
+
   verifyCvv() {
-    this.detailsService.cvvVerify(this.verifyForm.value).subscribe();
+    console.log();
+    
+    this.verifyForm.controls['order_id'].setValue(this.route.snapshot.queryParams['order_id']);
+    console.log(this.verifyForm.value);
+    this.detailsService.postCvvVerify(this.verifyForm.value).subscribe((data) => {
+      console.log(data);
+      if(data['error']) {
+        alert(data['error']);
+      }
+      else {
+        alert(data['meta']['success']);
+      }
+      // let buy = this.route.snapshot.queryParams['buy_from_cart'];
+      // let order_id = this.route.snapshot.queryParams['order_id'];
+      // console.log(buy, order_id);
+      // if(buy == 'true') {
+      //   this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true, 
+      //   id: order_id  } });
+      // }
+      // else {
+      //   this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false,
+      //   id: order_id } });
+      // }
+    });
+    this.verifyForm.reset();
+  }
+
+  close() {
+
+    let buy = this.route.snapshot.queryParams['buy_from_cart'];
+      let order_id = this.route.snapshot.queryParams['order_id'];
+      let id = this.route.snapshot.queryParams['product_id'];
+      let quantity = this.route.snapshot.queryParams['quantity'];
+      let pro_id = this.route.snapshot.queryParams['product_id'];
+      console.log(buy, order_id);
+      if(buy == 'true') {
+        this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true, 
+        'order_id': order_id  } });
+      }
+      else {
+        this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false,
+        'order_id': order_id, 'id' : id, 'quantity': quantity, 'product_id': pro_id } });
+      }
   }
 
 }
@@ -199,7 +232,3 @@ export class PaymentDetailsComponent implements OnInit {
 
 // riya.patadiya@gmail.com
 // Riya@1234
-
-  
-
-
