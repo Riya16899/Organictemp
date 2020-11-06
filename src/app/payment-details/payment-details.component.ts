@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
 import { StripeService, Elements, Element as StripeElement, ElementsOptions } from 'ngx-stripe';
 import { Router, ActivatedRoute } from "@angular/router";
@@ -16,6 +16,7 @@ export class PaymentDetailsComponent implements OnInit {
   addressFlagg: boolean;
   cardFlagg: boolean;
 
+  checkSub: boolean;
   elements: Elements;
   card: StripeElement;
   submitted: any;
@@ -23,7 +24,11 @@ export class PaymentDetailsComponent implements OnInit {
   OrderId: string;
   Addresses: any;
   Cards: any;
-
+  stripeToken: string;
+  alertVerify: boolean;
+  addrAvailable: string;
+  cardAvailable: string;
+ 
 
   public addressForm = this.formBuilder.group({
     addr1: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -62,45 +67,38 @@ export class PaymentDetailsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.route.snapshot.queryParams);
-    this.checkoutService.getAddressDetails().subscribe((data) => {
-        console.log(data);
-        this.Addresses = data['data']['address'];
-    });
+    this.addrAvailable = this.route.snapshot.queryParams['addressFlag'];
+    this.cardAvailable = this.route.snapshot.queryParams['cardFlag'];
+    console.log(this.addrAvailable, this.cardAvailable);
+    if(this.addrAvailable && this.cardAvailable) {
 
-    if(this.route.snapshot.queryParams){
-      // this.detailsService.getAddress().subscribe((data) => {
-      //   console.log(data);
-      //   this.Addresses = data['data']['address'];
-      // });
-        if(this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']) {
-            console.log(this.route.snapshot.queryParams['addressFlag'] && !this.route.snapshot.queryParams['cardFlag']);
+        if(this.addrAvailable == 'true' && this.cardAvailable == 'false') {
             this.addressFlagg = false;
             this.cardFlagg = true;
-            console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
+            this.fetchAddress();
         }
-        else if(this.route.snapshot.queryParams['addressFlag'] && this.route.snapshot.queryParams['cardFlag']) {
+        else if(this.addrAvailable == 'true' && this.cardAvailable == 'true') {
             this.addressFlagg = false;
             this.cardFlagg = true;
-            this.checkoutService.getCardDetails().subscribe((data) => {
-              console.log(data);
-              if(data['error']) {
-                  alert(data['error']);
-              }
-              else {
-                 this.cardFlagg = true;
-                 this.Cards = data['data']['card'];
-              }
-            });
+            // this.fetchAddress();
+            this.fetchCard();
         }
-        else if(!this.route.snapshot.queryParams['addressFlag'] && this.route.snapshot.queryParams['cardFlag']) {
+        else if(this.addrAvailable == 'false' && this.cardAvailable == 'true') {
             this.addressFlagg = true;
             this.cardFlagg = false;   
+            this.fetchCard();
         }
         else {
           // console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
           this.addressFlagg = true;
         }
         this.OrderId = this.route.snapshot.queryParams['order_id'];
+    }
+    else {
+      if(this.route.snapshot.queryParams['address'] == 'true') {
+        this.addressFlagg = true;
+        this.fetchAddress();
+      }
     }
 
   }
@@ -119,23 +117,49 @@ export class PaymentDetailsComponent implements OnInit {
     return this.addressForm.controls;
   }
 
+  fetchAddress() {
+      this.checkoutService.getAddressDetails().subscribe((data) => {
+        console.log(data);
+        if(data['error']) {
+          alert(data['error'])
+        }
+        else {
+          this.Addresses = data['data']['address'];
+        }
+      });
+  }
+
+  fetchCard() {
+    this.checkoutService.getCardDetails().subscribe((data) => {
+      console.log(data);
+      if(data['error']) {
+          alert(data['error'])
+      }
+      else {
+          this.Cards = data['data']['card'];
+      }
+    });
+  }
+
   submitAddress() {
   	console.log(this.addressForm.value);
+    if(!this.addressForm.value.defaultAddress) {
+      this.addressForm.controls['defaultAddress'].setValue("false");
+    }
   	this.addressFlagg = false;
   	this.cardFlagg = true;	
     this.detailsService.postAddress(this.addressForm.value).subscribe((data) => {
       console.log(data);
       if(data['error']) {
         alert(data['error']);
+        this.alertVerify = false;
       }
       else {
         alert(data['meta']['success']);
+        this.Addresses = data['data']['address'];
       }
     });
-    this.checkoutService.getAddressDetails().subscribe((data) => {
-        console.log(data);
-        this.Addresses = data['data']['address'];
-    });
+
   }
 
   get c() {
@@ -145,21 +169,26 @@ export class PaymentDetailsComponent implements OnInit {
   submitCard() {
  
   	console.log(this.cardDetailsForm.value, this.OrderId);
-    if(this.cardDetailsForm.controls['defaultCard']) {
+    if(!this.cardDetailsForm.controls['defaultCard']) {
       this.cardDetailsForm.controls['defaultCard'].setValue("false");
     }
     this.cardDetailsForm.controls['order_id'].setValue(this.route.snapshot.queryParams['order_id']);
 
     this.detailsService.postCardDetails(this.cardDetailsForm.value).subscribe((data) => {
       console.log(data);
+      
+     
       if(data['error']) {
         alert(data['error']);
+        this.alertVerify = false;
       }
       else {
         alert(data['meta']['success']);
-        console.log(data);
+        this.fetchCard();
+        this.stripeToken = data['data']['token'];
       }
     });
+    this.checkSub = true;
    
   }
 
@@ -190,41 +219,45 @@ export class PaymentDetailsComponent implements OnInit {
       console.log(data);
       if(data['error']) {
         alert(data['error']);
+        this.alertVerify = false;
       }
       else {
         alert(data['meta']['success']);
+        this.stripeToken = data['data']['token'];
       }
-      // let buy = this.route.snapshot.queryParams['buy_from_cart'];
-      // let order_id = this.route.snapshot.queryParams['order_id'];
-      // console.log(buy, order_id);
-      // if(buy == 'true') {
-      //   this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true, 
-      //   id: order_id  } });
-      // }
-      // else {
-      //   this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false,
-      //   id: order_id } });
-      // }
     });
+    this.checkSub = true;
     this.verifyForm.reset();
   }
 
   close() {
-
-    let buy = this.route.snapshot.queryParams['buy_from_cart'];
+      let buy = this.route.snapshot.queryParams['buy_from_cart'];
       let order_id = this.route.snapshot.queryParams['order_id'];
       let id = this.route.snapshot.queryParams['product_id'];
       let quantity = this.route.snapshot.queryParams['quantity'];
       let pro_id = this.route.snapshot.queryParams['product_id'];
-      console.log(buy, order_id);
-      if(buy == 'true') {
-        this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true, 
-        'order_id': order_id  } });
+      if(this.checkSub) {
+        if(buy == 'true') {
+          this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true, 
+          'order_id': order_id, 'token': this.stripeToken  } });
+        }
+        else {
+          this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false,
+          'order_id': order_id, 'id' : id, 'quantity': quantity, 'product_id': pro_id,
+          'token': this.stripeToken  } });
+        }
       }
       else {
-        this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false,
-        'order_id': order_id, 'id' : id, 'quantity': quantity, 'product_id': pro_id } });
-      }
+        if(buy == 'true') {
+          this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true, 
+          'order_id': order_id, 'token': this.route.snapshot.queryParams['token']  } });
+        }
+        else {
+          this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false,
+          'order_id': order_id, 'id' : id, 'quantity': quantity, 'product_id': pro_id,
+          'token': this.route.snapshot.queryParams['token']  } });
+        }
+      }  
   }
 
 }

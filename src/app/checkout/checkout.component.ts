@@ -52,7 +52,9 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.route.snapshot.queryParams);
+    this.orderId = this.route.snapshot.queryParams['order_id'];
   	this.checkBoolean = this.route.snapshot.queryParams['buy_from_cart'];
+
   	if(this.checkBoolean == 'true') {
   		this.cartService.buyFromCart().subscribe((data) => {
         console.log(data);
@@ -61,16 +63,13 @@ export class CheckoutComponent implements OnInit {
           }
           else {
             this.orderId = data['data']['order_id'];
-           // this.OrderSummery = data['data']['buy_products'];
             this.Total = data['data']['total_pay'];
-            this.stripeToken = data['data']['token'];
             this.checkoutService.getCheckout(this.orderId).subscribe((data) => {
              console.log(data);
              this.Addresses = data['data']['address'];
              this.Cards = data['data']['card'];
              this.OrderSummery = data['data']['products'];
              this.Total = data['data']['total_price'];
-             
             }); 
           }
   	    });
@@ -78,49 +77,29 @@ export class CheckoutComponent implements OnInit {
   	}
 
   	else {
-
       var form = new FormData();
       form.append('quantity', this.route.snapshot.queryParams['quantity']);
       form.append('product_id', this.route.snapshot.queryParams['product_id']);
-      console.log(this.route.snapshot.queryParams['quantity']);
-      console.log(this.route.snapshot.queryParams['id']);
-  		this.productInfoService.postBuyProduct(form).subscribe((data) => {
+      this.checkoutService.getCheckout(this.orderId).subscribe((data) => {
         console.log(data);
-
         if(data['error']) {
           alert(data['error']);
         }
         else {
-            console.log(data['data']['order_id']);
-            
-            this.OrderSummery = data['data']['buy_product'];
-            this.orderId = data['data']['order_id'];
-            this.Total = data['data']['total_pay'];
-            this.stripeToken = data['data']['token'];
-            console.log(this.orderId);
-            this.checkoutService.getCheckout(this.orderId).subscribe((data) => {
-             console.log(data);
-             if(data['error']) {
-               alert(data['error']);
-             }
-             else {
-               alert(data['meta']['success']);
-                 this.Addresses = data['data']['address'];
-                 this.Cards = data['data']['card'];
-                 this.OrderSummery = data['data']['products'];
-                 this.Total = data['data']['total_price'];
-             }
-            });
+             alert(data['meta']['success']);
+             this.Addresses = data['data']['address'];
+             this.Cards = data['data']['card'];
+             this.OrderSummery = data['data']['products'];
+             this.Total = data['data']['total_price'];
         }
+
       });
-
     }
-
-
   }
 
   Submit() {
     this.checkoutForm.controls['order_id'].setValue(this.orderId);
+    this.stripeToken = this.route.snapshot.queryParams['token'];
     this.checkoutForm.controls['token'].setValue(this.stripeToken);
     console.log(this.checkoutForm.value);
     this.checkoutService.postCheckout(this.checkoutForm.value).subscribe((data) => {
@@ -129,6 +108,7 @@ export class CheckoutComponent implements OnInit {
       }
       else {
         alert(data['meta']['success']);
+        this.router.navigate(['products']);
       }
     });
     this.checkoutForm.reset();
@@ -136,17 +116,26 @@ export class CheckoutComponent implements OnInit {
 
   addrBtn() {
 
-    this.router.navigate(['/details'],  { queryParams: { address: 'true', 
+    if(this.route.snapshot.queryParams['buy_from_cart'] == 'true') {
+      console.log('send from true');
+       this.router.navigate(['/details'],  { queryParams: { address: 'true', 
+      'buy_from_cart': this.route.snapshot.queryParams['buy_from_cart'],
+     'token': this.route.snapshot.queryParams['token'] } });
+    }
+    else {
+      console.log('send from false');
+      this.router.navigate(['/details'],  { queryParams: { address: 'true', 
       'buy_from_cart': this.route.snapshot.queryParams['buy_from_cart'],
       product_id : this.route.snapshot.queryParams['product_id'],
-      quantity : this.route.snapshot.queryParams['quantity'] } });
+      quantity : this.route.snapshot.queryParams['quantity'],
+      'token': this.route.snapshot.queryParams['token'] } });
+    }
   }
 
 }
 
-
-
 // implemented from here : https://medium.com/@saikiran1298/integrating-stripe-payments-into-angular-and-nodejs-applications-10f40dcc21f5
+
 
 
 

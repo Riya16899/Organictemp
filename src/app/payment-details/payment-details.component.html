@@ -63,7 +63,7 @@
 				</div>
 			</div>
 			
-			<div class="col-sm">
+			<div class="col-sm" style="margin-left: 30px; margin-right: 30px;">
 				<div class="card border-secondary rounded address-data" style="">
 			               
 			                <div class="row card" *ngFor="let address of Addresses" >
@@ -130,7 +130,7 @@
 	</div>
 
 
-	<div class="col-sm">
+	<div class="col-sm" style="margin-left: 30px; margin-right: 30px;">
 		<div class="card border-secondary rounded card-data" style="">
 			<div class="row card " *ngFor="let card of Cards" >
 			    <div class=" col-sm card-body">
@@ -175,37 +175,10 @@
 	</div>
 </div>
 
-<!-- <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Verify</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    
-      <form [formGroup]="verifyForm" class="mb-5" >
-			     <div class="form-group">
-			      <input type="text" class="form-control" formControlName="last4" required placeholder="Last 4 digit of Card">
-			    </div>
-			     <div class="form-group">
-			      <input type="text" class="form-control" formControlName="cvv" required
-			      placeholder="Card CVV">
-			    </div> 
-		 	<button class="btn w-25 btn-primary" (click)="verifyCvv(card.id)" type="submit">Verify</button>
-			</form>
-    </div>
-  </div>
-</div> -->
 
-
-<button class="btn btn-outline-info" (click)="close()">Continue</button>
-
-
-<div class="text-center">
-  <button class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Launch Modal Register Form</button>
+<div class="text-center" >
+	<h4 *ngIf="!alertVerify"> Please Verify or Create Form successfully </h4>
+<button class=" btn btn-outline-info btn-rounded mb-4" (click)="close()">Continue</button>
 </div>
 
 
