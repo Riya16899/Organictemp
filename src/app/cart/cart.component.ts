@@ -31,11 +31,9 @@ export class CartComponent implements OnInit {
     if (JSON.stringify(this.route.snapshot.params) == '{}') {
   	  this.cartService.getCart().subscribe((data) => {
         console.log(data);
-        
         if(data['status_code'] == 404) {
           this.emptyCart = true;
         }
-
         if(data['error']) {
           alert(data['error']);
         }
@@ -44,7 +42,6 @@ export class CartComponent implements OnInit {
           this.cartData = data['data']['cart_product'];
           this.Total = data['data']['total_price'];
           this.totalItems = this.cartData.length;
-
         }
       });
     }
@@ -79,12 +76,10 @@ export class CartComponent implements OnInit {
           this.OrderId = data['data']['order_id'];
           this.buyFromCart = data['data']['buy_from_cart'];
           this.router.navigate(['/details'], { queryParams: { 'buy_from_cart' : data['data']['buy_from_cart'], 
-                'order_id':this.OrderId, 'addressFlag': data['data']['address_available'], 
-              'cardFlag': data['data']['card_available'] } });  
+           'order_id':this.OrderId, 'addressFlag': data['data']['address_available'], 
+           'cardFlag': data['data']['card_available'] } });  
         } 
-    });
-
-  	
+    });	
   }
 
   Remove(event, item) {

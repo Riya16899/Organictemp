@@ -77,9 +77,6 @@ export class CheckoutComponent implements OnInit {
   	}
 
   	else {
-      var form = new FormData();
-      form.append('quantity', this.route.snapshot.queryParams['quantity']);
-      form.append('product_id', this.route.snapshot.queryParams['product_id']);
       this.checkoutService.getCheckout(this.orderId).subscribe((data) => {
         console.log(data);
         if(data['error']) {
@@ -92,7 +89,6 @@ export class CheckoutComponent implements OnInit {
              this.OrderSummery = data['data']['products'];
              this.Total = data['data']['total_price'];
         }
-
       });
     }
   }
@@ -115,20 +111,19 @@ export class CheckoutComponent implements OnInit {
   }
 
   addrBtn() {
-
     if(this.route.snapshot.queryParams['buy_from_cart'] == 'true') {
       console.log('send from true');
        this.router.navigate(['/details'],  { queryParams: { address: 'true', 
       'buy_from_cart': this.route.snapshot.queryParams['buy_from_cart'],
-     'token': this.route.snapshot.queryParams['token'] } });
+     'token': this.route.snapshot.queryParams['token'], 
+     'order_id': this.route.snapshot.queryParams['order_id'] } });
     }
     else {
       console.log('send from false');
       this.router.navigate(['/details'],  { queryParams: { address: 'true', 
       'buy_from_cart': this.route.snapshot.queryParams['buy_from_cart'],
-      product_id : this.route.snapshot.queryParams['product_id'],
-      quantity : this.route.snapshot.queryParams['quantity'],
-      'token': this.route.snapshot.queryParams['token'] } });
+      'token': this.route.snapshot.queryParams['token'],
+      'order_id': this.route.snapshot.queryParams['order_id'] } });
     }
   }
 

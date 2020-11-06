@@ -177,11 +177,11 @@
 
 
 <div class="text-center" >
-	<h4 *ngIf="!alertVerify"> Please Verify or Create Form successfully </h4>
-<button class=" btn btn-outline-info btn-rounded mb-4" (click)="close()">Continue</button>
+	<h4> Please Verify or Create Form successfully </h4>
+<button [disabled]="!checkSub" class=" btn btn-outline-info btn-rounded mb-4" (click)="close()">Continue</button>
 </div>
 
-
+<!--  [disabled]="!checkSub" -->
 
 	<!-- https://mdbootstrap.com/docs/jquery/modals/forms/ -->
 

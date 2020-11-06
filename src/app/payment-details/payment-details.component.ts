@@ -146,8 +146,8 @@ export class PaymentDetailsComponent implements OnInit {
     if(!this.addressForm.value.defaultAddress) {
       this.addressForm.controls['defaultAddress'].setValue("false");
     }
-  	this.addressFlagg = false;
-  	this.cardFlagg = true;	
+  	// this.addressFlagg = false;
+  	// this.cardFlagg = true;	
     this.detailsService.postAddress(this.addressForm.value).subscribe((data) => {
       console.log(data);
       if(data['error']) {
@@ -158,7 +158,9 @@ export class PaymentDetailsComponent implements OnInit {
         alert(data['meta']['success']);
         this.Addresses = data['data']['address'];
       }
+
     });
+
 
   }
 
@@ -189,6 +191,7 @@ export class PaymentDetailsComponent implements OnInit {
       }
     });
     this.checkSub = true;
+ 
    
   }
 
@@ -203,6 +206,8 @@ export class PaymentDetailsComponent implements OnInit {
        alert(data['meta']['success']);
       }
     });
+
+    this.fetchAddress();
   }
 
   sendCardId(id) {
@@ -211,8 +216,7 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   verifyCvv() {
-    console.log();
-    
+
     this.verifyForm.controls['order_id'].setValue(this.route.snapshot.queryParams['order_id']);
     console.log(this.verifyForm.value);
     this.detailsService.postCvvVerify(this.verifyForm.value).subscribe((data) => {
@@ -226,16 +230,14 @@ export class PaymentDetailsComponent implements OnInit {
         this.stripeToken = data['data']['token'];
       }
     });
-    this.checkSub = true;
+     this.checkSub = true;
     this.verifyForm.reset();
   }
 
   close() {
       let buy = this.route.snapshot.queryParams['buy_from_cart'];
       let order_id = this.route.snapshot.queryParams['order_id'];
-      let id = this.route.snapshot.queryParams['product_id'];
       let quantity = this.route.snapshot.queryParams['quantity'];
-      let pro_id = this.route.snapshot.queryParams['product_id'];
       if(this.checkSub) {
         if(buy == 'true') {
           this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true, 
@@ -243,8 +245,7 @@ export class PaymentDetailsComponent implements OnInit {
         }
         else {
           this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false,
-          'order_id': order_id, 'id' : id, 'quantity': quantity, 'product_id': pro_id,
-          'token': this.stripeToken  } });
+          'order_id': order_id, 'token': this.stripeToken  } });
         }
       }
       else {
@@ -254,14 +255,15 @@ export class PaymentDetailsComponent implements OnInit {
         }
         else {
           this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : false,
-          'order_id': order_id, 'id' : id, 'quantity': quantity, 'product_id': pro_id,
-          'token': this.route.snapshot.queryParams['token']  } });
+          'order_id': order_id, 'token': this.route.snapshot.queryParams['token']  } });
         }
       }  
   }
 
 }
 
-
+// need to change checkSub condition for addr and card .  must do
 // riya.patadiya@gmail.com
 // Riya@1234
+
+
