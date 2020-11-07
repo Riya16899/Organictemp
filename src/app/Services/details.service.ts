@@ -78,4 +78,17 @@ export class DetailsService {
      { headers: { Authorization: this.token } } );
   }
 
+  deleteAddress(id): Observable<Address> {
+    console.log(id);
+    this.token = this.appService.getToken();
+    return this.http.delete<Address>(`${this.apiUrl}delete_address/${id}/`,
+      { headers: { Authorization: this.token } });
+  }
+
+  deleteCard(id) {
+    this.token = this.appService.getToken();
+    return this.http.delete(`${this.apiUrl}delete_card/${id}/`,
+      { headers: { Authorization: this.token } });
+  }
+
 }

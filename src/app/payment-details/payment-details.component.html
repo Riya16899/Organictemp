@@ -76,7 +76,7 @@
 			                <p class="">{{address.country | titlecase}}</p>
 			                <p class="">Phone: {{address.phone}}</p>
 			              </div>
-
+			              <button class="btn btn-outline-info" (click)="deleteAddr(address.id)">Delete</button>
 			            </div>
 			    </div>
 			</div>
@@ -160,8 +160,10 @@
 			    		</div>
 			  		</div>
 				</div>
-				
+				<div class="justify-content-between">			
         		<button class="btn btn-primary" data-toggle="modal" data-target="#modalRegisterForm" (click)="sendCardId(card.id)">Verify CVV</button>
+        		<button class="btn btn-primary" (click)="deleteCard(card.id)">Delete</button>
+        		</div>	
 			</div>
 		</div>
 	</div>

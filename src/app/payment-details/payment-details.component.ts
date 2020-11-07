@@ -67,6 +67,10 @@ export class PaymentDetailsComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.route.snapshot.queryParams);
+    if(this.route.snapshot.queryParams['address'] == 'true') {
+      this.checkSub = true;
+    }
+
     this.addrAvailable = this.route.snapshot.queryParams['addressFlag'];
     this.cardAvailable = this.route.snapshot.queryParams['cardFlag'];
     console.log(this.addrAvailable, this.cardAvailable);
@@ -146,8 +150,6 @@ export class PaymentDetailsComponent implements OnInit {
     if(!this.addressForm.value.defaultAddress) {
       this.addressForm.controls['defaultAddress'].setValue("false");
     }
-  	// this.addressFlagg = false;
-  	// this.cardFlagg = true;	
     this.detailsService.postAddress(this.addressForm.value).subscribe((data) => {
       console.log(data);
       if(data['error']) {
@@ -158,10 +160,7 @@ export class PaymentDetailsComponent implements OnInit {
         alert(data['meta']['success']);
         this.Addresses = data['data']['address'];
       }
-
     });
-
-
   }
 
   get c() {
@@ -169,7 +168,6 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   submitCard() {
- 
   	console.log(this.cardDetailsForm.value, this.OrderId);
     if(!this.cardDetailsForm.controls['defaultCard']) {
       this.cardDetailsForm.controls['defaultCard'].setValue("false");
@@ -178,8 +176,6 @@ export class PaymentDetailsComponent implements OnInit {
 
     this.detailsService.postCardDetails(this.cardDetailsForm.value).subscribe((data) => {
       console.log(data);
-      
-     
       if(data['error']) {
         alert(data['error']);
         this.alertVerify = false;
@@ -191,12 +187,42 @@ export class PaymentDetailsComponent implements OnInit {
       }
     });
     this.checkSub = true;
- 
-   
+  }
+
+  deleteAddr(addrId: number) {
+    console.log(addrId);
+    this.detailsService.deleteAddress(addrId).subscribe((data) => {
+      console.log(data);
+      if(data['error']) {
+        alert(data['error']);
+      }
+      else {
+        alert(data['meta']['success']);
+        this.Cards = data['data']['card'];
+      }
+    });
+  }
+
+  deleteCard(cardId) {
+    this.detailsService.deleteCard(cardId).subscribe((data) => {
+      console.log(data);
+      if(data['error']) {
+        alert(data['error']);
+      }
+      else {
+        alert(data['meta']['success']);
+      }
+    });
   }
 
   changeDefault(id: any) {
     console.log(typeof id);
+//     this.detailsService.changeDefAddr(id).
+//       subscribe({
+//   next(response) { console.log(response); },
+//   error(err) { console.error('Error: ' + err); },
+//   complete() { console.log('Completed'); }
+// });
     this.detailsService.changeDefAddr(id).subscribe((data) => {
       console.log(data);
       if(data['error']) {
@@ -238,7 +264,8 @@ export class PaymentDetailsComponent implements OnInit {
       let buy = this.route.snapshot.queryParams['buy_from_cart'];
       let order_id = this.route.snapshot.queryParams['order_id'];
       let quantity = this.route.snapshot.queryParams['quantity'];
-      if(this.checkSub) {
+      if(this.checkSub == true && !this.route.snapshot.queryParams['address']) {
+        console.log('true');
         if(buy == 'true') {
           this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true, 
           'order_id': order_id, 'token': this.stripeToken  } });
@@ -248,7 +275,9 @@ export class PaymentDetailsComponent implements OnInit {
           'order_id': order_id, 'token': this.stripeToken  } });
         }
       }
-      else {
+
+      else if (this.route.snapshot.queryParams['address'] == 'true') {
+        console.log('false');
         if(buy == 'true') {
           this.router.navigate(['/checkout'], { queryParams: { buy_from_cart : true, 
           'order_id': order_id, 'token': this.route.snapshot.queryParams['token']  } });
@@ -265,5 +294,6 @@ export class PaymentDetailsComponent implements OnInit {
 // need to change checkSub condition for addr and card .  must do
 // riya.patadiya@gmail.com
 // Riya@1234
+
 
 
