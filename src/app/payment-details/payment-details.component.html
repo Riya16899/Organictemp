@@ -67,6 +67,7 @@
 				<div class="card border-secondary rounded address-data" style="">
 			               
 			                <div class="row card" *ngFor="let address of Addresses" >
+
 			              <div class=" col-sm card-body">
 			              	<button class="btn btn-primary" (click)="changeDefault(address.id)">Keep Default</button>
 			             <span class="badge badge-secondary" *ngIf="address.default_addr === 1">Default</span>
@@ -132,10 +133,10 @@
 
 	<div class="col-sm" style="margin-left: 30px; margin-right: 30px;">
 		<div class="card border-secondary rounded card-data" style="">
-			<div class="row card " *ngFor="let card of Cards" >
+			<div class="row card " *ngFor="let card of allcards" >
 			    <div class=" col-sm card-body">
 					<p>Card Brand : {{card.card_brand | titlecase}} </p>
-            		<p>Last 4 digits:  {{card.last4 }}</p>
+            		<p *ngIf="card.last4 !== NAN">Last 4 digits:  {{card.last4 }}</p>
 					<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			  		<div class="modal-dialog" role="document">
 			    		<div class="modal-content">

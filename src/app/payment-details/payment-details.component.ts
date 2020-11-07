@@ -28,6 +28,7 @@ export class PaymentDetailsComponent implements OnInit {
   alertVerify: boolean;
   addrAvailable: string;
   cardAvailable: string;
+  allcards: any;
  
 
   public addressForm = this.formBuilder.group({
@@ -38,7 +39,7 @@ export class PaymentDetailsComponent implements OnInit {
     state: new FormControl('', [Validators.required, Validators.minLength(3)]),
     country: new FormControl('', [Validators.required, Validators.minLength(2)]),
     postal_code: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    defaultAddress: new FormControl('', [Validators.required])
+    defaultAddress: new FormControl('', [])
   });
 
   public cardDetailsForm = this.formBuilder.group({
@@ -80,21 +81,37 @@ export class PaymentDetailsComponent implements OnInit {
             this.addressFlagg = false;
             this.cardFlagg = true;
             this.fetchAddress();
+            console.log(this.addrAvailable, this.cardAvailable);
         }
         else if(this.addrAvailable == 'true' && this.cardAvailable == 'true') {
             this.addressFlagg = false;
             this.cardFlagg = true;
-            // this.fetchAddress();
-            this.fetchCard();
+            this.fetchAddress();
+            this.checkoutService.getCardDetails().subscribe((data) => {
+              console.log(data);
+              if(data['error']) {
+                  alert(data['error']);
+              }
+              else {
+                console.log('else part success');
+                  alert(data['meta']['success']);
+                  // this.Cards = data['data']['card'];
+                  this.allcards = data['data']['card'];
+              }
+            });
+           //  this.fetchCard();
+            console.log(this.addrAvailable, this.cardAvailable);
         }
         else if(this.addrAvailable == 'false' && this.cardAvailable == 'true') {
             this.addressFlagg = true;
             this.cardFlagg = false;   
             this.fetchCard();
+            console.log(this.addrAvailable, this.cardAvailable);
         }
         else {
           // console.log(this.route.snapshot.queryParams['addressFlag'], this.route.snapshot.queryParams['cardFlag']);
           this.addressFlagg = true;
+          console.log(this.addrAvailable, this.cardAvailable);
         }
         this.OrderId = this.route.snapshot.queryParams['order_id'];
     }
@@ -102,6 +119,7 @@ export class PaymentDetailsComponent implements OnInit {
       if(this.route.snapshot.queryParams['address'] == 'true') {
         this.addressFlagg = true;
         this.fetchAddress();
+        console.log(this.addrAvailable, this.cardAvailable);
       }
     }
 
@@ -125,7 +143,7 @@ export class PaymentDetailsComponent implements OnInit {
       this.checkoutService.getAddressDetails().subscribe((data) => {
         console.log(data);
         if(data['error']) {
-          alert(data['error'])
+          alert(data['error']);
         }
         else {
           this.Addresses = data['data']['address'];
@@ -137,10 +155,12 @@ export class PaymentDetailsComponent implements OnInit {
     this.checkoutService.getCardDetails().subscribe((data) => {
       console.log(data);
       if(data['error']) {
-          alert(data['error'])
+          alert(data['error']);
       }
       else {
-          this.Cards = data['data']['card'];
+        console.log('else part success');
+          // alert(data['meta']['success']);
+          this.allcards = data['data']['card'];
       }
     });
   }
@@ -186,6 +206,7 @@ export class PaymentDetailsComponent implements OnInit {
         this.stripeToken = data['data']['token'];
       }
     });
+    this.cardDetailsForm.reset();
     this.checkSub = true;
   }
 
@@ -198,7 +219,7 @@ export class PaymentDetailsComponent implements OnInit {
       }
       else {
         alert(data['meta']['success']);
-        this.Cards = data['data']['card'];
+        
       }
     });
   }
@@ -211,6 +232,7 @@ export class PaymentDetailsComponent implements OnInit {
       }
       else {
         alert(data['meta']['success']);
+        this.Cards = data['data']['card'];
       }
     });
   }
@@ -297,3 +319,63 @@ export class PaymentDetailsComponent implements OnInit {
 
 
 
+// 378282246310005
+// 371449635398431
+// 5555555555554444
+// 5105105105105100
+// 4111111111111111
+// 5610591081018250
+// 4012888888881881
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Date: 07-11-2020
+// Start Time: 10:00 AM
+// Lunch Time: 01:10 PM TO 01:45 PM
+// End Time: 07:15 PM
+// Name: Riya patadiya
+
+// angular (8h)
+
+// - added delete address and card from payment-details page.
+// - preparing for mock interview
+// - done validations in every form 
+// - did changes where needed due to updated flow
+// - read doc of angular. 
