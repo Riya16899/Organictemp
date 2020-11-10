@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { DetailsService } from '../Services/details.service'; 
 import { CheckoutService } from '../Services/checkout.service';
 import { CartService } from '../Services/cart.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-payment-details',
@@ -64,7 +65,8 @@ export class PaymentDetailsComponent implements OnInit {
     private detailsService: DetailsService,
     private router: Router,
     private checkoutService: CheckoutService,
-    private cartService: CartService ) { }
+    private cartService: CartService,
+    private appComponent: AppComponent ) { }
 
   ngOnInit() {
     console.log(this.route.snapshot.queryParams);
@@ -90,11 +92,9 @@ export class PaymentDetailsComponent implements OnInit {
             this.checkoutService.getCardDetails().subscribe((data) => {
               console.log(data);
               if(data['error']) {
-                  alert(data['error']);
+                  this.appComponent.showToast('Error', data['error']);
               }
               else {
-                console.log('else part success');
-                  alert(data['meta']['success']);
                   // this.Cards = data['data']['card'];
                   this.allcards = data['data']['card'];
               }
@@ -143,7 +143,7 @@ export class PaymentDetailsComponent implements OnInit {
       this.checkoutService.getAddressDetails().subscribe((data) => {
         console.log(data);
         if(data['error']) {
-          alert(data['error']);
+          this.appComponent.showToast('Error', data['error']);
         }
         else {
           this.Addresses = data['data']['address'];
@@ -155,10 +155,9 @@ export class PaymentDetailsComponent implements OnInit {
     this.checkoutService.getCardDetails().subscribe((data) => {
       console.log(data);
       if(data['error']) {
-          alert(data['error']);
+          this.appComponent.showToast('Error', data['error']);
       }
       else {
-        console.log('else part success');
           // alert(data['meta']['success']);
           this.allcards = data['data']['card'];
       }
@@ -173,11 +172,11 @@ export class PaymentDetailsComponent implements OnInit {
     this.detailsService.postAddress(this.addressForm.value).subscribe((data) => {
       console.log(data);
       if(data['error']) {
-        alert(data['error']);
+        this.appComponent.showToast('Error', data['error']);
         this.alertVerify = false;
       }
       else {
-        alert(data['meta']['success']);
+        this.appComponent.showToast('Success','Address submitted successfully');
         this.Addresses = data['data']['address'];
       }
     });
@@ -197,11 +196,11 @@ export class PaymentDetailsComponent implements OnInit {
     this.detailsService.postCardDetails(this.cardDetailsForm.value).subscribe((data) => {
       console.log(data);
       if(data['error']) {
-        alert(data['error']);
+        this.appComponent.showToast('Error', data['error']);
         this.alertVerify = false;
       }
       else {
-        alert(data['meta']['success']);
+        this.appComponent.showToast('Success','Card submitted successfully');
         this.fetchCard();
         this.stripeToken = data['data']['token'];
       }
@@ -215,12 +214,13 @@ export class PaymentDetailsComponent implements OnInit {
     this.detailsService.deleteAddress(addrId).subscribe((data) => {
       console.log(data);
       if(data['error']) {
-        alert(data['error']);
+        this.appComponent.showToast('Error',data['error']);
       }
       else {
-        alert(data['meta']['success']);
-        
+        this.appComponent.showToast('Success','Address deleted successfully');
+        this.fetchAddress();
       }
+
     });
   }
 
@@ -228,12 +228,14 @@ export class PaymentDetailsComponent implements OnInit {
     this.detailsService.deleteCard(cardId).subscribe((data) => {
       console.log(data);
       if(data['error']) {
-        alert(data['error']);
+        this.appComponent.showToast('Error',data['error']);
       }
       else {
-        alert(data['meta']['success']);
+        this.appComponent.showToast('Success','Card deleted successfully');
         this.Cards = data['data']['card'];
+        this.fetchCard();
       }
+     
     });
   }
 
@@ -248,10 +250,10 @@ export class PaymentDetailsComponent implements OnInit {
     this.detailsService.changeDefAddr(id).subscribe((data) => {
       console.log(data);
       if(data['error']) {
-        alert(data['error']);
+        this.appComponent.showToast('Error',data['error']);
       }
       else {
-       alert(data['meta']['success']);
+       this.appComponent.showToast('Success','Default address changed');
       }
     });
 
@@ -270,11 +272,11 @@ export class PaymentDetailsComponent implements OnInit {
     this.detailsService.postCvvVerify(this.verifyForm.value).subscribe((data) => {
       console.log(data);
       if(data['error']) {
-        alert(data['error']);
+        this.appComponent.showToast('Error',data['error']);
         this.alertVerify = false;
       }
       else {
-        alert(data['meta']['success']);
+        this.appComponent.showToast('Success','verified successfully');
         this.stripeToken = data['data']['token'];
       }
     });
@@ -327,55 +329,3 @@ export class PaymentDetailsComponent implements OnInit {
 // 5610591081018250
 // 4012888888881881
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Date: 07-11-2020
-// Start Time: 10:00 AM
-// Lunch Time: 01:10 PM TO 01:45 PM
-// End Time: 07:15 PM
-// Name: Riya patadiya
-
-// angular (8h)
-
-// - added delete address and card from payment-details page.
-// - preparing for mock interview
-// - done validations in every form 
-// - did changes where needed due to updated flow
-// - read doc of angular. 

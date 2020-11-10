@@ -1,3 +1,6 @@
+
+ <app-toaster [toast]="toast"></app-toaster>
+
 <div class="fifth-class">
 
 <nav class="navbar navbar-expand-lg navbar-light ">
@@ -58,14 +61,14 @@
           <h4>{{item.dataa.p_name | titlecase}}</h4>
           <p>{{item.dataa.description}}</p>
           <div class="price"><p>Rs. {{item.dataa.discount_price}}</p>
-          <p class="real-price" style="text-decoration: line-through;">Rs. {{item.dataa.price}}</p>
+          <p class="real-price mb-3 text-muted text-uppercase small" style="text-decoration: line-through;">Rs. {{item.dataa.price}}</p>
           </div> 
         </a>
           <div class="card-footer">
             <form >  
                   <div class="quantity-input">
-                <input [ngModel]="name" (ngModelChange)="quantityChange($event)" 
-                style="float: center;" class="quantity" min="1" name="quantity" value="1" type="number">
+                <input [ngModel]="quantity" (ngModelChange)="quantityChange($event)" 
+                 class="quantity float-center" min="1" name="quantity" value="1" type="number">
             </div>
          <a (click)="Cart(item.dataa.id)"><img class="cart-img" src="./assets/cart.png"  alt="cart"></a>
        </form>

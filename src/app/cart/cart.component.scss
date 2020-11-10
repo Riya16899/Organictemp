@@ -23,6 +23,7 @@ div {
 @media screen and (max-width: $tablet) {
 	.see {
 		margin: 10px;
+
 	}
 }
 
@@ -66,6 +67,12 @@ div {
 		}
 		.data {
 			text-align: left;
+		}
+		.see {
+			.hr-style {
+			 	color: #999999; 
+			 	text-decoration: line-through;
+			}
 		}
 	}
 	.summery-content {

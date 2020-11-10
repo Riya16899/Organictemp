@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ResetpwdService } from '../Services/resetpwd.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-reset-pwd',
@@ -16,7 +17,7 @@ export class ResetPWDComponent implements OnInit {
   }, { validator: this.ConfirmedValidator('pwd', 'cnfpwd') } );
 
   constructor(private router: Router, private resetpwdService: ResetpwdService, 
-  	private formBuilder: FormBuilder, private route: ActivatedRoute) { }
+  	private formBuilder: FormBuilder, private route: ActivatedRoute, private appComponent: AppComponent) { }
 
   ngOnInit() {
 
@@ -44,15 +45,12 @@ export class ResetPWDComponent implements OnInit {
   Reset() {
     let urlToken = this.route.snapshot.paramMap.get('str');
   	this.resetpwdService.postReset(this.resetForm.value, urlToken).subscribe((data) => {
-      if(data['status_code'] == 200) {
-        alert(data['success']);
-      }
-      else if (data['status_code'] == 401) {
-        alert(data['error']);
-      }
-      else if(data['status_code'] == 400) {
-        alert(data['error']);
-      }
+        if (data['error']) {
+          this.appComponent.showToast('Error', data['error']);
+        }
+        else {
+          this.appComponent.showToast('Success', data['meta']['success']);
+        }
   	});
     this.resetForm.reset();
   }

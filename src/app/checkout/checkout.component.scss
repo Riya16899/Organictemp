@@ -48,10 +48,17 @@ $tablet: 768px;
 			.form {
 				.row {
 					.col-sm {
-					
+						button {
+							background: #00DBD0  0% 0% no-repeat padding-box;
+							font: normal normal 600 18px/22px Libre Baskerville; 
+							color: #FFFFFF;
+						}
+						label {
+							float: left;
+						}
 					}
 				}
-				button, btn{	
+/* 				button, btn{	
 					background: #00DBD0 0% 0% no-repeat padding-box;
 					border-radius: 10px;
 					align-items: right;
@@ -60,7 +67,7 @@ $tablet: 768px;
 					letter-spacing: 0px;
 					color: #FFFFFF;
 					opacity: 1;
-				}
+				} */
 
 			}
 		}

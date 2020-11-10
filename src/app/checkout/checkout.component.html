@@ -2,9 +2,9 @@
 <div class="front-class">
 	<div class="fifth-class">
     <div class="row">
-      <div style="" class="col-sm address-data">
+      <div class="col-sm address-data">
           <div class="">
-              <div class="card border-secondary rounded" style="">
+              <div class="card border-secondary rounded" >
                 <h3 class="text-muted">Address Summery</h3>
                 <div class="row card " *ngFor="let address of Addresses" >
               <div class=" col-sm card-body">
@@ -56,10 +56,10 @@
 
 <div class="row">
 
-        <div style="" class="col-sm-4 order_sum">
+        <div class="col-sm-4 order_sum">
       <div class="justify-content-center ">
         
-          <div class="card border-secondary rounded" style="">
+          <div class="card border-secondary rounded">
             <h3 class="text-muted">Order Summery</h3>
             <div class="card-body">
                <ul class="list-group mb-3" >
@@ -84,18 +84,18 @@
   </div>
 
 
-   <div style="" class="col-sm billing_info">
+   <div  class="col-sm billing_info">
     <div class="">
           <form [formGroup]="checkoutForm" (ngSubmit)="Submit()">   
           <div class="mb-3 form-group">        
-            <label style="float: left;" for="currency">currency</label>
+            <label for="currency">currency</label>
             <input formControlName="currency" type="text" class="form-control" id="address" placeholder="inr" required>
             <div class="invalid-feedback">
               Please enter your currency.
             </div>
         </div>  
         <hr class=" ">
-        <button style="background: #00DBD0; font: normal normal 600 18px/22px Libre Baskerville; color: #FFFFFF;" class="btn btn-outline-ligh btn-sm btn-block" type="submit" 
+        <button class="btn btn-outline-ligh btn-sm btn-block" type="submit" 
         >Place your Order</button>
        
       </form> 

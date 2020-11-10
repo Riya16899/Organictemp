@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { LoginComponent } from '../login/login.component';
 import { ForgetpwdService } from '../Services/forgetpwd.service';
 import { Forgetpwd } from '../Models/forgetpwd';
-
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-forget-pwd',
@@ -18,7 +18,7 @@ export class ForgetPWDComponent implements OnInit {
   });
 
   constructor(private router: Router, private forgetpwdService: ForgetpwdService, 
-  	private formBuilder: FormBuilder) { }
+  	private formBuilder: FormBuilder, private appComponent: AppComponent) { }
 
   ngOnInit() {
   }
@@ -30,15 +30,14 @@ export class ForgetPWDComponent implements OnInit {
   Forgot() {
   	
   	this.forgetpwdService.postForget(this.forgetForm.value).subscribe((data) => {
-      if(data['meta']['status_code'] == 401) {
         this.router.navigate(['/login',{value: true}])
-        alert(data['meta']['error']);
+
+      
+      if (data['meta']['error']) {
+       this.appComponent.showToast('Error', data['error']);
       }
-      else if (data['meta']['status_code'] == 400) {
-        alert(data['meta']['error']);
-      }
-      else if(data['meta']['status_code'] == 200) {
-        alert(data['meta']['success']);
+      else {
+        this.appComponent.showToast('Success', data['meta']['success']);
       }  
      
   	});

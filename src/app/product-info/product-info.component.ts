@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl} from 
 import { Router, ActivatedRoute } from "@angular/router";
 import { ProductInfoService } from '../Services/product-info.service';
 import { CartService } from '../Services/cart.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-product-info',
@@ -17,6 +18,7 @@ export class ProductInfoComponent implements OnInit {
   buyFromCart: boolean;
   showInput: boolean = false;
   isDisabledContent: boolean;
+  toast: any;
 
   @ViewChild('quantity', { static: false } ) quantity:ElementRef;
   @ViewChild('review', { static: false } ) review:ElementRef;
@@ -28,22 +30,24 @@ export class ProductInfoComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute,
     private productInfoService: ProductInfoService, private cartService: CartService,
-    private router: Router) { }
+    private router: Router,
+    private appComponent: AppComponent ) { }
 
   ngOnInit() {
 
-
-
     const pro_id = this.route.snapshot.params['id'];
     this.productInfoService.getProductInfo(pro_id).subscribe((data) => {
+      console.log(data);
       if(data['error']) { 
-        alert(data['error']);
+        // alert(data['error']);
+        this.appComponent.showToast('Error', data['error']);
+        //this.toast = {title: 'error', type: 'error', 
+        // body: data['error'], delay: 1000}
       }
       else {
-        console.log(data);
         this.product_data = data['data']['product'];
         this.reviews  = data['data']['review'];
-        console.log(this.reviews);
+   
       }
     });
   }
@@ -75,6 +79,8 @@ export class ProductInfoComponent implements OnInit {
         console.log(data);
         if(data['error']) {
           alert(data['error']);
+          this.toast = {title: 'error', type: 'error', 
+          body: data['error'], delay: 1000}
         }
         else {
           this.buyFromCart = data['data']['buy_from_cart'];
@@ -106,6 +112,7 @@ export class ProductInfoComponent implements OnInit {
       this.review.nativeElement.value).subscribe((data) => {
         if(data['error']) { 
             alert(data['error']);
+           
         }
         else {
           this.reviews = data['data']['product_review'];

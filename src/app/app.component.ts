@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { CartService } from './Services/cart.service';
-
+import { Toaster } from 'ngx-toast-notifications';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +12,17 @@ import { CartService } from './Services/cart.service';
 export class AppComponent {
   title = 'Organictemp';
 
-  constructor(private router: Router, private cartService: CartService) { 
+  constructor(private router: Router, private cartService: CartService,
+    private toaster: Toaster
+    ) { 
     
+  }
+  ngOnInit() {
+    // this.showToast('Message', 'Toast');
+  }
+
+  showToast(heading: string, message: string) {
+    this.toaster.open({text: heading, caption: message, duration: 4000, type: 'primary'});
   }
 
   Cart() {
@@ -30,6 +39,7 @@ export class AppComponent {
   Logout() {
     localStorage.clear();
     this.router.navigate(['/login']);
+    
   }
 
 }

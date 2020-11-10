@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
 import { Router } from "@angular/router";
 import { GenVerificationService } from '../Services/gen-verification.service';
+import { AppComponent } from '../app.component';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class GenVerificationComponent implements OnInit {
   });
 
   constructor(private router: Router, private genService: GenVerificationService, 
-  	private formBuilder: FormBuilder) { }
+  	private formBuilder: FormBuilder, private appComponent: AppComponent) { }
 
   ngOnInit() {
   }
@@ -29,14 +30,11 @@ export class GenVerificationComponent implements OnInit {
   	
   	this.genService.postVerify(this.verificationForm.value).subscribe((data) => {
   	
-  		if (data['meta']['status_code'] == 200) {
-  			alert(data['meta']['success']);
+  		if (data['error']) {
+        this.appComponent.showToast('Error', data['error']);
   		}
-  		else if (data['meta']['status_code'] == 400) {
-  			alert(data['meta']['error']);
-  		}
-  		else if (data['meta']['status_code'] == 401) {
-  			alert(data['meta']['error']);
+  		else {
+  			this.appComponent.showToast('Success', data['meta']['success']);
   		}
   	});
   	this.verificationForm.reset();

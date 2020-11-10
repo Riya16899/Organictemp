@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 import { LoginService } from '../Services/login.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private router: Router, private loginService: LoginService, 
-  	private formBuilder: FormBuilder, private route :ActivatedRoute) { }
+  	private formBuilder: FormBuilder, private route :ActivatedRoute,
+    private appComponent: AppComponent) { }
 
   ngOnInit() {
     
@@ -37,11 +39,11 @@ export class LoginComponent implements OnInit {
     subscribe((data) => {
       console.log(data);
       if(data['error']) {
-        alert(data['error']);
+        this.appComponent.showToast('Error', data['error']);
       }
       else {
         localStorage.setItem('token', JSON.stringify(data['meta']['token']));
-        alert(data['meta']['success']);
+         this.appComponent.showToast('Success', data['meta']['success']);
       }
       
     });

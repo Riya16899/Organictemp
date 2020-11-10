@@ -1,0 +1,7 @@
+
+<div class="toast-{{toast.type}}" *ngIf="toast !== undefined"  [style.bottom.px]="i*100">
+      <p>{{toast.title}} : {{toast.body}}</p>
+      <!-- <a class="close" (click)="remove()">&times;</a> -->
+      <a class="close" (click)="remove.emit(i)">&times;</a>
+    
+</div>

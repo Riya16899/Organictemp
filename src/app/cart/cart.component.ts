@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { CartService } from '../Services/cart.service';
 import { FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-cart',
@@ -24,7 +25,8 @@ export class CartComponent implements OnInit {
   } );
 
   constructor(private route: ActivatedRoute, private router: Router,
-   private cartService: CartService, private formBuilder: FormBuilder) { }
+   private cartService: CartService, private formBuilder: FormBuilder,
+   private appComponent: AppComponent) { }
 
   ngOnInit() {
     
@@ -35,7 +37,7 @@ export class CartComponent implements OnInit {
           this.emptyCart = true;
         }
         if(data['error']) {
-          alert(data['error']);
+          this.appComponent.showToast('Error',data['error'])
         }
         else {
           this.heavyCart = true;
@@ -54,7 +56,7 @@ export class CartComponent implements OnInit {
           this.emptyCart = true;
         }
         if(data['error']) {
-          alert(data['error']);
+          this.appComponent.showToast('Error',data['error']);
         }
         else {
           this.heavyCart = true;
@@ -70,7 +72,7 @@ export class CartComponent implements OnInit {
     this.cartService.buyFromCart().subscribe((data) => {
       console.log(data);
         if(data['error']) {
-          alert(data['error']);
+          this.appComponent.showToast('Error',data['error']);
         }
         else {
           this.OrderId = data['data']['order_id'];
@@ -91,8 +93,10 @@ export class CartComponent implements OnInit {
       }
   		if(data['error']) {
   			// alert(data['error']);
+        this.appComponent.showToast('Error',data['error']);
   		}
   		else {
+        this.appComponent.showToast('Success','Item removed successfully');
   			this.cartData = data['data']['cart_product'];
         this.totalItems = this.cartData.length;
   		}

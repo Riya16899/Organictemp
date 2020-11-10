@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, AbstractControl} from "@angular/forms";
 import { Router } from "@angular/router";
 import { SignupService } from '../Services/signup.service';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-signup',
@@ -19,7 +20,7 @@ export class SignupComponent implements OnInit {
   }, { validator: this.ConfirmedValidator('password', 'confirmpassword') }  );
 
   constructor(private router: Router, private signupService: SignupService, 
-  	private formBuilder: FormBuilder) { }
+  	private formBuilder: FormBuilder, private appComponent: AppComponent) { }
 
   ngOnInit() {
   }
@@ -47,10 +48,10 @@ export class SignupComponent implements OnInit {
     
     this.signupService.postSignup(this.signupForm.value).subscribe((data) => {
       if(data['error']) {
-        alert(data['error']);
+        this.appComponent.showToast('Error', data['error']);
       }
       else {
-        alert(data['success']);
+        this.appComponent.showToast('Success', data['meta']['success']);
       }
     });
     this.signupForm.reset();

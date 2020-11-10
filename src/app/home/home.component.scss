@@ -261,6 +261,9 @@ $tablet: 768px;
 		opacity: 1;
 		background: #374B5C 0% 0% no-repeat padding-box;
 	}
+	ol {
+		 margin-bottom: -70px;
+	}
 	.carousel-indicators li:hover {
 		background: #00DBD0 0% 0% no-repeat padding-box;
 	}
@@ -331,6 +334,9 @@ $tablet: 768px;
 	    width: 10px;
 	    height: 10px;
 	    border-radius: 50%;
+	}
+	ol {
+		margin-bottom: -70px;
 	}
 	.carousel-indicators li:hover {
 		background: #00DBD0 0% 0% no-repeat padding-box;

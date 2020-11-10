@@ -6,41 +6,26 @@
 			<div class="col-sm-8 ">
 				<h2> Your Shopping Cart </h2>
 				<br>
-				<h5 style="">{{totalItems}} ITEMS</h5>
+				<h5>{{totalItems}} ITEMS</h5>
 				<hr>
-				<div class="item-content row justify-content-between" *ngFor="let cart of cartData" style="display: flex;">
+				<div class="item-content row justify-content-between" *ngFor="let cart of cartData" > 
+					<!-- style="display: flex;" -->
 					<div class="col-sm-4 see" >
-					<img src="{{cart.image_url}}" alt="">
+					<img src="{{cart.image_url}}" alt="product-image">
 					</div>
 					<div class="data col-sm-5 see justify-content-between">
-						<!-- <ul class="list-unstyled">
-							<li class="d-flex justify-content-between">
-								<div>
-								<p> Product ID: {{cart.product_id}}
-								<h6> {{cart.p_name | titlecase}}</h6>
-								<p class="mb-3 text-muted text-uppercase small">Quantity: {{cart.quantity}}</p>
-								<button class="btn btn-info" (click)="Remove($event, cart.product_id)">Remove</button>
-								</div>
-								<div>
-									Price
-									<h6> ₹ {{cart.discount_price}}  </h6>
-						<h6 style="color: #999999; text-decoration: line-through;">₹  {{cart.total_price}} </h6> 
-								</div>
-							</li>
-						</ul> -->
 						
 						<p> Product ID: {{cart.product_id}}
 						<h6> {{cart.p_name | titlecase}}</h6>
 						<p class="mb-3 text-muted text-uppercase small">Quantity: {{cart.quantity}}</p>
-						<!-- <h6> ₹ {{cart.discount_price}}  </h6>
-						<h6 style="color: #999999; text-decoration: line-through;">₹  {{cart.total_price}} </h6>  -->
+				
 						<button class="btn btn-info" (click)="Remove($event, cart.product_id)">Remove</button>
 
 					</div>
 					<div class="col-sm-3 see" >
 
 						<h6> ₹ {{cart.discount_price}}  </h6>
-						<h6 style="color: #999999; text-decoration: line-through;">₹  {{cart.total_price}} </h6> 
+						<h6 class="hr-style">₹  {{cart.total_price}} </h6> 
 						
 					</div>
 				</div>
@@ -53,26 +38,21 @@
 				<hr>
 				<div class="summery-content" >
 							<ul class="list-unstyled" *ngFor="let cart of cartData"> 
-				
 							<li class="d-flex justify-content-between">
-							<p style="" class="mb-3 text-muted text-uppercase small">{{cart.p_name | titlecase}} ({{cart.quantity}})</p>
-							
-							<p  style="margin-left: 10px;" class="mb-3 text-muted text-uppercase small ">  ₹ {{cart.discount_price}}</p>
-
-
+							<p class="mb-3 text-muted text-uppercase small">{{cart.p_name | titlecase}} ({{cart.quantity}})</p>
+							<p  class="mb-3 text-muted text-uppercase small ml-2">  ₹ {{cart.discount_price}}</p>
 						</li><hr>
 						
 						</ul>
 					<div class="justify-content-between">
-					<p style="float: left;" class="mb-3 mt-2 text-muted text-uppercase small font-weight">Total amount: </p>
-					<p style="float: right; margin-left: 10px;" class="mb-3 mt-2 text-muted text-uppercase small font-weight"> ₹ {{Total}} </p>
+					<p class="mb-3 mt-2 text-muted text-uppercase small font-weight float-left">Total amount: </p>
+					<p class="mb-3 mt-2 text-muted text-uppercase small font-weight ml-2 float-right"> ₹ {{Total}} </p>
 					<br><br>
 				</div>
 		
 					<button class="btn btn-success btn-dark btn-block" (click)="Checkout()">Proceed to Checkout</button>
 				</div>
 			</div>
-
 		</div>
 
 		<div *ngIf="emptyCart" class="error">

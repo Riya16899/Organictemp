@@ -5,7 +5,7 @@ import { CartService } from '../Services/cart.service';
 import { ProductInfoService } from '../Services/product-info.service';
 import { StripeService, Elements, Element as StripeElement, ElementsOptions } from 'ngx-stripe';
 import { FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
-
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -47,7 +47,7 @@ export class CheckoutComponent implements OnInit {
   	private route: ActivatedRoute,
    private formBuilder: FormBuilder,
    private stripeService: StripeService,
-   private router: Router,
+   private router: Router, private appComponent: AppComponent
    ) { }
 
   ngOnInit() {
@@ -59,7 +59,7 @@ export class CheckoutComponent implements OnInit {
   		this.cartService.buyFromCart().subscribe((data) => {
         console.log(data);
           if(data['error']) {
-            alert(data['error']);
+            this.appComponent.showToast('Error', data['Error']);
           }
           else {
             this.orderId = data['data']['order_id'];
@@ -80,10 +80,10 @@ export class CheckoutComponent implements OnInit {
       this.checkoutService.getCheckout(this.orderId).subscribe((data) => {
         console.log(data);
         if(data['error']) {
-          alert(data['error']);
+          this.appComponent.showToast('Error', data['Error']);
         }
         else {
-             alert(data['meta']['success']);
+             
              this.Addresses = data['data']['address'];
              this.Cards = data['data']['card'];
              this.OrderSummery = data['data']['products'];
@@ -99,11 +99,12 @@ export class CheckoutComponent implements OnInit {
     this.checkoutForm.controls['token'].setValue(this.stripeToken);
     console.log(this.checkoutForm.value);
     this.checkoutService.postCheckout(this.checkoutForm.value).subscribe((data) => {
+      console.log(data);
       if(data['error']) {
-        alert(data['error']);
+        this.appComponent.showToast('Error', data['Error']);
       }
       else {
-        alert(data['meta']['success']);
+        this.appComponent.showToast('Success', data['meta']['success']);
         this.router.navigate(['products']);
       }
     });

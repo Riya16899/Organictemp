@@ -3,6 +3,9 @@ import { FormGroup, FormArray, FormControl, Validators, FormBuilder} from "@angu
 import { Router, ActivatedRoute } from "@angular/router";
 import { ProductsService } from '../Services/products.service';
 import { Products } from '../Models/products';
+import { ToasterService } from '../Services/toaster.service';
+import { AppComponent } from '../app.component';
+
 const paginate = require('jw-paginate');
 
 @Component({
@@ -20,10 +23,11 @@ export class ProductsComponent implements OnInit {
   searchName: string = undefined;
   catName: string = undefined;
   priceName: string = undefined;
-  name: any;
+  quantity: number;
   price_filter: any;
   index: number;
   pageOfItems: Array<Products>;
+  toast: any;
   
  
   public productForm = this.formBuilder.group({
@@ -37,10 +41,12 @@ export class ProductsComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, 
   	private productsService: ProductsService,
-    private router: Router, private route: ActivatedRoute) { }
+    private router: Router, private route: ActivatedRoute,
+    private  toaster :ToasterService,
+    private appComponent: AppComponent
+    ) { }
 
   ngOnInit() {
-
 
   	this.productsService.getProductList(1).subscribe((data) => {
       this.totalCountData = data['meta']['total_count'];
@@ -48,11 +54,22 @@ export class ProductsComponent implements OnInit {
       this.price_filter = data['data']['price_filter'];
 	    if(data['error']) {
 	    	this.dataDefined = false;
-	    	alert(data['error']);
+	    	// alert(data['error']);
+        this.appComponent.showToast('Error', data['error']);
+        // this.toaster.show('error', 'Check it out!', 'This is a error alert');
+        // this.toast = {title: 'error', type: 'error', 
+        // body: data['error'], delay: 1000}
+
+ 
 	    }
 	    else {
 	    	this.dataDefined = true;
+        // this.toast = {title: 'error', type: 'error', 
+        // body: 'error body', delay: 1000}
+
+        //this.toaster.show('warning', 'Check it out!', 'This is a warning alert', 3000);
 	    }
+
   	});
   }
 

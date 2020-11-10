@@ -23,9 +23,15 @@ import { CartPipe } from './cart/cart.pipe';
 import { ProductPaginationComponent } from './product-pagination/product-pagination.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { PaymentDetailsComponent } from './payment-details/payment-details.component';
+import { ToasterComponent } from './toaster/toaster.component';
+import { ToastNotificationsModule } from 'ngx-toast-notifications';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 @NgModule({
   declarations: [
     AppComponent,
+
     ContactComponent,
     HomeComponent,
     ProductsComponent,
@@ -41,17 +47,26 @@ import { PaymentDetailsComponent } from './payment-details/payment-details.compo
     CheckoutComponent,
     CartPipe,
     ProductPaginationComponent,
-    PaymentDetailsComponent
+    PaymentDetailsComponent,
+    ToasterComponent,
+
+
+   
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgxStripeModule.forRoot('pk_test_51HgUIAE6HZ2spzZbur7T9XS40mmCNzq1n7yqzzKEvhFmiS8FgKQJlYBC5Xlcfllkg1yCGvWeGXFnZ6EfzLX41qQx00gRzx7ZmM'),
+    // ToastrModule.forRoot()
+    ToastNotificationsModule,
+
   ],
   providers: [
+
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: TokenInterceptor,
